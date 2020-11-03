@@ -1,4 +1,7 @@
 package com.mygdx.game.model;
 
-public class Bullet {
+import com.badlogic.gdx.math.Rectangle;
+
+public class Bullet extends Rectangle{
+
 }

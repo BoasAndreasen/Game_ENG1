@@ -1,4 +1,6 @@
 package com.mygdx.game.model;
 
-public class HealPad {
+import com.badlogic.gdx.math.Rectangle;
+
+public class HealPad extends Rectangle {
 }

@@ -3,28 +3,41 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 
-public class CharacterNPC {
-    private int x;
-    private int y;
+public class CharacterNPC extends Rectangle {
+    private float x;
+    private float y;
+    private final float width;
+    private final float height;
     private int speed;
     private String rotation;
-    private Rectangle bounds = new Rectangle();
 
-    public CharacterNPC(int x, int y, int speed, String rotation) {
+    public CharacterNPC(float x, float y, float width, float height, int speed, String rotation) {
         this.x = x;
         this.y = y;
+        this.width = (float) (Gdx.graphics.getWidth() / 20);
+        this.height = (float) (Gdx.graphics.getHeight() / 20);
         this.speed = speed;
         this.rotation = rotation;
-        this.bounds.height = (int) (Gdx.graphics.getHeight() / 20);
-        this.bounds.width = (int) (Gdx.graphics.getWidth() / 20);
     }
 
-    public int getX() {
+    @Override
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    @Override
+    public float getY() {
         return y;
+    }
+
+    @Override
+    public float getWidth() {
+        return width;
+    }
+
+    @Override
+    public float getHeight() {
+        return height;
     }
 
     public int getSpeed() {
@@ -33,10 +46,6 @@ public class CharacterNPC {
 
     public String getRotation() {
         return rotation;
-    }
-
-    public Rectangle getBounds() {
-        return bounds;
     }
 
     public void setX(int x) {

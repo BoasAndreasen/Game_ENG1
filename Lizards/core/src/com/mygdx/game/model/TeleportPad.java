@@ -1,4 +1,6 @@
 package com.mygdx.game.model;
 
-public class TeleportPad {
+import com.badlogic.gdx.math.Rectangle;
+
+public class TeleportPad extends Rectangle {
 }

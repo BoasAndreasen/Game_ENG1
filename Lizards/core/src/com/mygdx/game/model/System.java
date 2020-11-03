@@ -1,4 +1,6 @@
 package com.mygdx.game.model;
 
-public class System {
+import com.badlogic.gdx.math.Rectangle;
+
+public class System extends Rectangle {
 }

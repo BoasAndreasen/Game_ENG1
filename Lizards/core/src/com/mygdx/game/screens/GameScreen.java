@@ -4,18 +4,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.model.Auber;
 import com.mygdx.game.model.World;
-import com.mygdx.game.view.WorldRenderer;
 
 public class GameScreen implements Screen, InputProcessor {
-    private World world;
-    private WorldRenderer worldRenderer;
+    private World world = new World();
+    private OrthographicCamera camera;
+    private SpriteBatch batch;
+    private Texture bucketImage;
+    int x = 100;
 
     // Called when this screen becomes active
     @Override
     public void show() {
-        world = new World();
-        worldRenderer = new WorldRenderer(world);
+        bucketImage = new Texture(Gdx.files.internal("bucket.png"));
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, 800, 600);
+        batch = new SpriteBatch();
     }
 
     // Game loop. Update game logic and draw onto the screen.
@@ -23,7 +31,12 @@ public class GameScreen implements Screen, InputProcessor {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        worldRenderer.render();
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
+        world.getAuber().setX(x);
+        x += 5;
+        batch.end();
     }
 
     // Called once when gate starts and when resized
@@ -50,12 +63,13 @@ public class GameScreen implements Screen, InputProcessor {
     // Called once when the application exits
     @Override
     public void dispose() {
-        // TODO dispose of all the native resources
+        //TODO
     }
 
     @Override
     public boolean keyDown(int keycode) {
         // if left then controller.leftKeyPressed....
+
         return false;
     }
 
