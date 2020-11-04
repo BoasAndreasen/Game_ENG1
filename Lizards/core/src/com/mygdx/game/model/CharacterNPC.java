@@ -56,6 +56,14 @@ public class CharacterNPC extends Rectangle {
         this.y = y;
     }
 
+    public void addX(int num) {
+        this.x = x + num;
+    }
+
+    public void addY(int num) {
+        this.y = y + num;
+    }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }

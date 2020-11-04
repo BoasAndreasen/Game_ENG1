@@ -7,23 +7,27 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.model.Auber;
+
 import com.mygdx.game.model.World;
+import com.mygdx.game.controller.AuberController;
 
 public class GameScreen implements Screen, InputProcessor {
-    private World world = new World();
+    private World world;
+    private AuberController auberController;
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Texture bucketImage;
-    int x = 100;
 
     // Called when this screen becomes active
     @Override
     public void show() {
+        world = new World();
+        auberController = new AuberController(world);
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
         batch = new SpriteBatch();
+        Gdx.input.setInputProcessor(this);
     }
 
     // Game loop. Update game logic and draw onto the screen.
@@ -34,8 +38,6 @@ public class GameScreen implements Screen, InputProcessor {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
-        world.getAuber().setX(x);
-        x += 5;
         batch.end();
     }
 
@@ -68,8 +70,19 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        System.out.println(keycode);
         // if left then controller.leftKeyPressed....
-
+        // TODO Move to controller
+        // TODO Set to true or false
+        if (keycode == 19) {
+            world.getAuber().addY(20);
+        } else if (keycode == 20) {
+            world.getAuber().addX(-20);
+        } else if (keycode == 21) {
+            world.getAuber().addX(-20);
+        } else if (keycode == 22) {
+            world.getAuber().addX(20);
+        }
         return false;
     }
 
