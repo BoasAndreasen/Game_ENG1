@@ -28,6 +28,7 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, 800, 600);
         batch = new SpriteBatch();
         Gdx.input.setInputProcessor(auberController);
+        //TODO hello
     }
 
     // Game loop. Update game logic and draw onto the screen.

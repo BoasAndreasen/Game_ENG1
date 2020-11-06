@@ -35,6 +35,7 @@ public class AuberController implements InputProcessor {
         } else if (keycode == 20) {
             world.getAuber().addY(-20);
         } else if (keycode == 21) {
+            //leftKeyPressed()..
             world.getAuber().addX(-20);
         } else if (keycode == 22) {
             world.getAuber().addX(20);
