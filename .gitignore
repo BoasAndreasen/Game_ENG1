@@ -9,5 +9,8 @@ Lizards/.gradle/5.4.1/fileHashes/fileHashes.lock
 *.lock
 Lizards/.gradle/5.4.1/executionHistory/executionHistory.lock
 *.bin
+**/bin/
 Lizards/.gradle/5.4.1/javaCompile/classAnalysis.bin
 *.lock
+.gradle
+build/
