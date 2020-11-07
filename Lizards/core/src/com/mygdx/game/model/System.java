@@ -12,4 +12,35 @@ public class System extends Rectangle {
         this.health=health;
         this.isDestroyed=isDestroyed;
     }
+
+    public void notifyPlayer(){
+        //TODO notify player
+    }
+
+    public int getHealth() {
+        return health;
+        //TODO getter for health
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+        //TODO set health
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
+        //TODO getter for isDestroyed
+    }
+
+    public void setDestroyed() {
+        if (this.health==0){
+            isDestroyed = true;
+        }
+        else{
+            isDestroyed=false;
+        }
+
+        //TODO setter for isDestroyed 
+
+    }
 }
