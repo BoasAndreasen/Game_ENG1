@@ -17,6 +17,7 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Texture bucketImage;
+    private Texture systemImage;
 
     // Called when this screen becomes active
     @Override
@@ -24,6 +25,7 @@ public class GameScreen implements Screen {
         world = new World();
         auberController = new AuberController(world);
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
+        systemImage= new Texture(Gdx.files.internal("systemsImage.jpg"));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
         batch = new SpriteBatch();
@@ -39,6 +41,7 @@ public class GameScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
+        batch.draw(systemImage,world.getSys1().getX(),world.getSys1().getY());
         batch.end();
     }
 
