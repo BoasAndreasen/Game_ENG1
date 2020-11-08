@@ -1,7 +1,6 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -20,6 +19,8 @@ public class GameScreen implements Screen {
     private Texture bucketImage;
     private Texture systemImage;
     private Texture healthImg;
+    private boolean isRoom1 = true;
+    private boolean isRoom2, isRoom3, isRoom4 = false;
 
     // Called when this screen becomes active
     @Override
@@ -30,7 +31,7 @@ public class GameScreen implements Screen {
         systemImage= new Texture(Gdx.files.internal("systemsImage.jpg"));
         healthImg= new Texture(Gdx.files.internal("health.png"));
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 600);
+        camera.setToOrtho(false, 600, 600);
         batch = new SpriteBatch();
         Gdx.input.setInputProcessor(auberController);
         //TODO hello
@@ -52,6 +53,57 @@ public class GameScreen implements Screen {
         batch.setColor(Color.WHITE);
 
         batch.end();
+        updateAuberLocation();
+        updateCameraRoomLocation();
+        camera.update();
+    }
+
+    private void updateAuberLocation() {
+        if (auberController.isUpPressed()) {
+            world.getAuber().addY(10);
+        } else if (auberController.isDownPressed()) {
+            world.getAuber().addY(-10);
+        } else if (auberController.isLeftPressed()) {
+            world.getAuber().addX(-10);
+        } else if (auberController.isRightPressed()) {
+            world.getAuber().addX(10);
+        }
+    }
+
+    private void updateCameraRoomLocation() {
+        if (isRoom1 && world.getAuber().getY() > 600) {
+            camera.translate(0,600,0);
+            isRoom2 = true;
+            isRoom1 = false;
+        } if (isRoom1 && world.getAuber().getX() > 600) {
+            camera.translate(600,0,0);
+            isRoom3 = true;
+            isRoom1 = false;
+        } if (isRoom2 && world.getAuber().getY() < 600) {
+            camera.translate(0,-600,0);
+            isRoom2 = false;
+            isRoom1 = true;
+        } if (isRoom2 && world.getAuber().getX() > 600) {
+            camera.translate(600,0,0);
+            isRoom2 = false;
+            isRoom4 = true;
+        } if (isRoom3 && world.getAuber().getX() < 600) {
+            camera.translate(-600,0,0);
+            isRoom3 = false;
+            isRoom1 = true;
+        } if (isRoom3 && world.getAuber().getY() > 600) {
+            camera.translate(0,600,0);
+            isRoom3 = false;
+            isRoom4 = true;
+        } if (isRoom4 && world.getAuber().getX() < 600) {
+            camera.translate(-600,0,0);
+            isRoom4 = false;
+            isRoom2 = true;
+        } if (isRoom4 && world.getAuber().getY() < 600) {
+            camera.translate(0,-600,0);
+            isRoom4 = false;
+            isRoom3 = true;
+        }
     }
 
     // Called once when gate starts and when resized

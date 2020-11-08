@@ -3,48 +3,51 @@ package com.mygdx.game.controller;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.game.model.Auber;
 import com.mygdx.game.model.World;
+import com.mygdx.game.screens.GameScreen;
 
 public class AuberController implements InputProcessor {
     private World world;
     private Auber auber;
+    private GameScreen gameScreen;
+    private boolean leftPressed, rightPressed, downPressed, upPressed;
 
     public AuberController(World world) {
         this.world = world;
         this.auber = world.getAuber();
     }
 
-    private void leftKeyPressed() {
-        this.auber.setRotation("left");
-        if (auber.getX() >= 50) {
-            this.auber.setX(auber.getX() - 10);
-        }
-    }
-
-    private void leftKeyReleased() {
-        //
-    }
-
     @Override
     public boolean keyDown(int keycode) {
-        System.out.println(keycode);
-        // if left then controller.leftKeyPressed....
-        // TODO Move to controller
-        // TODO Set to true or false
-        if (keycode == 19) {
-            world.getAuber().addY(20);
-        } else if (keycode == 20) {
-            world.getAuber().addY(-20);
-        } else if (keycode == 21) {
-            //leftKeyPressed()..
-            world.getAuber().addX(-20);
-        } else if (keycode == 22) {
-            world.getAuber().addX(20);
+        if (keycode == 19 || keycode == 51) {
+            upPressed = true;
+        }
+        else if (keycode == 20 || keycode == 47) {
+            downPressed = true;
+        }
+        else if (keycode == 21 || keycode == 29) {
+            leftPressed = true;
+        }
+        else if (keycode == 22 || keycode == 32) {
+           rightPressed = true;
         }
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
+        if (keycode == 19 || keycode == 51) {
+            upPressed = false;
+        }
+        else if (keycode == 20 || keycode == 47) {
+            downPressed = false;
+        }
+        else if (keycode == 21 || keycode == 29) {
+            leftPressed = false;
+        }
+        else if (keycode == 22 || keycode == 32) {
+            rightPressed = false;
+        }
+
         return false;
     }
 
@@ -77,7 +80,23 @@ public class AuberController implements InputProcessor {
     public boolean scrolled(int amount) {
         return false;
     }
-    //TODO Process Auber key presses
+
+    public boolean isUpPressed() {
+        return upPressed;
+    }
+
+    public boolean isDownPressed() {
+        return downPressed;
+    }
+
+    public boolean isLeftPressed() {
+        return leftPressed;
+    }
+
+    public boolean isRightPressed() {
+        return rightPressed;
+    }
+
     //TODO Change screen?
     //TODO Collission?
 }

@@ -14,3 +14,5 @@ Lizards/.gradle/5.4.1/javaCompile/classAnalysis.bin
 *.lock
 .gradle
 build/
+*.bin
+*.lock
