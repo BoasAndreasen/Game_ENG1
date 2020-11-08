@@ -22,6 +22,8 @@ public class World {
     private System sys14;
     private System sys15;
 
+    private HealthBar HB;
+
 
     public World() {
         createWorld();
@@ -48,6 +50,8 @@ public class World {
         sys14= new System(0,0,64,64,100,false);
         sys15= new System(0,0,64,64,100,false);
 
+        HB= new HealthBar(400,-170,64,64);
+
     }
 
     public Auber getAuber() {return auber;}
@@ -67,6 +71,8 @@ public class World {
     public System getSys13(){return sys13;}
     public System getSys14(){return sys14;}
     public System getSys15(){return sys15;}
+
+    public HealthBar getHB(){return HB;}
 
 
 }

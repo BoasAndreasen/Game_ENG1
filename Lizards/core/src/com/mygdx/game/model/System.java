@@ -4,10 +4,10 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class System extends Rectangle {
 
-    private int health;
+    private float health;
     private boolean isDestroyed;
 
-    public System(float x,float y, float height,float width, int health,boolean isDestroyed){
+    public System(float x,float y, float height,float width, float health,boolean isDestroyed){
         super(x, y, width, height);
         this.health=health;
         this.isDestroyed=isDestroyed;
@@ -17,7 +17,7 @@ public class System extends Rectangle {
         //TODO notify player
     }
 
-    public int getHealth() {
+    public float getHealth() {
         return health;
         //TODO getter for health
     }

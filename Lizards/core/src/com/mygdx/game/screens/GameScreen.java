@@ -3,6 +3,7 @@ package com.mygdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,6 +19,7 @@ public class GameScreen implements Screen {
     private SpriteBatch batch;
     private Texture bucketImage;
     private Texture systemImage;
+    private Texture healthImg;
 
     // Called when this screen becomes active
     @Override
@@ -26,6 +28,7 @@ public class GameScreen implements Screen {
         auberController = new AuberController(world);
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
         systemImage= new Texture(Gdx.files.internal("systemsImage.jpg"));
+        healthImg= new Texture(Gdx.files.internal("health.png"));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
         batch = new SpriteBatch();
@@ -43,6 +46,11 @@ public class GameScreen implements Screen {
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
         batch.draw(systemImage,world.getSys1().getX(),world.getSys1().getY());
         batch.draw(systemImage,world.getSys2().getX(),world.getSys2().getY());
+
+        // draw healthbar
+        batch.draw(healthImg,world.getHB().getX(),world.getHB().getY());
+        batch.setColor(Color.WHITE);
+
         batch.end();
     }
 
