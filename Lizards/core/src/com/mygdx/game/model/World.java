@@ -33,7 +33,7 @@ public class World {
 
         //systems created below all with x=0,y=0 for now
         sys1= new System(300,300,64,64,100,false);
-        sys2= new System(0,0,64,64,100,false);
+        sys2= new System(500,400,64,64,100,false);
         sys3= new System(0,0,64,64,100,false);
         sys4= new System(0,0,64,64,100,false);
         sys5= new System(0,0,64,64,100,false);

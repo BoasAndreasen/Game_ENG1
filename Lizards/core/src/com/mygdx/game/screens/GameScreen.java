@@ -42,6 +42,7 @@ public class GameScreen implements Screen {
         batch.begin();
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
         batch.draw(systemImage,world.getSys1().getX(),world.getSys1().getY());
+        batch.draw(systemImage,world.getSys2().getX(),world.getSys2().getY());
         batch.end();
     }
 
