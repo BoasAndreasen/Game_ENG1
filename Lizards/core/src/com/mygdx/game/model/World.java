@@ -22,7 +22,7 @@ public class World {
     private System sys14;
     private System sys15;
 
-    private HealthBar HB;
+    private HealthBar Sys1HB;
 
 
     public World() {
@@ -35,7 +35,7 @@ public class World {
 
         //systems created below all with x=0,y=0 for now
         sys1= new System(300,300,64,64,100,false);
-        sys2= new System(500,400,64,64,100,false);
+        sys2= new System(300,400,64,64,100,false);
         sys3= new System(0,0,64,64,100,false);
         sys4= new System(0,0,64,64,100,false);
         sys5= new System(0,0,64,64,100,false);
@@ -50,7 +50,7 @@ public class World {
         sys14= new System(0,0,64,64,100,false);
         sys15= new System(0,0,64,64,100,false);
 
-        HB= new HealthBar(400,-170,64,64);
+        Sys1HB= new HealthBar(300,-170,64,64);
 
     }
 
@@ -72,7 +72,7 @@ public class World {
     public System getSys14(){return sys14;}
     public System getSys15(){return sys15;}
 
-    public HealthBar getHB(){return HB;}
+    public HealthBar getHB(){return Sys1HB;}
 
 
 }

@@ -45,10 +45,19 @@ public class GameScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
-        batch.draw(systemImage,world.getSys1().getX(),world.getSys1().getY());
-        batch.draw(systemImage,world.getSys2().getX(),world.getSys2().getY());
 
-        // draw healthbar
+        // render systems if they arent destroyed
+        if (world.getSys1().isDestroyed()==false) {
+            batch.draw(systemImage,world.getSys1().getX(),world.getSys1().getY());
+        }
+        if (world.getSys2().isDestroyed()==false){
+            batch.draw(systemImage,world.getSys2().getX(),world.getSys2().getY());
+        }
+
+        // draw system1 health bar at bottom. Green when health 70% or more. Orange when 40% or more. Red otherwise
+        if (world.getSys1().getHealth()>=70){ batch.setColor(Color.GREEN); }
+        else if (world.getSys1().getHealth()>=40){batch.setColor(Color.ORANGE);}
+        else {batch.setColor(Color.RED);}
         batch.draw(healthImg,world.getHB().getX(),world.getHB().getY());
         batch.setColor(Color.WHITE);
 

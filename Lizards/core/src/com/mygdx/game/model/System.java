@@ -15,32 +15,28 @@ public class System extends Rectangle {
 
     public void notifyPlayer(){
         //TODO notify player
+        // if hostile attacking system (decrement in health?) then notify player
     }
 
     public float getHealth() {
         return health;
-        //TODO getter for health
     }
 
     public void setHealth(int health) {
         this.health = health;
-        //TODO set health
     }
 
     public boolean isDestroyed() {
         return isDestroyed;
-        //TODO getter for isDestroyed
     }
 
     public void setDestroyed() {
         if (this.health==0){
             isDestroyed = true;
         }
-        else{
-            isDestroyed=false;
+        else {
+            isDestroyed = false;
         }
-
-        //TODO setter for isDestroyed 
 
     }
 }
