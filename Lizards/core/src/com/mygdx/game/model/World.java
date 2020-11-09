@@ -70,6 +70,7 @@ public class World {
         healingPad= new HealPad(0,0);
 
 
+
         auber = new Auber(0, 0, "left");
         blocks.add(new Block(0, 1));
         infiltrator = new Infiltrator(10, 10, "left");
