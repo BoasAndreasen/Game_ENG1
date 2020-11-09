@@ -7,7 +7,7 @@ public class World {
     private Array<Block> blocks = new Array<Block>();
     private Array<Block> hostiles = new Array<Block>();
     private Array<System> systems = new Array<System>();
-    private HealthBar Sys1HB;
+    private Array<HealthBar>systemhealthbars= new Array<HealthBar>();
     
     
     //INFILTRATOR - Brian
@@ -36,9 +36,31 @@ public class World {
         systems.add(new System(0,0,100,false));
         systems.add(new System(0,0,100,false));
 
+        //system health bars created below all with x=0,y=0 for now
+        //health bar [0] corresponds to system [0]
+
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0,64,64));
+
+
+
+
+
         auber = new Auber(0, 0, "left");
         blocks.add(new Block(0, 1));
-        Sys1HB= new HealthBar(300,-170,64,64);
         infiltrator = new Infiltrator(10, 10, "left");
 
     }
@@ -47,7 +69,7 @@ public class World {
 
     public Array<System> getSystems(){return systems;}
 
-    public HealthBar getHB(){return Sys1HB;}
+    public Array<HealthBar> getSystemhealthbars(){return systemhealthbars;}
 
     public Infiltrator getInfiltrator() {return infiltrator;}
 }

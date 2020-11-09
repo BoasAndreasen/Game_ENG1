@@ -53,21 +53,25 @@ public class GameScreen implements Screen {
         batch.begin();
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
 
-        // render systems if they arent destroyed
+        // render systems and health bars if they arent destroyed
         for (int x=0;x<world.getSystems().size; x++){
-            if (!world.getSystems().get(x).isDestroyed()) {
+            if (!world.getSystems().get(x).isDestroyed()) { //systems
                 batch.draw(systemImage,world.getSystems().get(x).getX(),world.getSystems().get(0).getY());
+
+                //render health bars
+                if (world.getSystems().get(x).getHealth()>=70){ batch.setColor(Color.GREEN); }
+                else if (world.getSystems().get(x).getHealth()>=40){batch.setColor(Color.ORANGE);}
+                else {batch.setColor(Color.RED);}
+                batch.draw(healthImg,world.getSystemhealthbars().get(x).getX(),world.getSystemhealthbars().get(x).getY());
+                batch.setColor(Color.WHITE);
+
+
             }
 
         }
 
 
-        // draw system1 health bar at bottom. Green when health 70% or more. Orange when 40% or more. Red otherwise
-        if (world.getSystems().get(0).getHealth()>=70){ batch.setColor(Color.GREEN); }
-        else if (world.getSystems().get(0).getHealth()>=40){batch.setColor(Color.ORANGE);}
-        else {batch.setColor(Color.RED);}
-        batch.draw(healthImg,world.getHB().getX(),world.getHB().getY());
-        batch.setColor(Color.WHITE);
+
 
         //INFILTRATOR - Brian
         batch.draw(infiltratorImage, world.getInfiltrator().getX(),world.getInfiltrator().getY());
