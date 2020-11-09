@@ -8,6 +8,7 @@ public class World {
     private Array<Block> hostiles = new Array<Block>();
     private Array<System> systems = new Array<System>();
     private Array<HealthBar>systemhealthbars= new Array<HealthBar>();
+    private HealthBar auberhealthbar;
     
     
     //INFILTRATOR - Brian
@@ -39,23 +40,23 @@ public class World {
         //system health bars created below all with x=0,y=0 for now
         //health bar [0] corresponds to system [0]
 
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
-        systemhealthbars.add(new HealthBar(0,0,64,64));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
+        systemhealthbars.add(new HealthBar(0,0));
 
-
+        auberhealthbar=new HealthBar(0,0);
 
 
 
@@ -71,5 +72,9 @@ public class World {
 
     public Array<HealthBar> getSystemhealthbars(){return systemhealthbars;}
 
+    public HealthBar getAuberhealthbar(){return auberhealthbar;}
+
     public Infiltrator getInfiltrator() {return infiltrator;}
+
+
 }
