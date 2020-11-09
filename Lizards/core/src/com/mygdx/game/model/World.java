@@ -72,9 +72,36 @@ public class World {
 
 
         auber = new Auber(0, 0, "left");
-        blocks.add(new Block(0, 1));
+        blocks.add(new Block(300, 300));
+
         infiltrator = new Infiltrator(10, 10, "left");
 
+    }
+
+    //INFILTRATOR - Brian
+    public void updateInfiltratorLocationX() {
+        if (this.getInfiltrator().getX() > this.getSystems().get(0).getX())
+        {
+            this.getInfiltrator().addX(-5);
+        }
+
+        if (this.getInfiltrator().getX() < this.getSystems().get(0).getX())
+        {
+            this.getInfiltrator().addX(5);
+        }
+    }
+
+    public void updateInfiltratorLocationY() {
+
+        if (this.getInfiltrator().getY() > this.getSystems().get(0).getY())
+        {
+            this.getInfiltrator().addY(-5);
+        }
+
+        if (this.getInfiltrator().getY() < this.getSystems().get(0).getY())
+        {
+            this.getInfiltrator().addY(5);
+        }
     }
 
     public Auber getAuber() {return auber;}
@@ -82,6 +109,7 @@ public class World {
     public Array<System> getSystems(){return systems;}
 
     public Array<HealthBar> getSystemhealthbars(){return systemhealthbars;}
+    public Array<Block> getBlocks(){return blocks;}
 
     public HealthBar getAuberhealthbar(){return auberhealthbar;}
 

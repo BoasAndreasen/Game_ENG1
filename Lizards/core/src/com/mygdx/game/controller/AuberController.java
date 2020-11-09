@@ -4,12 +4,10 @@ package com.mygdx.game.controller;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.game.model.Auber;
 import com.mygdx.game.model.World;
-import com.mygdx.game.screens.GameScreen;
 
 public class AuberController implements InputProcessor {
     private World world;
     private Auber auber;
-    private GameScreen gameScreen;
     private boolean leftPressed, rightPressed, downPressed, upPressed;
 
     public AuberController(World world) {
@@ -21,15 +19,12 @@ public class AuberController implements InputProcessor {
     public boolean keyDown(int keycode) {
         if (keycode == 19 || keycode == 51) {
             upPressed = true;
-        }
-        else if (keycode == 20 || keycode == 47) {
+        } else if (keycode == 20 || keycode == 47) {
             downPressed = true;
-        }
-        else if (keycode == 21 || keycode == 29) {
+        } else if (keycode == 21 || keycode == 29) {
             leftPressed = true;
-        }
-        else if (keycode == 22 || keycode == 32) {
-           rightPressed = true;
+        } else if (keycode == 22 || keycode == 32) {
+            rightPressed = true;
         }
         return false;
     }
@@ -38,14 +33,11 @@ public class AuberController implements InputProcessor {
     public boolean keyUp(int keycode) {
         if (keycode == 19 || keycode == 51) {
             upPressed = false;
-        }
-        else if (keycode == 20 || keycode == 47) {
+        } else if (keycode == 20 || keycode == 47) {
             downPressed = false;
-        }
-        else if (keycode == 21 || keycode == 29) {
+        } else if (keycode == 21 || keycode == 29) {
             leftPressed = false;
-        }
-        else if (keycode == 22 || keycode == 32) {
+        } else if (keycode == 22 || keycode == 32) {
             rightPressed = false;
         }
 
@@ -82,12 +74,12 @@ public class AuberController implements InputProcessor {
         return false;
     }
 
-    public boolean isUpPressed() {
-        return upPressed;
-    }
-
     public boolean isDownPressed() {
         return downPressed;
+    }
+
+    public boolean isUpPressed() {
+        return upPressed;
     }
 
     public boolean isLeftPressed() {
@@ -98,10 +90,15 @@ public class AuberController implements InputProcessor {
         return rightPressed;
     }
 
-    private void checkCollission() {
-        //TODO
+    public boolean checkUpBlockCollission(int addedY) {
+        for (int i = 0; i < world.getBlocks().size; i++) {
+            if (world.getAuber().getX() <= world.getBlocks().get(i).getX() &&
+                world.getAuber().getX() + world.getAuber().getWidth() >= world.getBlocks().get(i).getX()
+                && world.getAuber().getY() + world.getAuber().getHeight() + addedY == world.getBlocks().get(i).getY()) {
+                System.out.println("COLLIDED");
+                return true;
+            }
+        }
+        return false;
     }
-
-    //TODO Change screen?
-    //TODO Collission?
 }
