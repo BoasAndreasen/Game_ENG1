@@ -22,7 +22,7 @@ public class World {
     private System sys14;
     private System sys15;
 
-    //private HealthBar Sys1hb;
+    private HealthBar Sys1HB;
     
     
     //INFILTRATOR - Brian
@@ -79,7 +79,7 @@ public class World {
     public System getSys14(){return sys14;}
     public System getSys15(){return sys15;}
 
-    //public HealthBar getHB(){return Sys1HB;}
+    public HealthBar getHB(){return Sys1HB;}
     
     //INFILTRATOR - Brian
     public Infiltrator getInfiltrator() {return infiltrator;}
