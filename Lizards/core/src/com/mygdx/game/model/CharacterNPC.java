@@ -1,23 +1,20 @@
 package com.mygdx.game.model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 
 public class CharacterNPC extends Rectangle {
     private float x;
     private float y;
+    private String rotation;
     private final float width;
     private final float height;
-    private int speed;
-    private String rotation;
 
-    public CharacterNPC(float x, float y, float width, float height, int speed, String rotation) {
+    public CharacterNPC(float x, float y, String rotation) {
         this.x = x;
         this.y = y;
-        this.width = (float) (Gdx.graphics.getWidth() / 20);
-        this.height = (float) (Gdx.graphics.getHeight() / 20);
-        this.speed = speed;
         this.rotation = rotation;
+        this.width = 100;
+        this.height = 100;
     }
 
     @Override
@@ -40,10 +37,6 @@ public class CharacterNPC extends Rectangle {
         return height;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
     public String getRotation() {
         return rotation;
     }
@@ -62,10 +55,6 @@ public class CharacterNPC extends Rectangle {
 
     public void addY(int num) {
         this.y = y + num;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
     }
 
     public void setRotation(String rotation) {

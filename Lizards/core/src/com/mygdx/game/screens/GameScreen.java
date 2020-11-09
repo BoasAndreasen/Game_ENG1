@@ -39,10 +39,9 @@ public class GameScreen implements Screen {
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png"));
         
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 600, 600);
+        camera.setToOrtho(false, 1200, 600);
         batch = new SpriteBatch();
         Gdx.input.setInputProcessor(auberController);
-        //TODO hello
     }
 
     // Game loop. Update game logic and draw onto the screen.
@@ -55,16 +54,16 @@ public class GameScreen implements Screen {
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
 
         // render systems if they arent destroyed
-        if (world.getSys1().isDestroyed()==false) {
-            batch.draw(systemImage,world.getSys1().getX(),world.getSys1().getY());
+        if (!world.getSystems().get(0).isDestroyed()) {
+            batch.draw(systemImage,world.getSystems().get(0).getX(),world.getSystems().get(0).getY());
         }
-        if (world.getSys2().isDestroyed()==false){
-            batch.draw(systemImage,world.getSys2().getX(),world.getSys2().getY());
+        if (!world.getSystems().get(1).isDestroyed()) {
+            batch.draw(systemImage,world.getSystems().get(1).getX(),world.getSystems().get(1).getY());
         }
 
         // draw system1 health bar at bottom. Green when health 70% or more. Orange when 40% or more. Red otherwise
-        if (world.getSys1().getHealth()>=70){ batch.setColor(Color.GREEN); }
-        else if (world.getSys1().getHealth()>=40){batch.setColor(Color.ORANGE);}
+        if (world.getSystems().get(0).getHealth()>=70){ batch.setColor(Color.GREEN); }
+        else if (world.getSystems().get(0).getHealth()>=40){batch.setColor(Color.ORANGE);}
         else {batch.setColor(Color.RED);}
         batch.draw(healthImg,world.getHB().getX(),world.getHB().getY());
         batch.setColor(Color.WHITE);
@@ -84,13 +83,21 @@ public class GameScreen implements Screen {
 
     private void updateAuberLocation() {
         if (auberController.isUpPressed()) {
-            world.getAuber().addY(10);
+            if (!(world.getAuber().getY() >= 1100)) {
+                world.getAuber().addY(10);
+            }
         } else if (auberController.isDownPressed()) {
-            world.getAuber().addY(-10);
+            if (!(world.getAuber().getY() <= 0)) {
+                world.getAuber().addY(-10);
+            }
         } else if (auberController.isLeftPressed()) {
-            world.getAuber().addX(-10);
+            if (!(world.getAuber().getX() <= 0)) {
+                world.getAuber().addX(-10);
+            }
         } else if (auberController.isRightPressed()) {
-            world.getAuber().addX(10);
+            if (!(world.getAuber().getX() >= 2300)) {
+                world.getAuber().addX(10);
+            }
         }
     }
     
@@ -124,32 +131,32 @@ public class GameScreen implements Screen {
     }
 
     private void updateCameraRoomLocation() {
-        if (isRoom1 && world.getAuber().getY() > 600) {
+        if (isRoom1 && world.getAuber().getY() >= 600) {
             camera.translate(0,600,0);
             isRoom2 = true;
             isRoom1 = false;
-        } if (isRoom1 && world.getAuber().getX() > 600) {
-            camera.translate(600,0,0);
+        } if (isRoom1 && world.getAuber().getX() >= 1200) {
+            camera.translate(1200,0,0);
             isRoom3 = true;
             isRoom1 = false;
-        } if (isRoom2 && world.getAuber().getY() < 600) {
+        } if (isRoom2 && world.getAuber().getY() <= 600) {
             camera.translate(0,-600,0);
             isRoom2 = false;
             isRoom1 = true;
-        } if (isRoom2 && world.getAuber().getX() > 600) {
-            camera.translate(600,0,0);
+        } if (isRoom2 && world.getAuber().getX() >= 1200) {
+            camera.translate(1200,0,0);
             isRoom2 = false;
             isRoom4 = true;
-        } if (isRoom3 && world.getAuber().getX() < 600) {
-            camera.translate(-600,0,0);
+        } if (isRoom3 && world.getAuber().getX() <= 1200) {
+            camera.translate(-1200,0,0);
             isRoom3 = false;
             isRoom1 = true;
         } if (isRoom3 && world.getAuber().getY() > 600) {
             camera.translate(0,600,0);
             isRoom3 = false;
             isRoom4 = true;
-        } if (isRoom4 && world.getAuber().getX() < 600) {
-            camera.translate(-600,0,0);
+        } if (isRoom4 && world.getAuber().getX() < 1200) {
+            camera.translate(-1200,0,0);
             isRoom4 = false;
             isRoom2 = true;
         } if (isRoom4 && world.getAuber().getY() < 600) {

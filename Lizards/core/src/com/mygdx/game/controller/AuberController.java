@@ -98,6 +98,10 @@ public class AuberController implements InputProcessor {
         return rightPressed;
     }
 
+    private void checkCollission() {
+        //TODO
+    }
+
     //TODO Change screen?
     //TODO Collission?
 }

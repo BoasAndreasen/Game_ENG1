@@ -3,16 +3,16 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Block extends Rectangle {
-    private float x;
-    private float y;
+    private final float x;
+    private final float y;
     private final float width;
     private final float height;
 
-    public Block(int x, int y, float width, float height) {
+    public Block(int x, int y) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+        this.width = 100;
+        this.height = 100;
     }
 
     @Override

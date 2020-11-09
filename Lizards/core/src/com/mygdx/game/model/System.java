@@ -4,13 +4,21 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class System extends Rectangle {
 
+    private final float x;
+    private final float y;
+    private final float height;
+    private final float width;
     private float health;
     private boolean isDestroyed;
 
-    public System(float x,float y, float height,float width, float health,boolean isDestroyed){
-        super(x, y, width, height);
-        this.health=health;
-        this.isDestroyed=isDestroyed;
+
+    public System(float x, float y, float health, boolean isDestroyed){
+        this.x = x;
+        this.y = y;
+        this.health = health;
+        this.isDestroyed = isDestroyed;
+        this.width = 100;
+        this.height = 100;
     }
 
     public void notifyPlayer(){
@@ -31,7 +39,7 @@ public class System extends Rectangle {
     }
 
     public void setDestroyed() {
-        if (this.health==0){
+        if (this.health == 0){
             isDestroyed = true;
         }
         else {
