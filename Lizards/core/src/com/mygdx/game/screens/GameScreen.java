@@ -16,9 +16,13 @@ public class GameScreen implements Screen {
     private AuberController auberController;
     private OrthographicCamera camera;
     private SpriteBatch batch;
+    
+    //IMAGES
     private Texture bucketImage;
     private Texture systemImage;
     private Texture healthImg;
+    private Texture infiltratorImage;
+    
     private boolean isRoom1 = true;
     private boolean isRoom2, isRoom3, isRoom4 = false;
 
@@ -30,6 +34,10 @@ public class GameScreen implements Screen {
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
         systemImage= new Texture(Gdx.files.internal("systemsImage.jpg"));
         healthImg= new Texture(Gdx.files.internal("health.png"));
+        
+        //INFILTRATOR IMAGE - Brian
+        infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png"));
+        
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 600, 600);
         batch = new SpriteBatch();
@@ -61,7 +69,14 @@ public class GameScreen implements Screen {
         batch.draw(healthImg,world.getHB().getX(),world.getHB().getY());
         batch.setColor(Color.WHITE);
 
+        //INFILTRATOR - Brian
+        batch.draw(infiltratorImage, world.getInfiltrator().getX(),world.getInfiltrator().getY());
+        
         batch.end();
+        
+        updateInfiltratorLocationX();
+        updateInfiltratorLocationY();
+    
         updateAuberLocation();
         updateCameraRoomLocation();
         camera.update();
@@ -77,6 +92,35 @@ public class GameScreen implements Screen {
         } else if (auberController.isRightPressed()) {
             world.getAuber().addX(10);
         }
+    }
+    
+    //INFILTRATOR - Brian
+    
+    private void updateInfiltratorLocationX() {
+    	
+    	if (world.getInfiltrator().getX() > world.getSys1().getX())
+    	{
+    		world.getInfiltrator().addX(-5);
+    	}
+    	
+    	if (world.getInfiltrator().getX() < world.getSys1().getX())
+    	{
+    		world.getInfiltrator().addX(5);
+    	}
+    	
+    }
+    
+    private void updateInfiltratorLocationY() {
+    	
+    	if (world.getInfiltrator().getY() > world.getSys1().getY())
+    	{
+    		world.getInfiltrator().addY(-5);
+    	}
+    	
+    	if (world.getInfiltrator().getY() < world.getSys1().getY())
+    	{
+    		world.getInfiltrator().addY(5);
+    	}
     }
 
     private void updateCameraRoomLocation() {

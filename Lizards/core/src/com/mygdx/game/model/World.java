@@ -22,7 +22,11 @@ public class World {
     private System sys14;
     private System sys15;
 
-    private HealthBar Sys1HB;
+    //private HealthBar Sys1hb;
+    
+    
+    //INFILTRATOR - Brian
+    private Infiltrator infiltrator;
 
 
     public World() {
@@ -51,6 +55,9 @@ public class World {
         sys15= new System(0,0,64,64,100,false);
 
         Sys1HB= new HealthBar(300,-170,64,64);
+        
+        //INFILTRATOR - Brian
+        infiltrator = new Infiltrator(64, 64, 64, 64,100, "left"); 
 
     }
 
@@ -72,7 +79,10 @@ public class World {
     public System getSys14(){return sys14;}
     public System getSys15(){return sys15;}
 
-    public HealthBar getHB(){return Sys1HB;}
+    //public HealthBar getHB(){return Sys1HB;}
+    
+    //INFILTRATOR - Brian
+    public Infiltrator getInfiltrator() {return infiltrator;}
 
 
 }
