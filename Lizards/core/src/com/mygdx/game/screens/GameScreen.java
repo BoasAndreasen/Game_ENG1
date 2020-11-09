@@ -22,6 +22,7 @@ public class GameScreen implements Screen {
     private Texture systemImage;
     private Texture healthImg;
     private Texture infiltratorImage;
+    private Texture telepadImage;
     
     private boolean isRoom1 = true;
     private boolean isRoom2, isRoom3, isRoom4 = false;
@@ -34,6 +35,7 @@ public class GameScreen implements Screen {
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
         systemImage= new Texture(Gdx.files.internal("systemsImage.jpg"));
         healthImg= new Texture(Gdx.files.internal("health.png"));
+        telepadImage= new Texture(Gdx.files.internal("TelePad.png"));
         
         //INFILTRATOR IMAGE - Brian
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png"));
@@ -53,6 +55,9 @@ public class GameScreen implements Screen {
         batch.begin();
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
 
+        //render test telepad
+        batch.draw(telepadImage,world.getTesttelepad().getX(),world.getTesttelepad().getY());
+
         // render systems and health bars if they arent destroyed
         for (int x=0;x<world.getSystems().size; x++){
             if (!world.getSystems().get(x).isDestroyed()) { //systems
@@ -64,11 +69,9 @@ public class GameScreen implements Screen {
                 else {batch.setColor(Color.RED);}
                 batch.draw(healthImg,world.getSystemhealthbars().get(x).getX(),world.getSystemhealthbars().get(x).getY());
                 batch.setColor(Color.WHITE);
-
-
             }
-
         }
+
 
 
 

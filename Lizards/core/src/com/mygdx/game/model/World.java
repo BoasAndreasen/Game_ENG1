@@ -9,6 +9,7 @@ public class World {
     private Array<System> systems = new Array<System>();
     private Array<HealthBar>systemhealthbars= new Array<HealthBar>();
     private HealthBar auberhealthbar;
+    private TeleportPad testtelepad;
     
     
     //INFILTRATOR - Brian
@@ -56,8 +57,13 @@ public class World {
         systemhealthbars.add(new HealthBar(0,0));
         systemhealthbars.add(new HealthBar(0,0));
 
+
+
+        // Aubers health bar - not rendered as may want a different texture
         auberhealthbar=new HealthBar(0,0);
 
+        //creating a test teleport pad
+        testtelepad=new TeleportPad(0,0);
 
 
         auber = new Auber(0, 0, "left");
@@ -75,6 +81,8 @@ public class World {
     public HealthBar getAuberhealthbar(){return auberhealthbar;}
 
     public Infiltrator getInfiltrator() {return infiltrator;}
+
+    public TeleportPad getTesttelepad(){return testtelepad;}
 
 
 }
