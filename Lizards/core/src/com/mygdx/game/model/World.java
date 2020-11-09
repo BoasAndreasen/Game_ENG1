@@ -39,9 +39,7 @@ public class World {
         auber = new Auber(0, 0, "left");
         blocks.add(new Block(0, 1));
         Sys1HB= new HealthBar(300,-170,64,64);
-        
-        //INFILTRATOR - Brian
-        infiltrator = new Infiltrator(64, 64, 64, 64,100, "left"); 
+        infiltrator = new Infiltrator(10, 10, "left");
 
     }
 
@@ -50,9 +48,6 @@ public class World {
     public Array<System> getSystems(){return systems;}
 
     public HealthBar getHB(){return Sys1HB;}
-    
-    //INFILTRATOR - Brian
+
     public Infiltrator getInfiltrator() {return infiltrator;}
-
-
 }

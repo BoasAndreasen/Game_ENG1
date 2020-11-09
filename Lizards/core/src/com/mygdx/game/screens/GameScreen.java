@@ -105,12 +105,12 @@ public class GameScreen implements Screen {
     
     private void updateInfiltratorLocationX() {
     	
-    	if (world.getInfiltrator().getX() > world.getSys1().getX())
+    	if (world.getInfiltrator().getX() > world.getSystems().get(0).getX())
     	{
     		world.getInfiltrator().addX(-5);
     	}
     	
-    	if (world.getInfiltrator().getX() < world.getSys1().getX())
+    	if (world.getInfiltrator().getX() < world.getSystems().get(0).getX())
     	{
     		world.getInfiltrator().addX(5);
     	}
@@ -119,12 +119,12 @@ public class GameScreen implements Screen {
     
     private void updateInfiltratorLocationY() {
     	
-    	if (world.getInfiltrator().getY() > world.getSys1().getY())
+    	if (world.getInfiltrator().getY() > world.getSystems().get(0).getY())
     	{
     		world.getInfiltrator().addY(-5);
     	}
     	
-    	if (world.getInfiltrator().getY() < world.getSys1().getY())
+    	if (world.getInfiltrator().getY() < world.getSystems().get(0).getY())
     	{
     		world.getInfiltrator().addY(5);
     	}
