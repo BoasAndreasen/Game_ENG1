@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.model.World;
 import com.mygdx.game.controller.AuberController;
 
@@ -16,6 +19,11 @@ public class GameScreen implements Screen {
     private AuberController auberController;
     private OrthographicCamera camera;
     private SpriteBatch batch;
+
+
+    private Skin skin;
+    private TextureAtlas atlas;
+    private TextButton notifyBtn;
     
     //IMAGES
     private Texture bucketImage;
@@ -37,6 +45,10 @@ public class GameScreen implements Screen {
         
         //INFILTRATOR IMAGE - Brian
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png"));
+
+        //Buttons
+        atlas=new TextureAtlas("");
+        skin=new Skin(atlas);
         
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1200, 600);
