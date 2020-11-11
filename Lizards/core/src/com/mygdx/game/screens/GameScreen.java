@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.model.World;
 import com.mygdx.game.controller.AuberController;
@@ -28,6 +29,8 @@ public class GameScreen implements Screen {
     private SpriteBatch batch;
 
     //notification label
+    private Timer timer;
+    private Timer.Task task;
     private Label.LabelStyle notify_style;
     private BitmapFont my_font;
     private Label notify_label;
@@ -54,13 +57,14 @@ public class GameScreen implements Screen {
         healthImg = new Texture(Gdx.files.internal("health.png"));
 
         //NOTIFICATION LABEL
+        timer= new Timer();
         notify_style=new Label.LabelStyle();
         my_font= new BitmapFont(Gdx.files.internal("my_font.fnt"));
         stage=new Stage();
         skin=new Skin(Gdx.files.internal("clean-crispy-ui.json"));
         notify_style.font=my_font;
         notify_style.background= skin.getDrawable("button");
-        notify_label= new Label("A SYSTEM IS BEING SABOTAGED",notify_style);
+        notify_label= new Label("NOTIFY",notify_style);
         notify_label.setSize(600,100);
         notify_label.setPosition(100,500);
         notify_label.setAlignment(Align.center);
@@ -103,12 +107,19 @@ public class GameScreen implements Screen {
                 batch.setColor(Color.WHITE);
             }
 
+            if(world.getSystems().get(x).notifyPlayer()==true){ //show notification
+                notify_label.setText("System " + x + " is being sabotaged!");
+                stage.draw();
+                task= new Timer.Task() {
+                    @Override
+                    public void run() {
+                        stage.clear();
+                    }
+                };
+                timer.scheduleTask(task,5); //clear after 5 seconds
+            }
+
         }
-
-
-
-
-
 
 
         for (int i = 0; i < world.getBlocks().size; i++) {
