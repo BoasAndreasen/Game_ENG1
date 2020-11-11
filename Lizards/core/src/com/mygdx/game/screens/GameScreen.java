@@ -6,11 +6,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.model.World;
 import com.mygdx.game.controller.AuberController;
 
@@ -20,11 +24,6 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
 
-
-    private Skin skin;
-    private TextureAtlas atlas;
-    private TextButton notifyBtn;
-    
     //IMAGES
     private Texture bucketImage;
     private Texture systemImage;
@@ -42,14 +41,13 @@ public class GameScreen implements Screen {
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
         systemImage = new Texture(Gdx.files.internal("systemsImage.jpg"));
         healthImg = new Texture(Gdx.files.internal("health.png"));
-        
+
+
         //INFILTRATOR IMAGE - Brian
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png"));
 
-        //Buttons
-        atlas=new TextureAtlas("");
-        skin=new Skin(atlas);
-        
+
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1200, 600);
         batch = new SpriteBatch();
@@ -64,6 +62,8 @@ public class GameScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
+
+
 
 
 
