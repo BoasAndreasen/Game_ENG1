@@ -21,7 +21,7 @@ public class System extends Rectangle {
         this.height = 100;
     }
 
-    public boolean notifyPlayer(){
+    public boolean notifyPlayer(){ //tells the game screen to render or not
         if (this.health<100){
             return true;
         }

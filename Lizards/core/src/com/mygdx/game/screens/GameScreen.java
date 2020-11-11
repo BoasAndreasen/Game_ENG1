@@ -107,6 +107,7 @@ public class GameScreen implements Screen {
                 batch.setColor(Color.WHITE);
             }
 
+            // render notifications 
             if(world.getSystems().get(x).notifyPlayer()==true){ //show notification
                 notify_label.setText("System " + x + " is being sabotaged!");
                 stage.draw();
