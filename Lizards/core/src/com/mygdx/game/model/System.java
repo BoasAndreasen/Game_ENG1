@@ -10,6 +10,7 @@ public class System extends Rectangle {
     private final float width;
     private float health;
     private boolean isDestroyed;
+    private int notified;
 
 
     public System(float x, float y, float health, boolean isDestroyed){
@@ -19,11 +20,15 @@ public class System extends Rectangle {
         this.isDestroyed = isDestroyed;
         this.width = 100;
         this.height = 100;
+        this.notified=0;
     }
 
-    public void notifyPlayer(){
-        //TODO notify player
-        // if hostile attacking system (decrement in health?) then notify player
+    public boolean notifyPlayer(){
+        if ((this.health<100)&& (this.notified==0)){
+            this.notified=1;
+            return true;
+        }
+        else{return false;}
     }
 
     public float getHealth() {

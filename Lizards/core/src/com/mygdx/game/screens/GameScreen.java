@@ -6,14 +6,17 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.model.World;
 import com.mygdx.game.controller.AuberController;
@@ -24,11 +27,19 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
 
+    //notification label
+    private Label.LabelStyle notify_style;
+    private BitmapFont my_font;
+    private Label notify_label;
+    private Stage stage;
+    private Skin skin;
+
     //IMAGES
     private Texture bucketImage;
     private Texture systemImage;
     private Texture healthImg;
     private Texture infiltratorImage;
+
     
     private boolean isRoom1 = true;
     private boolean isRoom2, isRoom3, isRoom4 = false;
@@ -41,6 +52,20 @@ public class GameScreen implements Screen {
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
         systemImage = new Texture(Gdx.files.internal("systemsImage.jpg"));
         healthImg = new Texture(Gdx.files.internal("health.png"));
+
+        //NOTIFICATION LABEL
+        notify_style=new Label.LabelStyle();
+        my_font= new BitmapFont(Gdx.files.internal("my_font.fnt"));
+        stage=new Stage();
+        skin=new Skin(Gdx.files.internal("clean-crispy-ui.json"));
+        notify_style.font=my_font;
+        notify_style.background= skin.getDrawable("button");
+        notify_label= new Label("A SYSTEM IS BEING SABOTAGED",notify_style);
+        notify_label.setSize(600,100);
+        notify_label.setPosition(100,500);
+        notify_label.setAlignment(Align.center);
+        stage.addActor(notify_label);
+
 
 
         //INFILTRATOR IMAGE - Brian
@@ -65,8 +90,6 @@ public class GameScreen implements Screen {
 
 
 
-
-
         // render systems and health bars if they arent destroyed
         for (int x=0;x<world.getSystems().size; x++){
             if (!world.getSystems().get(x).isDestroyed()) { //systems
@@ -79,7 +102,14 @@ public class GameScreen implements Screen {
                 batch.draw(healthImg,world.getSystemhealthbars().get(x).getX(),world.getSystemhealthbars().get(x).getY());
                 batch.setColor(Color.WHITE);
             }
+
         }
+
+
+
+
+
+
 
         for (int i = 0; i < world.getBlocks().size; i++) {
             batch.draw(bucketImage, world.getBlocks().get(i).getX(), world.getBlocks().get(i).getY());
