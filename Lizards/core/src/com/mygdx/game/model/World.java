@@ -4,8 +4,9 @@ import com.badlogic.gdx.utils.Array;
 
 public class World {
     private Auber auber;
-    public Array<Block> blocks = new Array<Block>();
-    public Array<Block> hostiles = new Array<Block>();
+    public Array<HorizWall> horizWall = new Array<HorizWall>();
+    public Array<VertiWall> vertiWall = new Array<VertiWall>();
+    //public Array<Infiltrator> hostiles = new Array<Infiltrator>();
     public Array<System> systems = new Array<System>();
     public Array<HealthBar>systemhealthbars= new Array<HealthBar>();
     private HealthBar auberhealthbar;
@@ -70,10 +71,10 @@ public class World {
         healingPad= new HealPad(0,0);
 
         auber = new Auber(0, 0, "left");
-        
-        blocks.add(new Block(300, 300));
-        blocks.add(new Block(400, 300));
-        blocks.add(new Block(500, 300));
+
+        horizWall.add(new HorizWall(300, 300));
+        horizWall.add(new HorizWall(400, 300));
+        vertiWall.add(new VertiWall(500, 300));
 
         infiltrator = new Infiltrator(500, 300, "left");
 
@@ -113,7 +114,10 @@ public class World {
     public Array<System> getSystems(){return systems;}
 
     public Array<HealthBar> getSystemhealthbars(){return systemhealthbars;}
-    public Array<Block> getBlocks(){return blocks;}
+
+    public Array<HorizWall> getHorizWall(){return horizWall;}
+
+    public Array<VertiWall> getVertiWall(){return vertiWall;}
 
     public HealthBar getAuberhealthbar(){return auberhealthbar;}
 

@@ -42,7 +42,8 @@ public class GameScreen implements Screen {
     private Texture infiltratorImage; //Infiltrator
     private Texture systemImage; //System
     private Texture healthImg; //System/Auber Health Bar
-    private Texture blockImage; //Wall
+    private Texture horizWallImage; //Wall
+    private Texture vertiWallImage; //Wall
 
     
     private boolean isRoom1 = true;
@@ -54,9 +55,10 @@ public class GameScreen implements Screen {
         world = new World();
         auberController = new AuberController(world);
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
-        systemImage = new Texture(Gdx.files.internal("systemsImage.jpg"));
+        systemImage = new Texture(Gdx.files.internal("System.png"));
         healthImg = new Texture(Gdx.files.internal("health.png"));
-        blockImage = new Texture(Gdx.files.internal("block.png"));
+        horizWallImage = new Texture(Gdx.files.internal("HorizontalWall.png"));
+        vertiWallImage = new Texture(Gdx.files.internal("VerticalWall.png"));
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png")); //INFILTRATOR IMAGE - Brian
         
         //NOTIFICATION LABEL
@@ -123,12 +125,14 @@ public class GameScreen implements Screen {
         }
         
         
-        for (int x = 0; x < world.getBlocks().size; x++) {
+        for (int x = 0; x < world.getHorizWall().size && x < world.getVertiWall().size; x++) {
             batch.draw(systemImage, world.getSystems().get(x).getX(), world.getSystems().get(x).getY());
         }
-        
-        for (int i = 0; i < world.getBlocks().size; i++) {
-            batch.draw(blockImage, world.getBlocks().get(i).getX(), world.getBlocks().get(i).getY());
+        for (int i = 0; i < world.getHorizWall().size; i++) {
+            batch.draw(horizWallImage, world.getHorizWall().get(i).getX(), world.getHorizWall().get(i).getY());
+        }
+        for (int j = 0; j < world.getVertiWall().size; j++) {
+            batch.draw(horizWallImage, world.getVertiWall().get(j).getX(), world.getVertiWall().get(j).getY());
         }
 		
 
