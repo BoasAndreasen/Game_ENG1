@@ -13,8 +13,8 @@ public class CharacterNPC extends Rectangle {
         this.x = x;
         this.y = y;
         this.rotation = rotation;
-        this.width = 100;
-        this.height = 100;
+        this.width = 70;
+        this.height = 70;
     }
 
     @Override

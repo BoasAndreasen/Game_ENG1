@@ -92,7 +92,7 @@ public class AuberController implements InputProcessor {
     public boolean checkUpBlockCollission(int addedY) {
         for (int i = 0; i < world.getHorizWall().size; i++) {
             if ((world.getAuber().getX() >= world.getHorizWall().get(i).getX() - world.getAuber().getWidth()) &&
-                    (world.getAuber().getX() <= world.getHorizWall().get(i).getX() + world.getAuber().getWidth())
+                    (world.getAuber().getX() <= world.getHorizWall().get(i).getX() + world.getHorizWall().get(i).getWidth())
                 && (world.getAuber().getY() + world.getAuber().getHeight() + addedY == world.getHorizWall().get(i).getY())) {
                 return true;
             }
@@ -110,7 +110,7 @@ public class AuberController implements InputProcessor {
     public boolean checkDownBlockCollission(int addedY) {
         for (int i = 0; i < world.getHorizWall().size; i++) {
             if ((world.getAuber().getX() >= world.getHorizWall().get(i).getX() - world.getAuber().getWidth()) &&
-                    (world.getAuber().getX() <= world.getHorizWall().get(i).getX() + world.getAuber().getWidth())
+                    (world.getAuber().getX() <= world.getHorizWall().get(i).getX() + world.getHorizWall().get(i).getWidth())
                     && (world.getAuber().getY() - addedY - world.getHorizWall().get(i).getHeight() == world.getHorizWall().get(i).getY())) {
                 return true;
             }
@@ -135,7 +135,7 @@ public class AuberController implements InputProcessor {
         }
         for (int i = 0; i < world.getVertiWall().size; i++) {
             if ((world.getAuber().getY() >= world.getVertiWall().get(i).getY() - world.getAuber().getHeight()) &&
-                    (world.getAuber().getY() <= world.getVertiWall().get(i).getY() + world.getAuber().getHeight())
+                    (world.getAuber().getY() <= world.getVertiWall().get(i).getY() + world.getVertiWall().get(i).getHeight())
                     && (world.getAuber().getX() - addedX - world.getVertiWall().get(i).getWidth() == world.getVertiWall().get(i).getX())) {
                 return true;
             }
@@ -152,7 +152,7 @@ public class AuberController implements InputProcessor {
             }
         }
         for (int i = 0; i < world.getVertiWall().size; i++) {
-            if ((world.getAuber().getY() >= world.getVertiWall().get(i).getY() - world.getVertiWall().get(i).getHeight()) &&
+            if ((world.getAuber().getY() >= world.getVertiWall().get(i).getY() - world.getAuber().getHeight()) &&
                     (world.getAuber().getY() <= world.getVertiWall().get(i).getY() + world.getVertiWall().get(i).getHeight())
                     && (world.getAuber().getX() + addedX + world.getAuber().getWidth() == world.getVertiWall().get(i).getX())) {
                 return true;
