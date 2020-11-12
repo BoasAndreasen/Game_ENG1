@@ -73,6 +73,11 @@ public class GameScreen implements Screen {
         notify_label.setAlignment(Align.center);
         stage.addActor(notify_label);
 
+
+
+        //INFILTRATOR IMAGE - Brian
+        infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png"));
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1200, 600);
         batch = new SpriteBatch();
@@ -104,7 +109,7 @@ public class GameScreen implements Screen {
             }
 
             // render notifications 
-            if(world.getSystems().get(x).notifyPlayer()==true){ //show notification
+            if(world.getSystems().get(x).notifyPlayer()){ //show notification
                 notify_label.setText("System " + x + " is being sabotaged!");
                 stage.draw();
                 task= new Timer.Task() {
@@ -115,7 +120,6 @@ public class GameScreen implements Screen {
                 };
                 timer.scheduleTask(task,5); //clear after 5 seconds
             }
-
         }
         
         
@@ -127,8 +131,6 @@ public class GameScreen implements Screen {
             batch.draw(blockImage, world.getBlocks().get(i).getX(), world.getBlocks().get(i).getY());
         }
 		
-
-
 
 
         //INFILTRATOR - Brian
@@ -162,15 +164,21 @@ public class GameScreen implements Screen {
             }
         } else if (auberController.isDownPressed()) {
             if (!(world.getAuber().getY() <= 0)) {
-                world.getAuber().addY(-10);
+                if (!(auberController.checkDownBlockCollission(10))) {
+                    world.getAuber().addY(-10);
+                }
             }
         } else if (auberController.isLeftPressed()) {
             if (!(world.getAuber().getX() <= 0)) {
-                world.getAuber().addX(-10);
+                if (!(auberController.checkLeftBlockCollission(10))) {
+                    world.getAuber().addX(-10);
+                }
             }
         } else if (auberController.isRightPressed()) {
             if (!(world.getAuber().getX() >= 2300)) {
-                world.getAuber().addX(10);
+                if (!(auberController.checkRightBlockCollission(10))) {
+                    world.getAuber().addX(10);
+                }
             }
         }
         

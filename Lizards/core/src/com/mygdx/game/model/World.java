@@ -69,12 +69,11 @@ public class World {
         //creating a healingPad
         healingPad= new HealPad(0,0);
 
-
-
         auber = new Auber(0, 0, "left");
         
         blocks.add(new Block(300, 300));
-        blocks.add(new Block(400, 400));
+        blocks.add(new Block(400, 300));
+        blocks.add(new Block(500, 300));
 
         infiltrator = new Infiltrator(500, 300, "left");
 

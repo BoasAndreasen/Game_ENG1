@@ -22,7 +22,7 @@ public class Block extends Rectangle {
 
     @Override
     public float getY() {
-        return x;
+        return y;
     }
 
     @Override
