@@ -99,7 +99,7 @@ public class GameScreen implements Screen {
         // render systems and health bars if they arent destroyed
         for (int x=0;x<world.getSystems().size; x++){
             if (!world.getSystems().get(x).isDestroyed()) { //systems
-                batch.draw(systemImage,world.getSystems().get(x).getX(),world.getSystems().get(0).getY());
+                batch.draw(systemImage,world.getSystems().get(x).getX(),world.getSystems().get(x).getY());
 
                 //render health bars
                 if (world.getSystems().get(x).getHealth()>=70){ batch.setColor(Color.GREEN); }

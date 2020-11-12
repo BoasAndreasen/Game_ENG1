@@ -23,8 +23,8 @@ public class World {
 
     private void createWorld() {
         //systems created below all with x=0,y=0 for now
-        systems.add(new System(300,300,100,false));
-        systems.add(new System(300,400,100,false));
+        systems.add(new System(0,0,100,false));
+        systems.add(new System(0,0,100,false));
         systems.add(new System(0,0,100,false));
         systems.add(new System(0,0,100,false));
         systems.add(new System(0,0,100,false));
