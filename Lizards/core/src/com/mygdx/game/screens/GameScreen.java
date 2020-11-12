@@ -41,7 +41,7 @@ public class GameScreen implements Screen {
     private Texture bucketImage; //Auber
     private Texture infiltratorImage; //Infiltrator
     private Texture systemImage; //System
-    private Texture healthImg; //System Health Bar
+    private Texture healthImg; //System/Auber Health Bar
     private Texture blockImage; //Wall
 
     
@@ -57,7 +57,8 @@ public class GameScreen implements Screen {
         systemImage = new Texture(Gdx.files.internal("systemsImage.jpg"));
         healthImg = new Texture(Gdx.files.internal("health.png"));
         blockImage = new Texture(Gdx.files.internal("block.png"));
-
+        infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png")); //INFILTRATOR IMAGE - Brian
+        
         //NOTIFICATION LABEL
         timer= new Timer();
         notify_style=new Label.LabelStyle();
@@ -71,13 +72,6 @@ public class GameScreen implements Screen {
         notify_label.setPosition(100,500);
         notify_label.setAlignment(Align.center);
         stage.addActor(notify_label);
-
-
-
-        //INFILTRATOR IMAGE - Brian
-        infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png"));
-
-
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1200, 600);
@@ -94,12 +88,12 @@ public class GameScreen implements Screen {
         batch.begin();
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
 
-
-
         // render systems and health bars if they arent destroyed
+        
+        
         for (int x=0;x<world.getSystems().size; x++){
             if (!world.getSystems().get(x).isDestroyed()) { //systems
-                batch.draw(systemImage,world.getSystems().get(x).getX(),world.getSystems().get(0).getY());
+                batch.draw(systemImage,world.getSystems().get(x).getX(),world.getSystems().get(x).getY());
 
                 //render health bars
                 if (world.getSystems().get(x).getHealth()>=70){ batch.setColor(Color.GREEN); }
@@ -123,8 +117,12 @@ public class GameScreen implements Screen {
             }
 
         }
-
-
+        
+        
+        for (int x = 0; x < world.getBlocks().size; x++) {
+            batch.draw(systemImage, world.getSystems().get(x).getX(), world.getSystems().get(x).getY());
+        }
+        
         for (int i = 0; i < world.getBlocks().size; i++) {
             batch.draw(blockImage, world.getBlocks().get(i).getX(), world.getBlocks().get(i).getY());
         }
@@ -140,9 +138,21 @@ public class GameScreen implements Screen {
         world.updateInfiltratorLocationY();
         updateAuberLocation();
         updateCameraRoomLocation();
+        testcodes();
+        
         camera.update();
     }
-
+    
+    
+    private void testcodes() 
+    {
+        //TESTING CODE - Use for tracing Auber's Location
+        //System.out.println(world.getAuber().getX() + " " + world.getAuber().getY());
+    	//System.out.println(world.systems);
+    	//System.out.println(world.blocks);
+    	
+    }
+    
     private void updateAuberLocation() {
         if (auberController.isUpPressed()) {
             if (!(world.getAuber().getY() >= 1100)) {
@@ -164,8 +174,7 @@ public class GameScreen implements Screen {
             }
         }
         
-        //TESTING CODE - Use for tracing Auber's Location
-        System.out.println(world.getAuber().getX() + " " + world.getAuber().getY());
+
     }
 
     private void updateCameraRoomLocation() {

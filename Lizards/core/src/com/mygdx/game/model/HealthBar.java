@@ -12,6 +12,15 @@ public class HealthBar extends Rectangle {
         this.x=x;
         this.y=y;
     }
+    
+    @Override
+    public float getX() {
+        return x;
+    }
 
+    @Override
+    public float getY() {
+        return x;
+    }
 
 }

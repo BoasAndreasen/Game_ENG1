@@ -21,6 +21,16 @@ public class System extends Rectangle {
         this.height = 100;
     }
 
+    @Override
+    public float getX() {
+        return x;
+    }
+
+    @Override
+    public float getY() {
+        return x;
+    }
+    
     public boolean notifyPlayer(){ //tells the game screen to render or not
         if (this.health<100){
             return true;
