@@ -38,10 +38,11 @@ public class GameScreen implements Screen {
     private Skin skin;
 
     //IMAGES
-    private Texture bucketImage;
-    private Texture systemImage;
-    private Texture healthImg;
-    private Texture infiltratorImage;
+    private Texture bucketImage; //Auber
+    private Texture infiltratorImage; //Infiltrator
+    private Texture systemImage; //System
+    private Texture healthImg; //System Health Bar
+    private Texture blockImage; //Wall
 
     
     private boolean isRoom1 = true;
@@ -55,6 +56,7 @@ public class GameScreen implements Screen {
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
         systemImage = new Texture(Gdx.files.internal("systemsImage.jpg"));
         healthImg = new Texture(Gdx.files.internal("health.png"));
+        blockImage = new Texture(Gdx.files.internal("block.png"));
 
         //NOTIFICATION LABEL
         timer= new Timer();
@@ -124,9 +126,9 @@ public class GameScreen implements Screen {
 
 
         for (int i = 0; i < world.getBlocks().size; i++) {
-            batch.draw(bucketImage, world.getBlocks().get(i).getX(), world.getBlocks().get(i).getY());
+            batch.draw(blockImage, world.getBlocks().get(i).getX(), world.getBlocks().get(i).getY());
         }
-
+		
 
 
 
@@ -161,6 +163,9 @@ public class GameScreen implements Screen {
                 world.getAuber().addX(10);
             }
         }
+        
+        //TESTING CODE - Use for tracing Auber's Location
+        System.out.println(world.getAuber().getX() + " " + world.getAuber().getY());
     }
 
     private void updateCameraRoomLocation() {

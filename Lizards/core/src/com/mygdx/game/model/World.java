@@ -74,7 +74,7 @@ public class World {
         auber = new Auber(0, 0, "left");
         blocks.add(new Block(300, 300));
 
-        infiltrator = new Infiltrator(10, 10, "left");
+        infiltrator = new Infiltrator(500, 300, "left");
 
     }
 
