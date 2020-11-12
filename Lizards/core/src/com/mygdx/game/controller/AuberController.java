@@ -90,7 +90,6 @@ public class AuberController implements InputProcessor {
     }
 
     public boolean checkUpBlockCollission(int addedY) {
-        // if between 400-600 for 500 then block
         for (int i = 0; i < world.getHorizWall().size; i++) {
             if ((world.getAuber().getX() >= world.getHorizWall().get(i).getX() - world.getAuber().getWidth()) &&
                     (world.getAuber().getX() <= world.getHorizWall().get(i).getX() + world.getAuber().getWidth())
@@ -100,7 +99,7 @@ public class AuberController implements InputProcessor {
         }
         for (int i = 0; i < world.getVertiWall().size; i++) {
             if ((world.getAuber().getX() >= world.getVertiWall().get(i).getX() - world.getAuber().getWidth()) &&
-                    (world.getAuber().getX() <= world.getVertiWall().get(i).getX() + world.getAuber().getWidth())
+                    (world.getAuber().getX() <= world.getVertiWall().get(i).getX() + world.getVertiWall().get(i).getWidth())
                     && (world.getAuber().getY() + world.getAuber().getHeight() + addedY == world.getVertiWall().get(i).getY())) {
                 return true;
             }
@@ -112,14 +111,14 @@ public class AuberController implements InputProcessor {
         for (int i = 0; i < world.getHorizWall().size; i++) {
             if ((world.getAuber().getX() >= world.getHorizWall().get(i).getX() - world.getAuber().getWidth()) &&
                     (world.getAuber().getX() <= world.getHorizWall().get(i).getX() + world.getAuber().getWidth())
-                    && (world.getAuber().getY() - addedY - world.getAuber().getHeight() == world.getHorizWall().get(i).getY())) {
+                    && (world.getAuber().getY() - addedY - world.getHorizWall().get(i).getHeight() == world.getHorizWall().get(i).getY())) {
                 return true;
             }
         }
         for (int i = 0; i < world.getVertiWall().size; i++) {
             if ((world.getAuber().getX() >= world.getVertiWall().get(i).getX() - world.getAuber().getWidth()) &&
-                    (world.getAuber().getX() <= world.getVertiWall().get(i).getX() + world.getAuber().getWidth())
-                    && (world.getAuber().getY() - addedY - world.getAuber().getHeight() == world.getVertiWall().get(i).getY())) {
+                    (world.getAuber().getX() <= world.getVertiWall().get(i).getX() + world.getVertiWall().get(i).getWidth())
+                    && (world.getAuber().getY() - addedY - world.getVertiWall().get(i).getHeight() == world.getVertiWall().get(i).getY())) {
                 return true;
             }
         }
@@ -129,15 +128,15 @@ public class AuberController implements InputProcessor {
     public boolean checkLeftBlockCollission(int addedX) {
         for (int i = 0; i < world.getHorizWall().size; i++) {
             if ((world.getAuber().getY() >= world.getHorizWall().get(i).getY() - world.getAuber().getHeight()) &&
-                    (world.getAuber().getY() <= world.getHorizWall().get(i).getY() + world.getAuber().getHeight())
-                    && (world.getAuber().getX() - addedX - world.getAuber().getWidth() == world.getHorizWall().get(i).getX())) {
+                    (world.getAuber().getY() <= world.getHorizWall().get(i).getY() + world.getHorizWall().get(i).getHeight())
+                    && (world.getAuber().getX() - addedX - world.getHorizWall().get(i).getWidth() == world.getHorizWall().get(i).getX())) {
                 return true;
             }
         }
         for (int i = 0; i < world.getVertiWall().size; i++) {
             if ((world.getAuber().getY() >= world.getVertiWall().get(i).getY() - world.getAuber().getHeight()) &&
                     (world.getAuber().getY() <= world.getVertiWall().get(i).getY() + world.getAuber().getHeight())
-                    && (world.getAuber().getX() - addedX - world.getAuber().getWidth() == world.getVertiWall().get(i).getX())) {
+                    && (world.getAuber().getX() - addedX - world.getVertiWall().get(i).getWidth() == world.getVertiWall().get(i).getX())) {
                 return true;
             }
         }
@@ -147,14 +146,14 @@ public class AuberController implements InputProcessor {
     public boolean checkRightBlockCollission(int addedX) {
         for (int i = 0; i < world.getHorizWall().size; i++) {
             if ((world.getAuber().getY() >= world.getHorizWall().get(i).getY() - world.getAuber().getHeight()) &&
-                    (world.getAuber().getY() <= world.getHorizWall().get(i).getY() + world.getAuber().getHeight())
+                    (world.getAuber().getY() <= world.getHorizWall().get(i).getY() + world.getHorizWall().get(i).getHeight())
                     && (world.getAuber().getX() + addedX + world.getAuber().getWidth() == world.getHorizWall().get(i).getX())) {
                 return true;
             }
         }
         for (int i = 0; i < world.getVertiWall().size; i++) {
-            if ((world.getAuber().getY() >= world.getVertiWall().get(i).getY() - world.getAuber().getHeight()) &&
-                    (world.getAuber().getY() <= world.getVertiWall().get(i).getY() + world.getAuber().getHeight())
+            if ((world.getAuber().getY() >= world.getVertiWall().get(i).getY() - world.getVertiWall().get(i).getHeight()) &&
+                    (world.getAuber().getY() <= world.getVertiWall().get(i).getY() + world.getVertiWall().get(i).getHeight())
                     && (world.getAuber().getX() + addedX + world.getAuber().getWidth() == world.getVertiWall().get(i).getX())) {
                 return true;
             }

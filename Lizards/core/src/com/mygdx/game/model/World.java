@@ -59,18 +59,19 @@ public class World {
         auberhealthbar = new HealthBar(0,0);
 
         //creating a test teleport pad
-        telePad = new TeleportPad(700,300);
+        //telePad = new TeleportPad(900,300);
 
         //creating a healingPad
         healingPad = new HealPad(0,0);
 
         auber = new Auber(0, 0, "left");
 
-        horizWall.add(new HorizWall(300, 300));
-        horizWall.add(new HorizWall(400, 300));
-        vertiWall.add(new VertiWall(500, 300));
+        horizWall.add(new HorizWall(500, 300));
+        horizWall.add(new HorizWall(600, 300));
+        vertiWall.add(new VertiWall(700, 300));
+        vertiWall.add(new VertiWall(900, 300));
 
-        infiltrator = new Infiltrator(500, 300, "left");
+        infiltrator = new Infiltrator(100, 300, "left");
     }
 
     public void updateInfiltratorLocationX() {
