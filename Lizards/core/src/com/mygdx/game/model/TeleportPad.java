@@ -19,4 +19,14 @@ public class TeleportPad extends Rectangle {
     public void Teleport(){
         //TODO teleports you to another room
     }
+
+    @Override
+    public float getX() {
+        return x;
+    }
+
+    @Override
+    public float getY() {
+        return x;
+    }
 }

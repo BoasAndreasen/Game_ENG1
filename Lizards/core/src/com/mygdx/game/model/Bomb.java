@@ -12,4 +12,14 @@ public class Bomb extends Rectangle {
         this.y=y;
     }
 
+    @Override
+    public float getX() {
+        return x;
+    }
+
+    @Override
+    public float getY() {
+        return x;
+    }
+
 }

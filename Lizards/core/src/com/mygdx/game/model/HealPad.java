@@ -15,4 +15,14 @@ public class HealPad extends Rectangle {
     public void Heal(){
         //TODO if clicked then heal auber
     }
+
+    @Override
+    public float getX() {
+        return x;
+    }
+
+    @Override
+    public float getY() {
+        return x;
+    }
 }
