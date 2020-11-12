@@ -90,7 +90,6 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
 
         // render systems and health bars if they arent destroyed
         for (int i = 0; i < world.getSystems().size; i++){
@@ -118,22 +117,25 @@ public class GameScreen implements Screen {
                 timer.scheduleTask(task,5); //clear after 5 seconds
             }
         }
-        
-        
+
         for (int x = 0; x < world.getHorizWall().size && x < world.getVertiWall().size; x++) {
             batch.draw(systemImage, world.getSystems().get(x).getX(), world.getSystems().get(x).getY());
         }
+
         for (int i = 0; i < world.getHorizWall().size; i++) {
             batch.draw(horizWallImage, world.getHorizWall().get(i).getX(), world.getHorizWall().get(i).getY());
         }
-        for (int j = 0; j < world.getVertiWall().size; j++) {
-            batch.draw(vertiWallImage, world.getVertiWall().get(j).getX(), world.getVertiWall().get(j).getY());
+
+        for (int i = 0; i < world.getVertiWall().size; i++) {
+            batch.draw(vertiWallImage, world.getVertiWall().get(i).getX(), world.getVertiWall().get(i).getY());
         }
 
-        //INFILTRATOR - Brian
-        batch.draw(infiltratorImage, world.getInfiltrator().getX(),world.getInfiltrator().getY());
+        for (int i = 0; i < world.getTelePads().size; i++) {
+            batch.draw(teleportPadImage, world.getTelePads().get(i).getX(), world.getTelePads().get(i).getY());
+        }
 
-        batch.draw(teleportPadImage, world.getTelePad().getX(), world.getTelePad().getY());
+        batch.draw(infiltratorImage, world.getInfiltrator().getX(),world.getInfiltrator().getY());
+        batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
 
         batch.end();
         world.updateInfiltratorLocationX();
@@ -144,20 +146,17 @@ public class GameScreen implements Screen {
         
         camera.update();
     }
-    
-    
-    private void testcodes() 
-    {
+
+    private void testcodes() {
         //TESTING CODE - Use for tracing Auber's Location
         //System.out.println(world.getAuber().getX() + " " + world.getAuber().getY());
     	//System.out.println(world.systems);
     	//System.out.println(world.blocks);
-    	
     }
 
     private void updateAuberLocation() {
         if (auberController.isUpPressed()) {
-            if (!(world.getAuber().getY() >= 1100)) {
+            if (!(world.getAuber().getY() >= 1130)) {
                 if (!(auberController.checkUpBlockCollission(10))) {
                     world.getAuber().addY(10);
                 }
@@ -175,7 +174,7 @@ public class GameScreen implements Screen {
                 }
             }
         } else if (auberController.isRightPressed()) {
-            if (!(world.getAuber().getX() >= 2300)) {
+            if (!(world.getAuber().getX() >= 2330)) {
                 if (!(auberController.checkRightBlockCollission(10))) {
                     world.getAuber().addX(10);
                 }

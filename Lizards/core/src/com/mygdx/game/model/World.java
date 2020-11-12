@@ -10,8 +10,8 @@ public class World {
     //public Array<Infiltrator> hostiles = new Array<Infiltrator>();
     public Array<System> systems = new Array<System>();
     public Array<HealthBar>systemhealthbars= new Array<HealthBar>();
+    public Array<TeleportPad> telePads = new Array<TeleportPad>();
     private HealthBar auberhealthbar;
-    private TeleportPad telePad;
     private HealPad healingPad;
     private Infiltrator infiltrator;
 
@@ -59,7 +59,8 @@ public class World {
         auberhealthbar = new HealthBar(0,0);
 
         //creating a test teleport pad
-        telePad = new TeleportPad(1000,300);
+        telePads.add(new TeleportPad(1000,300));
+        telePads.add(new TeleportPad(1000,0));
 
         //creating a healingPad
         healingPad = new HealPad(0,0);
@@ -114,13 +115,13 @@ public class World {
 
     public Array<VertiWall> getVertiWall(){return vertiWall;}
 
+    public Array<TeleportPad> getTelePads(){return telePads;}
+
     public HealthBar getAuberhealthbar(){return auberhealthbar;}
 
     public Infiltrator getInfiltrator() {return infiltrator;}
 
     public HealPad getHealingPad(){return healingPad;}
 
-    public TeleportPad getTelePad() {
-        return telePad;
-    }
+
 }

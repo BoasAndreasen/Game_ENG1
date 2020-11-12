@@ -30,6 +30,8 @@ public class AuberController implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
+        checkTelePadStop();
+
         if (keycode == 19 || keycode == 51) {
             upPressed = false;
         } else if (keycode == 20 || keycode == 47) {
@@ -159,5 +161,17 @@ public class AuberController implements InputProcessor {
             }
         }
         return false;
+    }
+
+    public void checkTelePadStop() {
+        for (int i = 0; i < world.getTelePads().size; i++) {
+            if ((world.getAuber().getX() >= world.getTelePads().get(i).getX()) && (world.getAuber().getX() <=
+                    world.getTelePads().get(i).getX() + world.getTelePads().get(i).getWidth()) && (
+                    (world.getAuber().getY() >= world.getTelePads().get(i).getY()) && (world.getAuber().getY() <=
+                            world.getTelePads().get(i).getY() + world.getTelePads().get(i).getHeight()))) {
+                world.getAuber().setX(0);
+                world.getAuber().setY(0);
+            }
+        }
     }
 }
