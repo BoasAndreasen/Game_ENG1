@@ -1,6 +1,5 @@
 package com.mygdx.game.controller;
 
-	
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.game.model.Auber;
 import com.mygdx.game.model.World;

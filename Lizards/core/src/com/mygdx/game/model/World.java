@@ -1,6 +1,7 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.controller.AuberController;
 
 public class World {
     private Auber auber;
@@ -10,13 +11,9 @@ public class World {
     public Array<System> systems = new Array<System>();
     public Array<HealthBar>systemhealthbars= new Array<HealthBar>();
     private HealthBar auberhealthbar;
-    private TeleportPad testtelepad;
+    private TeleportPad telePad;
     private HealPad healingPad;
-    
-    
-    //INFILTRATOR - Brian
     private Infiltrator infiltrator;
-
 
     public World() {
         createWorld();
@@ -42,8 +39,6 @@ public class World {
 
         //system health bars created below all with x=0,y=0 for now
         //health bar [0] corresponds to system [0]
-        
-        
         systemhealthbars.add(new HealthBar(0,0)); //0
         systemhealthbars.add(new HealthBar(0,0)); //1
         systemhealthbars.add(new HealthBar(0,0)); //2
@@ -60,15 +55,14 @@ public class World {
         systemhealthbars.add(new HealthBar(0,0)); //13
         systemhealthbars.add(new HealthBar(0,0)); //14
 
-
         // Aubers health bar - not rendered as may want a different texture
-        auberhealthbar=new HealthBar(0,0);
+        auberhealthbar = new HealthBar(0,0);
 
         //creating a test teleport pad
-        testtelepad=new TeleportPad(0,0);
+        telePad = new TeleportPad(700,300);
 
         //creating a healingPad
-        healingPad= new HealPad(0,0);
+        healingPad = new HealPad(0,0);
 
         auber = new Auber(0, 0, "left");
 
@@ -77,12 +71,8 @@ public class World {
         vertiWall.add(new VertiWall(500, 300));
 
         infiltrator = new Infiltrator(500, 300, "left");
-
     }
 
-    //INFILTRATOR - Brian
-    
-    
     public void updateInfiltratorLocationX() {
         if (this.getInfiltrator().getX() > this.getSystems().get(0).getX())
         {
@@ -97,7 +87,6 @@ public class World {
     }
 
     public void updateInfiltratorLocationY() {
-
         if (this.getInfiltrator().getY() > this.getSystems().get(0).getY())
         {
             this.getInfiltrator().addY(-5);
@@ -109,11 +98,17 @@ public class World {
         }
     }
 
-    public Auber getAuber() {return auber;}
+    public Auber getAuber() {
+        return auber;
+    }
 
-    public Array<System> getSystems(){return systems;}
+    public Array<System> getSystems(){
+        return systems;
+    }
 
-    public Array<HealthBar> getSystemhealthbars(){return systemhealthbars;}
+    public Array<HealthBar> getSystemhealthbars(){
+        return systemhealthbars;
+    }
 
     public Array<HorizWall> getHorizWall(){return horizWall;}
 
@@ -123,9 +118,9 @@ public class World {
 
     public Infiltrator getInfiltrator() {return infiltrator;}
 
-    public TeleportPad getTesttelepad(){return testtelepad;}
-
     public HealPad getHealingPad(){return healingPad;}
 
-
+    public TeleportPad getTelePad() {
+        return telePad;
+    }
 }

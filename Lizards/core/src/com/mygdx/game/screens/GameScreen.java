@@ -28,7 +28,7 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
 
-    //notification label
+    // Notification label
     private Timer timer;
     private Timer.Task task;
     private Label.LabelStyle notify_style;
@@ -37,7 +37,7 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Skin skin;
 
-    //IMAGES
+    // Images
     private Texture bucketImage; //Auber
     private Texture infiltratorImage; //Infiltrator
     private Texture systemImage; //System
@@ -45,7 +45,7 @@ public class GameScreen implements Screen {
     private Texture horizWallImage; //Wall
     private Texture vertiWallImage; //Wall
 
-    
+    // Camera location
     private boolean isRoom1 = true;
     private boolean isRoom2, isRoom3, isRoom4 = false;
 
@@ -62,23 +62,18 @@ public class GameScreen implements Screen {
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png")); //INFILTRATOR IMAGE - Brian
         
         //NOTIFICATION LABEL
-        timer= new Timer();
-        notify_style=new Label.LabelStyle();
-        my_font= new BitmapFont(Gdx.files.internal("my_font.fnt"));
-        stage=new Stage();
-        skin=new Skin(Gdx.files.internal("clean-crispy-ui.json"));
-        notify_style.font=my_font;
-        notify_style.background= skin.getDrawable("button");
-        notify_label= new Label("NOTIFY",notify_style);
+        timer = new Timer();
+        notify_style = new Label.LabelStyle();
+        my_font = new BitmapFont(Gdx.files.internal("my_font.fnt"));
+        stage = new Stage();
+        skin = new Skin(Gdx.files.internal("clean-crispy-ui.json"));
+        notify_style.font = my_font;
+        notify_style.background = skin.getDrawable("button");
+        notify_label = new Label("NOTIFY",notify_style);
         notify_label.setSize(600,100);
         notify_label.setPosition(100,500);
         notify_label.setAlignment(Align.center);
         stage.addActor(notify_label);
-
-
-
-        //INFILTRATOR IMAGE - Brian
-        infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png"));
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1200, 600);
@@ -96,23 +91,21 @@ public class GameScreen implements Screen {
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
 
         // render systems and health bars if they arent destroyed
-        
-        
-        for (int x=0;x<world.getSystems().size; x++){
-            if (!world.getSystems().get(x).isDestroyed()) { //systems
-                batch.draw(systemImage,world.getSystems().get(x).getX(),world.getSystems().get(x).getY());
+        for (int i = 0; i < world.getSystems().size; i++){
+            if (!world.getSystems().get(i).isDestroyed()) { //systems
+                batch.draw(systemImage,world.getSystems().get(i).getX(),world.getSystems().get(i).getY());
 
                 //render health bars
-                if (world.getSystems().get(x).getHealth()>=70){ batch.setColor(Color.GREEN); }
-                else if (world.getSystems().get(x).getHealth()>=40){batch.setColor(Color.ORANGE);}
+                if (world.getSystems().get(i).getHealth()>=70){ batch.setColor(Color.GREEN); }
+                else if (world.getSystems().get(i).getHealth()>=40){batch.setColor(Color.ORANGE);}
                 else {batch.setColor(Color.RED);}
-                batch.draw(healthImg,world.getSystemhealthbars().get(x).getX(),world.getSystemhealthbars().get(x).getY());
+                batch.draw(healthImg,world.getSystemhealthbars().get(i).getX(),world.getSystemhealthbars().get(i).getY());
                 batch.setColor(Color.WHITE);
             }
 
             // render notifications 
-            if(world.getSystems().get(x).notifyPlayer()){ //show notification
-                notify_label.setText("System " + x + " is being sabotaged!");
+            if(world.getSystems().get(i).notifyPlayer()){ //show notification
+                notify_label.setText("System " + i + " is being sabotaged!");
                 stage.draw();
                 task= new Timer.Task() {
                     @Override
@@ -136,9 +129,11 @@ public class GameScreen implements Screen {
         }
 		
 
-
         //INFILTRATOR - Brian
         batch.draw(infiltratorImage, world.getInfiltrator().getX(),world.getInfiltrator().getY());
+
+        batch.draw(bucketImage, world.getTelePad().getX(), world.getTelePad().getY());
+
         batch.end();
         world.updateInfiltratorLocationX();
         world.updateInfiltratorLocationY();
@@ -158,7 +153,7 @@ public class GameScreen implements Screen {
     	//System.out.println(world.blocks);
     	
     }
-    
+
     private void updateAuberLocation() {
         if (auberController.isUpPressed()) {
             if (!(world.getAuber().getY() >= 1100)) {
@@ -185,8 +180,6 @@ public class GameScreen implements Screen {
                 }
             }
         }
-        
-
     }
 
     private void updateCameraRoomLocation() {

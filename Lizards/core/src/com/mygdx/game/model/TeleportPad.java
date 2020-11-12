@@ -3,21 +3,16 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.math.Rectangle;
 
 public class TeleportPad extends Rectangle {
-
     private final float x;
     private final float y;
+    private final float width;
+    private final float height;
 
     public TeleportPad (float x, float y){
-        this.x=x;
-        this.y=y;
-    }
-
-    public void TeleLocations(){
-        //TODO when clicked gives list of tele locations
-    }
-
-    public void Teleport(){
-        //TODO teleports you to another room
+        this.x = x;
+        this.y = y;
+        this.width = 100;
+        this.height = 100;
     }
 
     @Override
@@ -27,6 +22,24 @@ public class TeleportPad extends Rectangle {
 
     @Override
     public float getY() {
-        return x;
+        return y;
+    }
+
+    @Override
+    public float getWidth() {
+        return width;
+    }
+
+    @Override
+    public float getHeight() {
+        return height;
+    }
+
+    public void TeleLocations(){
+        //TODO when clicked gives list of tele locations
+    }
+
+    public void Teleport(){
+        //TODO teleports you to another room
     }
 }

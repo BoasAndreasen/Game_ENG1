@@ -28,7 +28,7 @@ public class System extends Rectangle {
 
     @Override
     public float getY() {
-        return x;
+        return y;
     }
     
     public boolean notifyPlayer(){ //tells the game screen to render or not
