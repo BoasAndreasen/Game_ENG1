@@ -91,11 +91,44 @@ public class AuberController implements InputProcessor {
     }
 
     public boolean checkUpBlockCollission(int addedY) {
+        // if between 400-600 for 500 then block
         for (int i = 0; i < world.getBlocks().size; i++) {
-            if (world.getAuber().getX() <= world.getBlocks().get(i).getX() &&
-                world.getAuber().getX() + world.getAuber().getWidth() >= world.getBlocks().get(i).getX()
-                && world.getAuber().getY() + world.getAuber().getHeight() + addedY == world.getBlocks().get(i).getY()) {
-                System.out.println("COLLIDED");
+            if ((world.getAuber().getX() >= world.getBlocks().get(i).getX() - world.getAuber().getWidth()) &&
+                    (world.getAuber().getX() <= world.getBlocks().get(i).getX() + world.getAuber().getWidth())
+                && (world.getAuber().getY() + world.getAuber().getHeight() + addedY == world.getBlocks().get(i).getY())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkDownBlockCollission(int addedY) {
+        for (int i = 0; i < world.getBlocks().size; i++) {
+            if ((world.getAuber().getX() >= world.getBlocks().get(i).getX() - world.getAuber().getWidth()) &&
+                    (world.getAuber().getX() <= world.getBlocks().get(i).getX() + world.getAuber().getWidth())
+                    && (world.getAuber().getY() - addedY - world.getAuber().getHeight() == world.getBlocks().get(i).getY())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkLeftBlockCollission(int addedX) {
+        for (int i = 0; i < world.getBlocks().size; i++) {
+            if ((world.getAuber().getY() >= world.getBlocks().get(i).getY() - world.getAuber().getHeight()) &&
+                    (world.getAuber().getY() <= world.getBlocks().get(i).getY() + world.getAuber().getHeight())
+                    && (world.getAuber().getX() - addedX - world.getAuber().getWidth() == world.getBlocks().get(i).getX())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkRightBlockCollission(int addedX) {
+        for (int i = 0; i < world.getBlocks().size; i++) {
+            if ((world.getAuber().getY() >= world.getBlocks().get(i).getY() - world.getAuber().getHeight()) &&
+                    (world.getAuber().getY() <= world.getBlocks().get(i).getY() + world.getAuber().getHeight())
+                    && (world.getAuber().getX() + addedX + world.getAuber().getWidth() == world.getBlocks().get(i).getX())) {
                 return true;
             }
         }
