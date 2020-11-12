@@ -44,6 +44,7 @@ public class GameScreen implements Screen {
     private Texture healthImg; //System/Auber Health Bar
     private Texture horizWallImage; //Wall
     private Texture vertiWallImage; //Wall
+    private Texture teleportPadImage; // TeleportPad
 
     // Camera location
     private boolean isRoom1 = true;
@@ -60,6 +61,7 @@ public class GameScreen implements Screen {
         horizWallImage = new Texture(Gdx.files.internal("HorizontalWall.png"));
         vertiWallImage = new Texture(Gdx.files.internal("VerticalWall.png"));
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png")); //INFILTRATOR IMAGE - Brian
+        teleportPadImage = new Texture(Gdx.files.internal("TeleportPad.png"));
         
         //NOTIFICATION LABEL
         timer = new Timer();
@@ -127,12 +129,11 @@ public class GameScreen implements Screen {
         for (int j = 0; j < world.getVertiWall().size; j++) {
             batch.draw(vertiWallImage, world.getVertiWall().get(j).getX(), world.getVertiWall().get(j).getY());
         }
-		
 
         //INFILTRATOR - Brian
         batch.draw(infiltratorImage, world.getInfiltrator().getX(),world.getInfiltrator().getY());
 
-        batch.draw(bucketImage, world.getTelePad().getX(), world.getTelePad().getY());
+        batch.draw(teleportPadImage, world.getTelePad().getX(), world.getTelePad().getY());
 
         batch.end();
         world.updateInfiltratorLocationX();

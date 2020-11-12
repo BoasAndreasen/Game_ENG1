@@ -59,7 +59,7 @@ public class World {
         auberhealthbar = new HealthBar(0,0);
 
         //creating a test teleport pad
-        //telePad = new TeleportPad(900,300);
+        telePad = new TeleportPad(900,300);
 
         //creating a healingPad
         healingPad = new HealPad(0,0);
@@ -69,7 +69,6 @@ public class World {
         horizWall.add(new HorizWall(500, 300));
         horizWall.add(new HorizWall(600, 300));
         vertiWall.add(new VertiWall(700, 300));
-        vertiWall.add(new VertiWall(900, 300));
 
         infiltrator = new Infiltrator(100, 300, "left");
     }
