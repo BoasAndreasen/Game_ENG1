@@ -39,8 +39,9 @@ public class GameScreen implements Screen {
     private Texture horizWallImage; //Wall
     private Texture vertiWallImage; //Wall
     private Texture teleportPadImage; // TeleportPad
-    private Texture healPadImage; // Healing Pad
     private Texture bombImage; //bomb
+    private Texture healPadImage; // Healing Pad
+    private Texture teleportPadMapImage; // TeleportPad Map
 
     // Camera location
     private boolean isRoom1 = true;
@@ -58,9 +59,9 @@ public class GameScreen implements Screen {
         vertiWallImage = new Texture(Gdx.files.internal("VerticalWall.png"));
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png")); //INFILTRATOR IMAGE - Brian
         teleportPadImage = new Texture(Gdx.files.internal("TeleportPad.png"));
-        healPadImage = new Texture(Gdx.files.internal("HealPad.png"));
+        teleportPadMapImage = new Texture(Gdx.files.internal("map.png"));
         bombImage= new Texture(Gdx.files.internal("bomb.png"));
-
+        healPadImage = new Texture(Gdx.files.internal("HealPad.png"));
         
         //NOTIFICATION LABEL
         timer = new Timer();
@@ -141,6 +142,16 @@ public class GameScreen implements Screen {
             batch.draw(bombImage,world.getInfiltrator().getX()-30,world.getInfiltrator().getY());
         }
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
+
+        if (auberController.getStandingOnTelePad() && isRoom1) {
+            batch.draw(teleportPadMapImage, 120,60);
+        } else if (auberController.getStandingOnTelePad() && isRoom3) {
+            batch.draw(teleportPadMapImage, 1320,60);
+        } else if (auberController.getStandingOnTelePad() && isRoom2) {
+            batch.draw(teleportPadMapImage, 120,660);
+        } else if (auberController.getStandingOnTelePad() && isRoom4) {
+            batch.draw(teleportPadMapImage, 1320,660);
+        }
 
         batch.end();
         world.updateInfiltratorLocationX();

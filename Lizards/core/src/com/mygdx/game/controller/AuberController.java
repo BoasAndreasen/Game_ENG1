@@ -7,6 +7,7 @@ import com.mygdx.game.model.World;
 public class AuberController implements InputProcessor {
     private World world;
     private Auber auber;
+    private boolean standingOnTelePad;
     private boolean leftPressed, rightPressed, downPressed, upPressed;
 
     public AuberController(World world) {
@@ -16,6 +17,8 @@ public class AuberController implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        standingOnTelePad = false;
+
         if (keycode == 19 || keycode == 51) {
             upPressed = true;
         } else if (keycode == 20 || keycode == 47) {
@@ -57,6 +60,14 @@ public class AuberController implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if (standingOnTelePad) {
+            if (screenX >= 200 && screenX <= 400 && screenY >= 140 && screenY <= 220) {
+                world.getAuber().setX((int) world.getTelePads().get(0).getX() + 20);
+                world.getAuber().setY((int) world.getTelePads().get(0).getY() + 20);
+                standingOnTelePad = false;
+            } //TODO ADD OTHER LOCATIONS
+        }
+
         return false;
     }
 
@@ -169,9 +180,12 @@ public class AuberController implements InputProcessor {
                     world.getTelePads().get(i).getX() + world.getTelePads().get(i).getWidth()) && (
                     (world.getAuber().getY() >= world.getTelePads().get(i).getY()) && (world.getAuber().getY() <=
                             world.getTelePads().get(i).getY() + world.getTelePads().get(i).getHeight()))) {
-                world.getAuber().setX(0);
-                world.getAuber().setY(0);
+                standingOnTelePad = true;
             }
         }
+    }
+
+    public boolean getStandingOnTelePad() {
+        return standingOnTelePad;
     }
 }
