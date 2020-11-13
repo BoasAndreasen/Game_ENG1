@@ -45,7 +45,11 @@ public class GameScreen implements Screen {
     private Texture horizWallImage; //Wall
     private Texture vertiWallImage; //Wall
     private Texture teleportPadImage; // TeleportPad
+<<<<<<< Updated upstream
     private Texture healPadImage; // Healing Pad
+=======
+    private Texture bombImage; //bomb
+>>>>>>> Stashed changes
 
     // Camera location
     private boolean isRoom1 = true;
@@ -63,7 +67,12 @@ public class GameScreen implements Screen {
         vertiWallImage = new Texture(Gdx.files.internal("VerticalWall.png"));
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png")); //INFILTRATOR IMAGE - Brian
         teleportPadImage = new Texture(Gdx.files.internal("TeleportPad.png"));
+<<<<<<< Updated upstream
         healPadImage = new Texture(Gdx.files.internal("HealPad.png"));
+=======
+        bombImage= new Texture(Gdx.files.internal("bomb.png"));
+
+>>>>>>> Stashed changes
         
         //NOTIFICATION LABEL
         timer = new Timer();
@@ -78,6 +87,7 @@ public class GameScreen implements Screen {
         notify_label.setPosition(100,500);
         notify_label.setAlignment(Align.center);
         stage.addActor(notify_label);
+
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1200, 600);
@@ -99,11 +109,11 @@ public class GameScreen implements Screen {
                 batch.draw(systemImage,world.getSystems().get(i).getX(),world.getSystems().get(i).getY());
 
                 //render health bars
-                if (world.getSystems().get(i).getHealth()>=70){ batch.setColor(Color.GREEN); }
-                else if (world.getSystems().get(i).getHealth()>=40){batch.setColor(Color.ORANGE);}
-                else {batch.setColor(Color.RED);}
-                batch.draw(healthImg,world.getSystemhealthbars().get(i).getX(),world.getSystemhealthbars().get(i).getY());
-                batch.setColor(Color.WHITE);
+                //if (world.getSystems().get(i).getHealth()>=70){ batch.setColor(Color.GREEN); }
+                //else if (world.getSystems().get(i).getHealth()>=40){batch.setColor(Color.ORANGE);}
+                //else {batch.setColor(Color.RED);}
+                //batch.draw(healthImg,world.getSystemhealthbars().get(i).getX(),world.getSystemhealthbars().get(i).getY());
+                //batch.setColor(Color.WHITE);
             }
 
             // render notifications 
@@ -138,11 +148,15 @@ public class GameScreen implements Screen {
         }
 
         batch.draw(infiltratorImage, world.getInfiltrator().getX(),world.getInfiltrator().getY());
+        if (world.getInfiltrator().getAbility()=="bombs"){
+            batch.draw(bombImage,world.getInfiltrator().getX()-30,world.getInfiltrator().getY());
+        }
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
 
         batch.end();
         world.updateInfiltratorLocationX();
         world.updateInfiltratorLocationY();
+
         updateAuberLocation();
         updateCameraRoomLocation();
         testcodes();

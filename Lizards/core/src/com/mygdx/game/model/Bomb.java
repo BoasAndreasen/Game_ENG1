@@ -2,9 +2,11 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.math.Rectangle;
 
+import java.util.Random;
+
 public class Bomb extends Rectangle {
-    private final float x;
-    private final float y;
+    private float x;
+    private float y;
     private final float width;
     private final float height;
 
@@ -15,15 +17,7 @@ public class Bomb extends Rectangle {
         this.height = 100;
     }
 
-    @Override
-    public float getX() {
-        return x;
-    }
 
-    @Override
-    public float getY() {
-        return y;
-    }
 
     @Override
     public float getWidth() {
@@ -34,4 +28,12 @@ public class Bomb extends Rectangle {
     public float getHeight() {
         return height;
     }
+
+    public int randBomb(){ //
+        int min=0;
+        int max=1;
+        Random rand= new Random();
+        int n= rand.nextInt(2);
+        return n;
+    } //randomly chooses 0 or 1
 }

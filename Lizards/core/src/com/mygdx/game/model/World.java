@@ -15,6 +15,7 @@ public class World {
     private HealthBar auberhealthbar;
     private HealPad healingPad;
     private Infiltrator infiltrator;
+    private Bomb bomb;
 
     public World() {
         createWorld();
@@ -44,6 +45,7 @@ public class World {
         healingPad = new HealPad(900,500);
 
         auber = new Auber(0, 0, "left");
+
 
         //screen 1 walls
         List<Integer> screen1HorizWallsX = Arrays.asList(200, 300, 400, 500, 600, 700, 800,
@@ -101,7 +103,10 @@ public class World {
         for (int i=0; i < screen4VertiWallsX.size(); i++) {
             vertiWall.add(new VertiWall(screen4VertiWallsX.get(i), screen4VertiWallsY.get(i))); }
 
-        infiltrator = new Infiltrator(100, 300, "left");
+        infiltrator = new Infiltrator(100, 300, "left", "bombs",false);
+
+        //bomb
+        bomb = new Bomb(infiltrator.getX(), infiltrator.getY());
     }
 
     public void updateInfiltratorLocationX() {
@@ -129,6 +134,8 @@ public class World {
         }
     }
 
+
+
     public Auber getAuber() {
         return auber;
     }
@@ -152,6 +159,10 @@ public class World {
     public Infiltrator getInfiltrator() {return infiltrator;}
 
     public HealPad getHealingPad(){return healingPad;}
+
+    public Bomb getBomb(){return bomb;}
+
+
 
 
 }
