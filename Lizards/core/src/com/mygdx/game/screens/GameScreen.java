@@ -45,6 +45,7 @@ public class GameScreen implements Screen {
     private Texture horizWallImage; //Wall
     private Texture vertiWallImage; //Wall
     private Texture teleportPadImage; // TeleportPad
+    private Texture healPadImage; // Healing Pad
 
     // Camera location
     private boolean isRoom1 = true;
@@ -62,6 +63,7 @@ public class GameScreen implements Screen {
         vertiWallImage = new Texture(Gdx.files.internal("VerticalWall.png"));
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png")); //INFILTRATOR IMAGE - Brian
         teleportPadImage = new Texture(Gdx.files.internal("TeleportPad.png"));
+        healPadImage = new Texture(Gdx.files.internal("HealPad.png"));
         
         //NOTIFICATION LABEL
         timer = new Timer();
@@ -117,6 +119,11 @@ public class GameScreen implements Screen {
                 timer.scheduleTask(task,5); //clear after 5 seconds
             }
         }
+        batch.draw(healPadImage, world.getHealingPad().getX(), world.getHealingPad().getY());
+
+        for (int i = 0; i < world.getTelePads().size; i++) {
+            batch.draw(teleportPadImage, world.getTelePads().get(i).getX(), world.getTelePads().get(i).getY());
+        }
 
         for (int x = 0; x < world.getSystems().size; x++) {
             batch.draw(systemImage, world.getSystems().get(x).getX(), world.getSystems().get(x).getY());
@@ -128,10 +135,6 @@ public class GameScreen implements Screen {
 
         for (int i = 0; i < world.getVertiWall().size; i++) {
             batch.draw(vertiWallImage, world.getVertiWall().get(i).getX(), world.getVertiWall().get(i).getY());
-        }
-
-        for (int i = 0; i < world.getTelePads().size; i++) {
-            batch.draw(teleportPadImage, world.getTelePads().get(i).getX(), world.getTelePads().get(i).getY());
         }
 
         batch.draw(infiltratorImage, world.getInfiltrator().getX(),world.getInfiltrator().getY());

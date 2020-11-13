@@ -21,50 +21,27 @@ public class World {
     }
 
     private void createWorld() {
-        //systems created below all with x=0,y=0 for now
-        systems.add(new System(300,300,100,false)); //0
-        systems.add(new System(300,400,100,false)); //1
-        systems.add(new System(400,500,100,false)); //2
-        systems.add(new System(0,0,100,false)); //3
-        systems.add(new System(0,0,100,false)); //4
-        systems.add(new System(0,0,100,false)); //5
-        systems.add(new System(0,0,100,false)); //6
-        systems.add(new System(0,0,100,false)); //7
-        systems.add(new System(0,0,100,false)); //8
-        systems.add(new System(0,0,100,false)); //9
-        systems.add(new System(0,0,100,false)); //10
-        systems.add(new System(0,0,100,false)); //11
-        systems.add(new System(0,0,100,false)); //12
-        systems.add(new System(0,0,100,false)); //13
-        systems.add(new System(0,0,100,false)); //14
+        //systems and their corresponding health bars
+        List<Integer> systemX = Arrays.asList(600, 400, 1100, 700, 1500, 1500, 2300, 2300,
+                300, 600, 700, 1300, 1200, 2300, 2300);
+        List<Integer> systemY = Arrays.asList(800, 600, 900, 600, 900, 600, 1000, 800,
+                200, 500, 500, 500, 200, 500, 0);
+        for (int i=0; i < systemX.size(); i++) {
+            systems.add(new System(systemX.get(i), systemY.get(i), 100, false));
+            systemhealthbars.add(new HealthBar(systemX.get(i), systemY.get(i))); }
 
-        //system health bars created below all with x=0,y=0 for now
-        //health bar [0] corresponds to system [0]
-        systemhealthbars.add(new HealthBar(0,0)); //0
-        systemhealthbars.add(new HealthBar(0,0)); //1
-        systemhealthbars.add(new HealthBar(0,0)); //2
-        systemhealthbars.add(new HealthBar(0,0)); //3
-        systemhealthbars.add(new HealthBar(0,0)); //4
-        systemhealthbars.add(new HealthBar(0,0)); //5
-        systemhealthbars.add(new HealthBar(0,0)); //6
-        systemhealthbars.add(new HealthBar(0,0)); //7
-        systemhealthbars.add(new HealthBar(0,0)); //8
-        systemhealthbars.add(new HealthBar(0,0)); //9
-        systemhealthbars.add(new HealthBar(0,0)); //10
-        systemhealthbars.add(new HealthBar(0,0)); //11
-        systemhealthbars.add(new HealthBar(0,0)); //12
-        systemhealthbars.add(new HealthBar(0,0)); //13
-        systemhealthbars.add(new HealthBar(0,0)); //14
 
         // Aubers health bar - not rendered as may want a different texture
         auberhealthbar = new HealthBar(0,0);
 
-        //creating a test teleport pad
-        telePads.add(new TeleportPad(1000,300));
-        telePads.add(new TeleportPad(1000,0));
+        //creating teleport pads
+        List<Integer> telepadX = Arrays.asList(200, 1100, 1200, 2300, 600, 1100, 1500, 2300);
+        List<Integer> telepadY = Arrays.asList(800, 600, 900, 600, 200, 500, 500, 200);
+        for (int i=0; i < telepadX.size(); i++) {
+            telePads.add(new TeleportPad(telepadX.get(i), telepadY.get(i))); }
 
-        //creating a healingPad
-        healingPad = new HealPad(0,0);
+        //creating a healing pad
+        healingPad = new HealPad(900,500);
 
         auber = new Auber(0, 0, "left");
 
