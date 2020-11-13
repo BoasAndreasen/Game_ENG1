@@ -2,7 +2,6 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.utils.Array;
 import java.util.*;
-import com.mygdx.game.controller.AuberController;
 
 public class World {
     private Auber auber;
@@ -27,9 +26,15 @@ public class World {
                 300, 600, 700, 1300, 1200, 2300, 2300);
         List<Integer> systemY = Arrays.asList(800, 600, 900, 600, 900, 600, 1000, 800,
                 200, 500, 500, 500, 200, 500, 0);
+
+        infiltrator = new Infiltrator(100, 300, "left", "bombs",false);
+        //bomb
+        bomb = new Bomb(infiltrator.getX(), infiltrator.getY());
+
         for (int i=0; i < systemX.size(); i++) {
             systems.add(new System(systemX.get(i), systemY.get(i), 100, false));
             systemhealthbars.add(new HealthBar(systemX.get(i), systemY.get(i))); }
+
 
 
         // Aubers health bar - not rendered as may want a different texture
@@ -44,7 +49,7 @@ public class World {
         //creating a healing pad
         healingPad = new HealPad(900,500);
 
-        auber = new Auber(0, 0, "left");
+        auber = new Auber(0, 0, "left",100);
 
 
         //screen 1 walls
@@ -103,10 +108,22 @@ public class World {
         for (int i=0; i < screen4VertiWallsX.size(); i++) {
             vertiWall.add(new VertiWall(screen4VertiWallsX.get(i), screen4VertiWallsY.get(i))); }
 
-        infiltrator = new Infiltrator(100, 300, "left", "bombs",false);
 
-        //bomb
-        bomb = new Bomb(infiltrator.getX(), infiltrator.getY());
+        //throws 1 bomb at auber test
+        if (infiltrator.getAbility()=="bombs"){
+            if (bomb.randBomb()==1) { //throw bomb at auber
+                auber.setHealth(20);
+            }
+            if (bomb.randBomb()==0) { //throw bomb at system
+                for (int a=0 ; a< systems.size;a++){
+                    if ((infiltrator.getX()==systems.get(a).getX())&& (infiltrator.getY()==systems.get(a).getY())){
+                        systems.get(a).setHealth(20);
+                    }
+                }
+            }
+
+        }
+
     }
 
     public void updateInfiltratorLocationX() {
@@ -161,6 +178,8 @@ public class World {
     public HealPad getHealingPad(){return healingPad;}
 
     public Bomb getBomb(){return bomb;}
+
+
 
 
 

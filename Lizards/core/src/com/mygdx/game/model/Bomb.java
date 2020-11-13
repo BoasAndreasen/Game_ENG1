@@ -36,4 +36,6 @@ public class Bomb extends Rectangle {
         int n= rand.nextInt(2);
         return n;
     } //randomly chooses 0 or 1
+
+
 }

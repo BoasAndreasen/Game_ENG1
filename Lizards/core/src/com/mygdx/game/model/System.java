@@ -12,6 +12,7 @@ public class System extends Rectangle {
     private boolean isDestroyed;
 
 
+
     public System(float x, float y, float health, boolean isDestroyed){
         this.x = x;
         this.y = y;
@@ -43,7 +44,7 @@ public class System extends Rectangle {
     }
 
     public void setHealth(int health) {
-        this.health -= health;
+        this.health = this.health - health;
     }
 
     public boolean isDestroyed() {
@@ -59,5 +60,7 @@ public class System extends Rectangle {
         }
 
     }
+
+
 
 }

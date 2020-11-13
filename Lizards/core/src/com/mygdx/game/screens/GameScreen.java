@@ -2,23 +2,17 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.model.World;
 import com.mygdx.game.controller.AuberController;
 
@@ -45,11 +39,8 @@ public class GameScreen implements Screen {
     private Texture horizWallImage; //Wall
     private Texture vertiWallImage; //Wall
     private Texture teleportPadImage; // TeleportPad
-<<<<<<< Updated upstream
     private Texture healPadImage; // Healing Pad
-=======
     private Texture bombImage; //bomb
->>>>>>> Stashed changes
 
     // Camera location
     private boolean isRoom1 = true;
@@ -67,12 +58,9 @@ public class GameScreen implements Screen {
         vertiWallImage = new Texture(Gdx.files.internal("VerticalWall.png"));
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png")); //INFILTRATOR IMAGE - Brian
         teleportPadImage = new Texture(Gdx.files.internal("TeleportPad.png"));
-<<<<<<< Updated upstream
         healPadImage = new Texture(Gdx.files.internal("HealPad.png"));
-=======
         bombImage= new Texture(Gdx.files.internal("bomb.png"));
 
->>>>>>> Stashed changes
         
         //NOTIFICATION LABEL
         timer = new Timer();
@@ -148,6 +136,7 @@ public class GameScreen implements Screen {
         }
 
         batch.draw(infiltratorImage, world.getInfiltrator().getX(),world.getInfiltrator().getY());
+
         if (world.getInfiltrator().getAbility()=="bombs"){
             batch.draw(bombImage,world.getInfiltrator().getX()-30,world.getInfiltrator().getY());
         }
@@ -156,7 +145,6 @@ public class GameScreen implements Screen {
         batch.end();
         world.updateInfiltratorLocationX();
         world.updateInfiltratorLocationY();
-
         updateAuberLocation();
         updateCameraRoomLocation();
         testcodes();
