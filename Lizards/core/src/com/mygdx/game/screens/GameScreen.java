@@ -118,7 +118,7 @@ public class GameScreen implements Screen {
             }
         }
 
-        for (int x = 0; x < world.getHorizWall().size && x < world.getVertiWall().size; x++) {
+        for (int x = 0; x < world.getSystems().size; x++) {
             batch.draw(systemImage, world.getSystems().get(x).getX(), world.getSystems().get(x).getY());
         }
 
