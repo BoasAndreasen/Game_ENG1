@@ -166,10 +166,16 @@ public class GameScreen implements Screen {
         }
 
 
-        batch.draw(infiltratorImage, world.getInfiltrator().getX(),world.getInfiltrator().getY());
-        if (world.getInfiltrator().getAbility()=="bombs"){
-            batch.draw(bombImage,world.getInfiltrator().getX()-30,world.getInfiltrator().getY());
+        batch.draw(infiltratorImage, world.getInfiltrators().get(0).getX(),world.getInfiltrators().get(0).getY());
+        for (int i=0;i<world.getInfiltrators().size;i++){ //just drawing the first hostile for now
+            if (world.getInfiltrators().get(i).getAbility()=="bombs"){
+                if (i==0){
+                    batch.draw(bombImage,world.getInfiltrators().get(i).getX()-30,world.getInfiltrators().get(i).getY());
+                }
+
+            }
         }
+
 
 
         batch.end();

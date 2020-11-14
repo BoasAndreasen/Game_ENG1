@@ -2,6 +2,7 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
+import sun.tools.jar.Main;
 
 import java.util.*;
 
@@ -9,12 +10,12 @@ public class World {
     private Auber auber;
     public Array<HorizWall> horizWall = new Array<HorizWall>();
     public Array<VertiWall> vertiWall = new Array<VertiWall>();
-    //public Array<Infiltrator> hostiles = new Array<Infiltrator>();
+    public Array<Infiltrator> hostiles = new Array<Infiltrator>();
     public Array<System> systems = new Array<System>();
     public Array<TeleportPad> telePads = new Array<TeleportPad>();
     private HealPad healingPad;
-    private Infiltrator infiltrator;
     private Bomb bomb;
+    private Infiltrator currentHostile;
     private Timer timer;
     private Timer.Task task;
 
@@ -29,9 +30,21 @@ public class World {
         List<Integer> systemY = Arrays.asList(800, 600, 900, 600, 900, 600, 1000, 800,
                 200, 500, 500, 500, 200, 500, 0);
 
-        infiltrator = new Infiltrator(100, 300, "left", "bombs",false);
+        //add hostiles
+        hostiles.add(new Infiltrator(100,300,"left","bombs",false));
+        hostiles.add(new Infiltrator(0,0,"left","bombs",false));
+        hostiles.add(new Infiltrator(0,0,"left","invisible",false));
+        hostiles.add(new Infiltrator(0,0,"left","invisible",false));
+        hostiles.add(new Infiltrator(0,0,"left","none",false));
+        hostiles.add(new Infiltrator(0,0,"left","none",false));
+        hostiles.add(new Infiltrator(0,0,"left","shield",false));
+        hostiles.add(new Infiltrator(0,0,"left","shield",false));
+
+
         //bomb
-        bomb = new Bomb(infiltrator.getX(), infiltrator.getY());
+        bomb = new Bomb();
+
+
         timer= new Timer();
 
         for (int i=0; i < systemX.size(); i++) {
@@ -112,60 +125,67 @@ public class World {
             vertiWall.add(new VertiWall(screen4VertiWallsX.get(i), screen4VertiWallsY.get(i))); }
 
 
-
-        if (infiltrator.getAbility()=="bombs"){ //throws 3 bombs at auber or system
-            task=new Timer.Task() {
-                @Override
-                public void run() {
-                    if (bomb.randBomb()==1) { //throw bomb at auber if he is in 400 radius
-                        if (((auber.getX()>infiltrator.getX())&& (auber.getX()<infiltrator.getX()+400) && ((auber.getY()>infiltrator.getY())&& (auber.getY()<infiltrator.getY()+400)))||
-                                ((auber.getX()<infiltrator.getX())&& (auber.getX()>infiltrator.getX()-400)&& (auber.getY()>infiltrator.getY())&& (auber.getY()<infiltrator.getY()+400)) ||
-                                ((auber.getX()>infiltrator.getX())&& (auber.getX()<infiltrator.getX()+400) && ((auber.getY()<infiltrator.getY())&& (auber.getY()>infiltrator.getY()-400)))||
-                                ((auber.getX()<infiltrator.getX())&& (auber.getX()>infiltrator.getX()-400)&& (auber.getY()<infiltrator.getY())&& (auber.getY()>infiltrator.getY()-400))){
-                            auber.setHealth(20);
+        for (int a=0;a<hostiles.size;a++){
+            if (hostiles.get(a).getAbility()=="bombs"){ //throws 3 bombs at auber or system
+                currentHostile=hostiles.get(a);
+                task=new Timer.Task() {
+                    @Override
+                    public void run() {
+                        if (bomb.randBomb()==1) { //throw bomb at auber if he is in 400 radius
+                            if (((auber.getX()>currentHostile.getX())&& (auber.getX()<currentHostile.getX()+400) && ((auber.getY()>currentHostile.getY())&& (auber.getY()<currentHostile.getY()+400)))||
+                                    ((auber.getX()<currentHostile.getX())&& (auber.getX()>currentHostile.getX()-400)&& (auber.getY()>currentHostile.getY())&& (auber.getY()<currentHostile.getY()+400)) ||
+                                    ((auber.getX()>currentHostile.getX())&& (auber.getX()<currentHostile.getX()+400) && ((auber.getY()<currentHostile.getY())&& (auber.getY()>currentHostile.getY()-400)))||
+                                    ((auber.getX()<currentHostile.getX())&& (auber.getX()>currentHostile.getX()-400)&& (auber.getY()<currentHostile.getY())&& (auber.getY()>currentHostile.getY()-400))){
+                                auber.setHealth(20);
+                            }
                         }
-                    }
-                    if (bomb.randBomb()==0) { //throw bomb at system
-                        for (int a=0 ; a< systems.size;a++){
-                            if ((infiltrator.getX()==systems.get(a).getX())&& (infiltrator.getY()==systems.get(a).getY())){
-                                systems.get(a).setHealth(20);
+                        if (bomb.randBomb()==0) { //throw bomb at system
+                            for (int a=0 ; a< systems.size;a++){
+                                if ((currentHostile.getX()==systems.get(a).getX())&& (currentHostile.getY()==systems.get(a).getY())){
+                                    systems.get(a).setHealth(20);
+                                }
                             }
                         }
                     }
-                }
-            };
+                };
 
-            timer.scheduleTask(task,2,2,3); //throw 3 bombs at 2 sec intervals
+                timer.scheduleTask(task,2,2,3); //throw 3 bombs at 2 sec intervals
 
-        }
+            }}
 
     }
 
 
 
     public void updateInfiltratorLocationX() {
-        if (this.getInfiltrator().getX() > this.getSystems().get(0).getX())
-        {
-        	
-            this.getInfiltrator().addX(-5);
+        for (int y=0;y<this.hostiles.size;y++){
+            if (this.getInfiltrators().get(y).getX() > this.getSystems().get(0).getX())
+            {
+
+                this.getInfiltrators().get(y).addX(-5);
+            }
+
+            if (this.getInfiltrators().get(y).getX() < this.getSystems().get(0).getX())
+            {
+                this.getInfiltrators().get(y).addX(5);
+            }
+
+
         }
 
-        if (this.getInfiltrator().getX() < this.getSystems().get(0).getX())
-        {
-            this.getInfiltrator().addX(5);
-        }
     }
 
     public void updateInfiltratorLocationY() {
-        if (this.getInfiltrator().getY() > this.getSystems().get(0).getY())
+        for (int y=0;y<this.hostiles.size;y++){
+        if (this.getInfiltrators().get(y).getY() > this.getSystems().get(0).getY())
         {
-            this.getInfiltrator().addY(-5);
+            this.getInfiltrators().get(y).addY(-5);
         }
 
-        if (this.getInfiltrator().getY() < this.getSystems().get(0).getY())
+        if (this.getInfiltrators().get(y).getY() < this.getSystems().get(0).getY())
         {
-            this.getInfiltrator().addY(5);
-        }
+            this.getInfiltrators().get(y).addY(5);
+        }}
     }
 
 
@@ -185,11 +205,12 @@ public class World {
 
     public Array<TeleportPad> getTelePads(){return telePads;}
 
-    public Infiltrator getInfiltrator() {return infiltrator;}
+    public Array<Infiltrator> getInfiltrators() {return hostiles;}
 
     public HealPad getHealingPad(){return healingPad;}
 
     public Bomb getBomb(){return bomb;}
+
 
 
 
