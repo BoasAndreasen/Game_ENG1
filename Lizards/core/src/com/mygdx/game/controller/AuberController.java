@@ -62,12 +62,50 @@ public class AuberController implements InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         if (standingOnTelePad) {
             if (screenX >= 200 && screenX <= 400 && screenY >= 140 && screenY <= 220) {
+                // Armory
                 world.getAuber().setX((int) world.getTelePads().get(0).getX() + 20);
                 world.getAuber().setY((int) world.getTelePads().get(0).getY() + 20);
                 standingOnTelePad = false;
-            } //TODO ADD OTHER LOCATIONS
+            } else if (screenX >= 404 && screenX <= 600 && screenY >= 144 && screenY <= 300) {
+                // Contorl room
+                world.getAuber().setX((int) world.getTelePads().get(1).getX() + 10);
+                world.getAuber().setY((int) world.getTelePads().get(1).getY() + 20);
+                standingOnTelePad = false;
+            } else if (screenX >= 604 && screenX <= 760 && screenY >= 140 && screenY <= 300) {
+                // Cantine
+                world.getAuber().setX((int) world.getTelePads().get(2).getX() + 20);
+                world.getAuber().setY((int) world.getTelePads().get(2).getY() + 20);
+                standingOnTelePad = false;
+            } else if (screenX >= 840 && screenX <= 1080 && screenY >= 220 && screenY <= 300) {
+                // Brig
+                world.getAuber().setX((int) world.getTelePads().get(3).getX() + 20);
+                world.getAuber().setY((int) world.getTelePads().get(3).getY() + 20);
+                standingOnTelePad = false;
+            } else if (screenX >= 200 && screenX <= 400 && screenY >= 304 && screenY <= 460) {
+                // Engines
+                world.getAuber().setX((int) world.getTelePads().get(4).getX() + 20);
+                world.getAuber().setY((int) world.getTelePads().get(4).getY() + 20);
+                standingOnTelePad = false;
+            } else if (screenX >= 484 && screenX <= 600 && screenY >= 304 && screenY <= 460) {
+                // Infirmary
+                world.getAuber().setX((int) world.getTelePads().get(5).getX() + 10);
+                world.getAuber().setY((int) world.getTelePads().get(5).getY() + 10);
+                standingOnTelePad = false;
+            } else if (screenX >= 604 && screenX <= 760 && screenY >= 304 && screenY <= 460) {
+                // Reactor
+                world.getAuber().setX((int) world.getTelePads().get(6).getX() + 20);
+                world.getAuber().setY((int) world.getTelePads().get(6).getY() + 10);
+                standingOnTelePad = false;
+            } else if (screenX >= 840 && screenX <= 1080 && screenY >= 304 && screenY <= 460) {
+                // Cargo Bay
+                world.getAuber().setX((int) world.getTelePads().get(7).getX() + 20);
+                world.getAuber().setY((int) world.getTelePads().get(7).getY() + 20);
+                standingOnTelePad = false;
+            } else if (screenX <= 120 || screenX >= 1080 || screenY <= 60 || screenY >= 540) {
+                // Outside map
+                standingOnTelePad = false;
+            }
         }
-
         return false;
     }
 
