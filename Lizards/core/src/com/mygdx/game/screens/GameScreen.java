@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
@@ -40,8 +42,12 @@ public class GameScreen implements Screen {
     private Texture vertiWallImage; //Wall
     private Texture teleportPadImage; // TeleportPad
     private Texture bombImage; //bomb
+    private Image bomb;
     private Texture healPadImage; // Healing Pad
     private Texture teleportPadMapImage; // TeleportPad Map
+
+    // Abilities
+    private Stage bomb_stage;
 
     // Camera location
     private boolean isRoom1 = true;
@@ -60,8 +66,9 @@ public class GameScreen implements Screen {
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png")); //INFILTRATOR IMAGE - Brian
         teleportPadImage = new Texture(Gdx.files.internal("TeleportPad.png"));
         teleportPadMapImage = new Texture(Gdx.files.internal("map.png"));
-        bombImage= new Texture(Gdx.files.internal("bomb.png"));
+        bombImage= new Texture(Gdx.files.internal("bomb2.jpg"));
         healPadImage = new Texture(Gdx.files.internal("HealPad.png"));
+
         
         //NOTIFICATION LABEL
         timer = new Timer();
@@ -73,9 +80,13 @@ public class GameScreen implements Screen {
         notify_style.background = skin.getDrawable("button");
         notify_label = new Label("NOTIFY",notify_style);
         notify_label.setSize(600,100);
-        notify_label.setPosition(100,500);
         notify_label.setAlignment(Align.center);
+        if ( (world.getAuber().getX()<1200) && (world.getAuber().getY()<600)){
+            notify_label.setPosition(0,0);
+        }
         stage.addActor(notify_label);
+
+
 
 
         camera = new OrthographicCamera();
@@ -97,27 +108,27 @@ public class GameScreen implements Screen {
             if (!world.getSystems().get(i).isDestroyed()) { //systems
                 batch.draw(systemImage,world.getSystems().get(i).getX(),world.getSystems().get(i).getY());
 
-                //render health bars
-                //if (world.getSystems().get(i).getHealth()>=70){ batch.setColor(Color.GREEN); }
-                //else if (world.getSystems().get(i).getHealth()>=40){batch.setColor(Color.ORANGE);}
-                //else {batch.setColor(Color.RED);}
-                //batch.draw(healthImg,world.getSystemhealthbars().get(i).getX(),world.getSystemhealthbars().get(i).getY());
-                //batch.setColor(Color.WHITE);
-            }
 
-            // render notifications 
-            if(world.getSystems().get(i).notifyPlayer()){ //show notification
-                notify_label.setText("System " + i + " is being sabotaged!");
-                stage.draw();
-                task= new Timer.Task() {
-                    @Override
-                    public void run() {
-                        stage.clear();
+                    if (world.getSystems().get(i).getHealth()>=70){ batch.setColor(Color.GREEN); }
+                    else if (world.getSystems().get(i).getHealth()>=40){batch.setColor(Color.ORANGE);}
+                    else {batch.setColor(Color.RED);}
+                    if (i==3) {
+                        batch.draw(healthImg,world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-320);
                     }
-                };
-                timer.scheduleTask(task,5); //clear after 5 seconds
+                    if ((i==2)|| (i==9) ||(i==4)||(i==11)||(i==13)){
+                        batch.draw(healthImg,world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-220);
+                    }
+                    else{
+                        batch.draw(healthImg,world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-100);
+                    }
+
+                    batch.setColor(Color.WHITE);
+
+
             }
         }
+
+
         batch.draw(healPadImage, world.getHealingPad().getX(), world.getHealingPad().getY());
 
         for (int i = 0; i < world.getTelePads().size; i++) {
@@ -136,12 +147,13 @@ public class GameScreen implements Screen {
             batch.draw(vertiWallImage, world.getVertiWall().get(i).getX(), world.getVertiWall().get(i).getY());
         }
 
-        batch.draw(infiltratorImage, world.getInfiltrator().getX(),world.getInfiltrator().getY());
-
-        if (world.getInfiltrator().getAbility()=="bombs"){
-            batch.draw(bombImage,world.getInfiltrator().getX()-30,world.getInfiltrator().getY());
-        }
         batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
+
+        if (world.getAuber().getHealth()>=70){ batch.setColor(Color.GREEN); }
+        else if (world.getAuber().getHealth()>=40){batch.setColor(Color.ORANGE);}
+        else {batch.setColor(Color.RED);}
+        batch.draw(healthImg,world.getAuber().getX(),world.getAuber().getY()-130);
+        batch.setColor(Color.WHITE);
 
         if (auberController.getStandingOnTelePad() && isRoom1) {
             batch.draw(teleportPadMapImage, 120,60);
@@ -153,7 +165,26 @@ public class GameScreen implements Screen {
             batch.draw(teleportPadMapImage, 1320,660);
         }
 
+
+        batch.draw(infiltratorImage, world.getInfiltrator().getX(),world.getInfiltrator().getY());
+        if (world.getInfiltrator().getAbility()=="bombs"){
+            batch.draw(bombImage,world.getInfiltrator().getX()-30,world.getInfiltrator().getY());
+        }
+
+
         batch.end();
+        for (int i = 0; i < world.getSystems().size; i++){
+            if(world.getSystems().get(i).notifyPlayer()){ //show notification
+                notify_label.setText("System " + i + " is being sabotaged!");
+                stage.draw();
+                task= new Timer.Task() {
+                    @Override
+                    public void run() {
+                        stage.clear();
+                    }
+                };
+                timer.scheduleTask(task,3); //clear after 5 seconds
+            }}
         world.updateInfiltratorLocationX();
         world.updateInfiltratorLocationY();
         updateAuberLocation();

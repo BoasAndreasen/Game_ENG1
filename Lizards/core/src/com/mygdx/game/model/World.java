@@ -1,6 +1,8 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
+
 import java.util.*;
 
 public class World {
@@ -9,12 +11,12 @@ public class World {
     public Array<VertiWall> vertiWall = new Array<VertiWall>();
     //public Array<Infiltrator> hostiles = new Array<Infiltrator>();
     public Array<System> systems = new Array<System>();
-    public Array<HealthBar>systemhealthbars= new Array<HealthBar>();
     public Array<TeleportPad> telePads = new Array<TeleportPad>();
-    private HealthBar auberhealthbar;
     private HealPad healingPad;
     private Infiltrator infiltrator;
     private Bomb bomb;
+    private Timer timer;
+    private Timer.Task task;
 
     public World() {
         createWorld();
@@ -30,15 +32,15 @@ public class World {
         infiltrator = new Infiltrator(100, 300, "left", "bombs",false);
         //bomb
         bomb = new Bomb(infiltrator.getX(), infiltrator.getY());
+        timer= new Timer();
 
         for (int i=0; i < systemX.size(); i++) {
             systems.add(new System(systemX.get(i), systemY.get(i), 100, false));
-            systemhealthbars.add(new HealthBar(systemX.get(i), systemY.get(i))); }
+        }
 
 
 
-        // Aubers health bar - not rendered as may want a different texture
-        auberhealthbar = new HealthBar(0,0);
+
 
         //creating teleport pads
         List<Integer> telepadX = Arrays.asList(200, 1100, 1200, 2300, 600, 1100, 1500, 2300);
@@ -50,6 +52,7 @@ public class World {
         healingPad = new HealPad(900,500);
 
         auber = new Auber(0, 0, "left",100);
+
 
 
         //screen 1 walls
@@ -109,22 +112,36 @@ public class World {
             vertiWall.add(new VertiWall(screen4VertiWallsX.get(i), screen4VertiWallsY.get(i))); }
 
 
-        //throws 1 bomb at auber test
-        if (infiltrator.getAbility()=="bombs"){
-            if (bomb.randBomb()==1) { //throw bomb at auber
-                auber.setHealth(20);
-            }
-            if (bomb.randBomb()==0) { //throw bomb at system
-                for (int a=0 ; a< systems.size;a++){
-                    if ((infiltrator.getX()==systems.get(a).getX())&& (infiltrator.getY()==systems.get(a).getY())){
-                        systems.get(a).setHealth(20);
+
+        if (infiltrator.getAbility()=="bombs"){ //throws 3 bombs at auber or system
+            task=new Timer.Task() {
+                @Override
+                public void run() {
+                    if (bomb.randBomb()==1) { //throw bomb at auber if he is in 400 radius
+                        if (((auber.getX()>infiltrator.getX())&& (auber.getX()<infiltrator.getX()+400) && ((auber.getY()>infiltrator.getY())&& (auber.getY()<infiltrator.getY()+400)))||
+                                ((auber.getX()<infiltrator.getX())&& (auber.getX()>infiltrator.getX()-400)&& (auber.getY()>infiltrator.getY())&& (auber.getY()<infiltrator.getY()+400)) ||
+                                ((auber.getX()>infiltrator.getX())&& (auber.getX()<infiltrator.getX()+400) && ((auber.getY()<infiltrator.getY())&& (auber.getY()>infiltrator.getY()-400)))||
+                                ((auber.getX()<infiltrator.getX())&& (auber.getX()>infiltrator.getX()-400)&& (auber.getY()<infiltrator.getY())&& (auber.getY()>infiltrator.getY()-400))){
+                            auber.setHealth(20);
+                        }
+                    }
+                    if (bomb.randBomb()==0) { //throw bomb at system
+                        for (int a=0 ; a< systems.size;a++){
+                            if ((infiltrator.getX()==systems.get(a).getX())&& (infiltrator.getY()==systems.get(a).getY())){
+                                systems.get(a).setHealth(20);
+                            }
+                        }
                     }
                 }
-            }
+            };
+
+            timer.scheduleTask(task,2,2,3); //throw 3 bombs at 2 sec intervals
 
         }
 
     }
+
+
 
     public void updateInfiltratorLocationX() {
         if (this.getInfiltrator().getX() > this.getSystems().get(0).getX())
@@ -161,17 +178,12 @@ public class World {
         return systems;
     }
 
-    public Array<HealthBar> getSystemhealthbars(){
-        return systemhealthbars;
-    }
 
     public Array<HorizWall> getHorizWall(){return horizWall;}
 
     public Array<VertiWall> getVertiWall(){return vertiWall;}
 
     public Array<TeleportPad> getTelePads(){return telePads;}
-
-    public HealthBar getAuberhealthbar(){return auberhealthbar;}
 
     public Infiltrator getInfiltrator() {return infiltrator;}
 
