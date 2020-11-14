@@ -1,4 +1,4 @@
-package com.mygdx.game.screens;
+package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -57,7 +57,7 @@ public class GameScreen implements Screen {
         healthImg = new Texture(Gdx.files.internal("health.png"));
         horizWallImage = new Texture(Gdx.files.internal("HorizontalWall.png"));
         vertiWallImage = new Texture(Gdx.files.internal("VerticalWall.png"));
-        infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png")); //INFILTRATOR IMAGE - Brian
+        infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png"));
         teleportPadImage = new Texture(Gdx.files.internal("TeleportPad.png"));
         teleportPadMapImage = new Texture(Gdx.files.internal("map.png"));
         bombImage= new Texture(Gdx.files.internal("bomb.png"));
@@ -76,7 +76,6 @@ public class GameScreen implements Screen {
         notify_label.setPosition(100,500);
         notify_label.setAlignment(Align.center);
         stage.addActor(notify_label);
-
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1200, 600);
@@ -154,48 +153,13 @@ public class GameScreen implements Screen {
         }
 
         batch.end();
+
         world.updateInfiltratorLocationX();
         world.updateInfiltratorLocationY();
-        updateAuberLocation();
+        auberController.updateAuberLocation();
         updateCameraRoomLocation();
-        testcodes();
         
         camera.update();
-    }
-
-    private void testcodes() {
-        //TESTING CODE - Use for tracing Auber's Location
-        //System.out.println(world.getAuber().getX() + " " + world.getAuber().getY());
-    	//System.out.println(world.systems);
-    	//System.out.println(world.blocks);
-    }
-
-    private void updateAuberLocation() {
-        if (auberController.isUpPressed()) {
-            if (!(world.getAuber().getY() >= 1130)) {
-                if (!(auberController.checkUpBlockCollission(10))) {
-                    world.getAuber().addY(10);
-                }
-            }
-        } else if (auberController.isDownPressed()) {
-            if (!(world.getAuber().getY() <= 0)) {
-                if (!(auberController.checkDownBlockCollission(10))) {
-                    world.getAuber().addY(-10);
-                }
-            }
-        } else if (auberController.isLeftPressed()) {
-            if (!(world.getAuber().getX() <= 0)) {
-                if (!(auberController.checkLeftBlockCollission(10))) {
-                    world.getAuber().addX(-10);
-                }
-            }
-        } else if (auberController.isRightPressed()) {
-            if (!(world.getAuber().getX() >= 2330)) {
-                if (!(auberController.checkRightBlockCollission(10))) {
-                    world.getAuber().addX(10);
-                }
-            }
-        }
     }
 
     private void updateCameraRoomLocation() {

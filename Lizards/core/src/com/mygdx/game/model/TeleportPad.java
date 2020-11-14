@@ -34,12 +34,4 @@ public class TeleportPad extends Rectangle {
     public float getHeight() {
         return height;
     }
-
-    public void TeleLocations(){
-        //TODO when clicked gives list of tele locations
-    }
-
-    public void Teleport(){
-        //TODO teleports you to another room
-    }
 }
