@@ -79,8 +79,8 @@ public class GameScreen implements Screen {
         notify_style.font = my_font;
         notify_style.background = skin.getDrawable("button");
         notify_label = new Label("NOTIFY",notify_style);
-        notify_label.setSize(600,100);
-        notify_label.setAlignment(Align.center);
+        notify_label.setSize(900,100);
+        notify_label.setAlignment(Align.left);
         if ( (world.getAuber().getX()<1200) && (world.getAuber().getY()<600)){
             notify_label.setPosition(0,0);
         }
@@ -175,7 +175,41 @@ public class GameScreen implements Screen {
         batch.end();
         for (int i = 0; i < world.getSystems().size; i++){
             if(world.getSystems().get(i).notifyPlayer()){ //show notification
-                notify_label.setText("System " + i + " is being sabotaged!");
+                if (i==0){
+                    notify_label.setText("The Armoury System is being sabotaged!");
+                }
+                if (i==1){
+                    notify_label.setText("The Storage System is being sabotaged!");
+                }
+                if ((i==2)||(i==3)){
+                    notify_label.setText("A Control Room System is being sabotaged!");
+                }
+                if ((i==4)||(i==5)){
+                    notify_label.setText("A Cantine System is being sabotaged!");
+                }
+
+                if (i==6){
+                    notify_label.setText("The Dorms System is being sabotaged!");
+                }
+                if (i==7){
+                    notify_label.setText("A System near the brig is being sabotaged!");
+                }
+                if ((i==8)||(i==9)){
+                    notify_label.setText("An Engine Room System is being sabotaged!");
+                }
+                if (i==10){
+                    notify_label.setText("The Shield Room System is being sabotaged!");
+                }
+                if ((i==11)||(i==12)){
+                    notify_label.setText("A Reactor Room System is being sabotaged!");
+                }
+                if (i==13){
+                    notify_label.setText("The Cargo Bay System is being sabotaged!");
+                }
+                if (i==14){
+                    notify_label.setText("A System near the cargo bay is being sabotaged!");
+                }
+
                 stage.draw();
                 task= new Timer.Task() {
                     @Override
