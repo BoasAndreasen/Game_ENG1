@@ -44,7 +44,6 @@ public class AuberController implements InputProcessor {
         } else if (keycode == 22 || keycode == 32) {
             rightPressed = false;
         }
-
         return false;
     }
 
@@ -138,6 +137,34 @@ public class AuberController implements InputProcessor {
 
     public boolean isRightPressed() {
         return rightPressed;
+    }
+
+    public void updateAuberLocation() {
+        if (isUpPressed()) {
+            if (!(world.getAuber().getY() >= 1130)) {
+                if (!(checkUpBlockCollission(10))) {
+                    world.getAuber().addY(10);
+                }
+            }
+        } else if (isDownPressed()) {
+            if (!(world.getAuber().getY() <= 0)) {
+                if (!(checkDownBlockCollission(10))) {
+                    world.getAuber().addY(-10);
+                }
+            }
+        } else if (isLeftPressed()) {
+            if (!(world.getAuber().getX() <= 0)) {
+                if (!(checkLeftBlockCollission(10))) {
+                    world.getAuber().addX(-10);
+                }
+            }
+        } else if (isRightPressed()) {
+            if (!(world.getAuber().getX() >= 2330)) {
+                if (!(checkRightBlockCollission(10))) {
+                    world.getAuber().addX(10);
+                }
+            }
+        }
     }
 
     public boolean checkUpBlockCollission(int addedY) {
