@@ -33,8 +33,8 @@ public class World {
         //add hostiles
         hostiles.add(new Infiltrator(100,300,"left","bombs",false));
         hostiles.add(new Infiltrator(0,0,"left","bombs",false));
-        hostiles.add(new Infiltrator(0,0,"left","invisible",false));
-        hostiles.add(new Infiltrator(0,0,"left","invisible",false));
+        hostiles.add(new Infiltrator(0,0,"left","corrupt",false));
+        hostiles.add(new Infiltrator(0,0,"left","corrupt",false));
         hostiles.add(new Infiltrator(0,0,"left","none",false));
         hostiles.add(new Infiltrator(0,0,"left","none",false));
         hostiles.add(new Infiltrator(0,0,"left","shield",false));
@@ -125,33 +125,6 @@ public class World {
             vertiWall.add(new VertiWall(screen4VertiWallsX.get(i), screen4VertiWallsY.get(i))); }
 
 
-        for (int a=0;a<hostiles.size;a++){
-            if (hostiles.get(a).getAbility()=="bombs"){ //throws 3 bombs at auber or system
-                currentHostile=hostiles.get(a);
-                task=new Timer.Task() {
-                    @Override
-                    public void run() {
-                        if (bomb.randBomb()==1) { //throw bomb at auber if he is in 400 radius
-                            if (((auber.getX()>currentHostile.getX())&& (auber.getX()<currentHostile.getX()+400) && ((auber.getY()>currentHostile.getY())&& (auber.getY()<currentHostile.getY()+400)))||
-                                    ((auber.getX()<currentHostile.getX())&& (auber.getX()>currentHostile.getX()-400)&& (auber.getY()>currentHostile.getY())&& (auber.getY()<currentHostile.getY()+400)) ||
-                                    ((auber.getX()>currentHostile.getX())&& (auber.getX()<currentHostile.getX()+400) && ((auber.getY()<currentHostile.getY())&& (auber.getY()>currentHostile.getY()-400)))||
-                                    ((auber.getX()<currentHostile.getX())&& (auber.getX()>currentHostile.getX()-400)&& (auber.getY()<currentHostile.getY())&& (auber.getY()>currentHostile.getY()-400))){
-                                auber.setHealth(20);
-                            }
-                        }
-                        if (bomb.randBomb()==0) { //throw bomb at system
-                            for (int a=0 ; a< systems.size;a++){
-                                if ((currentHostile.getX()==systems.get(a).getX())&& (currentHostile.getY()==systems.get(a).getY())){
-                                    systems.get(a).setHealth(20);
-                                }
-                            }
-                        }
-                    }
-                };
-
-                timer.scheduleTask(task,2,2,3); //throw 3 bombs at 2 sec intervals
-
-            }}
 
     }
 
@@ -211,7 +184,63 @@ public class World {
 
     public Bomb getBomb(){return bomb;}
 
+    public void Abilities(Infiltrator current){ //not being called yet
 
+            if (current.getAbility() == "bombs") { //throws 3 bombs at auber or system
+                currentHostile=current;
+                task = new Timer.Task() {
+                    @Override
+                    public void run() {
+                        if (bomb.randBomb() == 1) { //throw bomb at auber if he is in 400 radius
+                            if (((auber.getX() > currentHostile.getX()) && (auber.getX() < currentHostile.getX() + 400) && ((auber.getY() > currentHostile.getY()) && (auber.getY() < currentHostile.getY() + 400))) ||
+                                    ((auber.getX() < currentHostile.getX()) && (auber.getX() > currentHostile.getX() - 400) && (auber.getY() > currentHostile.getY()) && (auber.getY() < currentHostile.getY() + 400)) ||
+                                    ((auber.getX() > currentHostile.getX()) && (auber.getX() < currentHostile.getX() + 400) && ((auber.getY() < currentHostile.getY()) && (auber.getY() > currentHostile.getY() - 400))) ||
+                                    ((auber.getX() < currentHostile.getX()) && (auber.getX() > currentHostile.getX() - 400) && (auber.getY() < currentHostile.getY()) && (auber.getY() > currentHostile.getY() - 400))) {
+                                auber.setHealth(20);
+                            }
+                        }
+                        if (bomb.randBomb() == 0) { //throw bomb at system
+                            for (int a = 0; a < systems.size; a++) {
+                                if ((currentHostile.getX() == systems.get(a).getX()) && (currentHostile.getY() == systems.get(a).getY())) {
+                                    systems.get(a).setHealth(20);
+                                }
+                            }
+                        }
+                    }
+                };
+
+                timer.scheduleTask(task, 2, 2, 3); //throw 3 bombs at 2 sec intervals
+
+            }
+
+            if (current.getAbility()=="corrupt") {
+                task = new Timer.Task() {
+                    @Override
+                    public void run() {
+
+                        for (int a = 0; a < systems.size; a++) {
+                            if (((auber.getX() > systems.get(a).getX()) && (auber.getX() < systems.get(a).getX() + 400) && ((auber.getY() > systems.get(a).getY()) && (auber.getY() < systems.get(a).getY() + 400))) ||
+                                    ((auber.getX() < systems.get(a).getX()) && (auber.getX() > systems.get(a).getX() - 400) && (auber.getY() > systems.get(a).getY()) && (auber.getY() < systems.get(a).getY() + 400)) ||
+                                    ((auber.getX() > systems.get(a).getX()) && (auber.getX() < systems.get(a).getX() + 400) && ((auber.getY() < systems.get(a).getY()) && (auber.getY() > systems.get(a).getY() - 400))) ||
+                                    ((auber.getX() < systems.get(a).getX()) && (auber.getX() > systems.get(a).getX() - 400) && (auber.getY() < systems.get(a).getY()) && (auber.getY() > systems.get(a).getY() - 400))) {
+
+                                systems.get(a).setHealth(10);
+                            }
+                        }
+
+                    }
+
+                    ;
+                };
+                timer.scheduleTask(task, 2, 2, 3); // auber damage the system 3 times
+
+            }
+
+
+            if(current.getAbility()=="shield"){ }
+
+
+    }
 
 
 
