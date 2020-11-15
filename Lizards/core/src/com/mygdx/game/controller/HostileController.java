@@ -32,7 +32,7 @@ public class HostileController {
                         public void run() {
                             if (world.getBomb().randBomb() == 1) { //throw bomb at auber if he is in 400 radius
                                 if (world.getAuber().closeToHostile(currentAbility)) {
-                                    world.getAuber().setHealth(20);
+                                    world.getAuber().decHealth(20);
 
                                 }
                             }
@@ -85,7 +85,7 @@ public class HostileController {
                             normalTask= new Timer.Task() {
                                 @Override
                                 public void run() {
-                                    world.getAuber().setHealth(10);
+                                    world.getAuber().decHealth(10);
                                 }
                             };
                         }

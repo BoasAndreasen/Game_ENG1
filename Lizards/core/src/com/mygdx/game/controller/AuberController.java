@@ -8,6 +8,7 @@ public class AuberController implements InputProcessor {
     private World world;
     private Auber auber;
     private boolean standingOnTelePad;
+    private boolean standingOnHealPad;
     private boolean leftPressed, rightPressed, downPressed, upPressed;
 
     public AuberController(World world) {
@@ -106,6 +107,15 @@ public class AuberController implements InputProcessor {
             }
         }
         return false;
+    }
+
+    public boolean StandingOnHealthPad(){
+        if (((world.getAuber().getX()>=world.getHealingPad().getX()) && ((world.getAuber().getX()<=world.getHealingPad().getX()+40)))&&
+        ((world.getAuber().getY()>=world.getHealingPad().getY()))&&
+        ((world.getAuber().getY()<=world.getHealingPad().getX()+40))) {
+            return true;
+        }
+        else{return false;}
     }
 
     @Override

@@ -13,8 +13,12 @@ public class Auber extends CharacterNPC {
         return health;
     }
 
-    public void setHealth(int health) {
+    public void decHealth(int health) {
         this.health = this.health-health;
+    }
+
+    public void setHealth(int health){
+        this.health=health;
     }
 
     public boolean closeToHostile(Infiltrator hostile){
@@ -36,6 +40,8 @@ public class Auber extends CharacterNPC {
         }
         else{return false;}
     }
+
+
 
     public void arrest() {
 

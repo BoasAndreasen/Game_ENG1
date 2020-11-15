@@ -222,6 +222,10 @@ public class GameScreen implements Screen {
             batch.draw(teleportPadMapImage, 1320,660);
         }
 
+        if (auberController.StandingOnHealthPad()==true){
+            world.getAuber().setHealth(100);
+        }
+
         //HOSTILES RENDER
         for (int a=0;a<world.getInfiltrators().size;a++){
             if (world.getInfiltrators().get(a).isCurrent()==true){
@@ -306,7 +310,6 @@ public class GameScreen implements Screen {
 
 
         //UPDATES
-
         world.updateInfiltratorLocationX();
         world.updateInfiltratorLocationY();
         auberController.updateAuberLocation();

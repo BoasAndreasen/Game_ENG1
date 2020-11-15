@@ -34,9 +34,9 @@ public class World {
                 200, 500, 500, 500, 200, 500, 0);
 
         //add hostiles
-        hostiles.add(new Infiltrator(100,300,"left","bombs",false,false));
+        hostiles.add(new Infiltrator(100,300,"left","bombs",false,true));
         hostiles.add(new Infiltrator(0,0,"left","bombs",false,false));
-        hostiles.add(new Infiltrator(0,0,"left","corrupt",false,true));
+        hostiles.add(new Infiltrator(0,0,"left","corrupt",false,false));
         hostiles.add(new Infiltrator(0,0,"left","corrupt",false,false));
         hostiles.add(new Infiltrator(0,0,"left","none",false,false));
         hostiles.add(new Infiltrator(0,0,"left","none",false,false));
