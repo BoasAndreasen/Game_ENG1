@@ -27,6 +27,7 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
 
+
     // Notification label
     private Timer timer;
     private Timer.Task task;
@@ -35,9 +36,11 @@ public class GameScreen implements Screen {
     private Label notify_label;
     private Stage stage;
     private Skin skin;
+    private boolean AllDestroyed;
 
    //Health font
     private BitmapFont health_font;
+
 
     // Images
     private Texture bucketImage; //Auber
@@ -98,7 +101,7 @@ public class GameScreen implements Screen {
 
         health_font=new BitmapFont(Gdx.files.internal("Healthfont.fnt"));
 
-
+        AllDestroyed=false;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1200, 600);
         batch = new SpriteBatch();
@@ -308,6 +311,26 @@ public class GameScreen implements Screen {
                 };
                 timer.scheduleTask(task,3); //clear after 5 seconds
             }}
+
+        //GAME OVER NOTIFICATION
+           int b=0;
+           while ((world.getSystems().get(b).isDestroyed()==true)&& (b<world.getSystems().size-1)) {
+               b+=1;
+           }
+           if (b>=(world.getSystems().size-1)){
+               AllDestroyed=true;
+           }
+           else{
+               AllDestroyed=false;
+           }
+           if ((world.getAuber().getHealth()<=0)|| (AllDestroyed==true)){
+            notify_label.setAlignment(Align.center);
+            notify_label.setPosition(200,200);
+            notify_label.setColor(Color.RED);
+            notify_label.setText("GAME OVER ");
+            stage.draw();
+        }
+
 
 
         //UPDATES
