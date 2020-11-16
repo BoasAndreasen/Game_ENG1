@@ -8,6 +8,7 @@ public class AuberController implements InputProcessor {
     private World world;
     private Auber auber;
     private boolean standingOnTelePad;
+    private boolean standingOnHealPad;
     private boolean leftPressed, rightPressed, downPressed, upPressed;
 
     public AuberController(World world) {
@@ -44,7 +45,6 @@ public class AuberController implements InputProcessor {
         } else if (keycode == 22 || keycode == 32) {
             rightPressed = false;
         }
-
         return false;
     }
 
@@ -109,6 +109,15 @@ public class AuberController implements InputProcessor {
         return false;
     }
 
+    public boolean StandingOnHealthPad(){
+        if (((world.getAuber().getX()>=world.getHealingPad().getX()) && ((world.getAuber().getX()<=world.getHealingPad().getX()+40)))&&
+        ((world.getAuber().getY()>=world.getHealingPad().getY()))&&
+        ((world.getAuber().getY()<=world.getHealingPad().getX()+40))) {
+            return true;
+        }
+        else{return false;}
+    }
+
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         return false;
@@ -138,6 +147,34 @@ public class AuberController implements InputProcessor {
 
     public boolean isRightPressed() {
         return rightPressed;
+    }
+
+    public void updateAuberLocation() {
+        if (isUpPressed()) {
+            if (!(world.getAuber().getY() >= 1130)) {
+                if (!(checkUpBlockCollission(10))) {
+                    world.getAuber().addY(10);
+                }
+            }
+        } else if (isDownPressed()) {
+            if (!(world.getAuber().getY() <= 0)) {
+                if (!(checkDownBlockCollission(10))) {
+                    world.getAuber().addY(-10);
+                }
+            }
+        } else if (isLeftPressed()) {
+            if (!(world.getAuber().getX() <= 0)) {
+                if (!(checkLeftBlockCollission(10))) {
+                    world.getAuber().addX(-10);
+                }
+            }
+        } else if (isRightPressed()) {
+            if (!(world.getAuber().getX() >= 2330)) {
+                if (!(checkRightBlockCollission(10))) {
+                    world.getAuber().addX(10);
+                }
+            }
+        }
     }
 
     public boolean checkUpBlockCollission(int addedY) {

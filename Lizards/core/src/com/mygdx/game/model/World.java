@@ -1,6 +1,10 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
+import com.mygdx.game.controller.HostileController;
+import sun.tools.jar.Main;
+
 import java.util.*;
 import java.math.*;
 
@@ -8,15 +12,12 @@ public class World {
     private Auber auber;
     public Array<HorizWall> horizWall = new Array<HorizWall>();
     public Array<VertiWall> vertiWall = new Array<VertiWall>();
-    //public Array<Infiltrator> hostiles = new Array<Infiltrator>();
+    public Array<Infiltrator> hostiles = new Array<Infiltrator>();
     public Array<System> systems = new Array<System>();
-    public Array<HealthBar>systemhealthbars= new Array<HealthBar>();
     public Array<TeleportPad> telePads = new Array<TeleportPad>();
-    private HealthBar auberhealthbar;
     private HealPad healingPad;
-    private Infiltrator infiltrator;
     private Bomb bomb;
-    
+
     //Path_finding Nodes
     //private Array<Node> node = new Array<Node>();
 
@@ -33,16 +34,18 @@ public class World {
 
         infiltrator = new Infiltrator(100, 0, "left", "bombs",false);
         //bomb
-        bomb = new Bomb(infiltrator.getX(), infiltrator.getY());
+        bomb = new Bomb();
+
+
+        timer= new Timer();
 
         for (int i=0; i < systemX.size(); i++) {
             systems.add(new System(systemX.get(i), systemY.get(i), 100, false));
-            systemhealthbars.add(new HealthBar(systemX.get(i), systemY.get(i))); }
+        }
 
 
 
-        // Aubers health bar - not rendered as may want a different texture
-        auberhealthbar = new HealthBar(0,0);
+
 
         //creating teleport pads
         List<Integer> telepadX = Arrays.asList(200, 1100, 1200, 2300, 600, 1100, 1500, 2300);
@@ -54,6 +57,7 @@ public class World {
         healingPad = new HealPad(900,500);
 
         auber = new Auber(0, 0, "left",100);
+
 
 
         //screen 1 walls
@@ -112,6 +116,8 @@ public class World {
         for (int i=0; i < screen4VertiWallsX.size(); i++) {
             vertiWall.add(new VertiWall(screen4VertiWallsX.get(i), screen4VertiWallsY.get(i))); }
 
+        hostileController=new HostileController(this);
+        hostileController.Abilities();
 
         //throws 1 bomb at auber test
         if (infiltrator.getAbility()=="bombs"){
@@ -127,7 +133,7 @@ public class World {
             }
 
         }
-         
+
         //Nodes
         /*
         List<String> nodeName = Arrays.asList("A","B","C","D","E");
@@ -135,23 +141,23 @@ public class World {
         List<Integer> nodeY = Arrays.asList(0,450,650,1050,1050);
         List<Boolean> isDoor = Arrays.asList(false, true, true, false, true);
         List<String> direction = Arrays.asList("X","E","E","X","S");
-        for (int i=0; i<nodeName.size();i++) 
-        {        	
+        for (int i=0; i<nodeName.size();i++)
+        {
         	node.add(new Node(nodeName.get(i), nodeX.get(i),nodeY.get(i),isDoor.get(i),direction.get(i)));
         }
         */
- 
+
     }
-    
+
     //Infiltrator***************************************************************************************************************************//
-    
+
     public void updateInfiltratorLocation() {
-    	
+
     	int k = findNearestSystem();
-    	
+
         if (this.getInfiltrator().getX() > this.getSystems().get(k).getX())
         {
-        	
+
             this.getInfiltrator().addX(-5);
         }
 
@@ -159,10 +165,10 @@ public class World {
         {
             this.getInfiltrator().addX(5);
         }
-        
+
         if (this.getInfiltrator().getY() > this.getSystems().get(k).getY())
         {
-            this.getInfiltrator().addY(-5);
+            this.getInfiltrators().get(y).addY(-5);
         }
 
         if (this.getInfiltrator().getY() < this.getSystems().get(k).getY())
@@ -171,48 +177,48 @@ public class World {
 
         }
     }
-   
-    public int findNearestSystem() 
+
+    public int findNearestSystem()
     {
     	int nearSystem = 0; //nearest system
     	double nearDistance = 0; //nearest distance
     	double tempDistance;
-    	
-    	for (int i = 0; i < this.getSystems().size; i++) 
+
+    	for (int i = 0; i < this.getSystems().size; i++)
     	{
     		if (i == 0 || !(this.getSystems().get(i).isDestroyed()))
     		{
     			tempDistance = findDistance(this.getInfiltrator().getX(), this.getSystems().get(i).getX(),
         				this.getInfiltrator().getY(), this.getSystems().get(i).getY());
-        		   		
-        		if (i != 0) 
+
+        		if (i != 0)
         		{
-        			if(tempDistance < nearDistance) 
+        			if(tempDistance < nearDistance)
         			{
         				nearDistance = tempDistance;
         				nearSystem = i;
-        			}   			
+        			}
         		}
-        		else 
+        		else
         		{
-        			nearDistance = tempDistance; 			
-        		}  			
+        			nearDistance = tempDistance;
+        		}
     		}
     	}
-    	
+
     	return nearSystem;
     }
-    
-    public double findDistance(float aX, float aY, float bX, float bY) 
-    { 	
+
+    public double findDistance(float aX, float aY, float bX, float bY)
+    {
     	float dx = Math.abs(aX - aY);
 		float dy = Math.abs(bX - bY);
 		double dt = Math.sqrt((dx*dx)+(dy*dy));
-    	
+
     	return dt;
     }
-    
-    
+
+
     //**************************************************************************************************************************************//
 
     public Auber getAuber() {
@@ -223,9 +229,7 @@ public class World {
         return systems;
     }
 
-    public Array<HealthBar> getSystemhealthbars(){
-        return systemhealthbars;
-    }
+    public Bomb getBomb(){return bomb;}
 
     public Array<HorizWall> getHorizWall(){return horizWall;}
 
@@ -233,14 +237,12 @@ public class World {
 
     public Array<TeleportPad> getTelePads(){return telePads;}
 
-    public HealthBar getAuberhealthbar(){return auberhealthbar;}
-
-    public Infiltrator getInfiltrator() {return infiltrator;}
+    public Array<Infiltrator> getInfiltrators() {return hostiles;}
 
     public HealPad getHealingPad(){return healingPad;}
 
     public Bomb getBomb(){return bomb;}
-    
+
     //public Array<Node> getNode() {return node;}
 
 

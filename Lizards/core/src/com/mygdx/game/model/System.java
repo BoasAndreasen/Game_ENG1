@@ -11,8 +11,6 @@ public class System extends Rectangle {
     private float health;
     private boolean isDestroyed;
 
-
-
     public System(float x, float y, float health, boolean isDestroyed){
         this.x = x;
         this.y = y;
@@ -48,19 +46,11 @@ public class System extends Rectangle {
     }
 
     public boolean isDestroyed() {
-        return isDestroyed;
-    }
-
-    public void setDestroyed() {
-        if (this.health == 0){
-            isDestroyed = true;
+        if (this.health<=0){
+            return true;
         }
-        else {
-            isDestroyed = false;
-        }
-
+        else{return false;}
     }
-
 
 
 }
