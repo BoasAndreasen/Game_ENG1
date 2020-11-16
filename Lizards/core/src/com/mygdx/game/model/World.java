@@ -34,14 +34,14 @@ public class World {
                 200, 500, 500, 500, 200, 500, 0);
 
         //add hostiles
-        hostiles.add(new Infiltrator(100,300,"left","bombs",false,true));
-        hostiles.add(new Infiltrator(0,0,"left","bombs",false,false));
-        hostiles.add(new Infiltrator(0,0,"left","corrupt",false,false));
-        hostiles.add(new Infiltrator(0,0,"left","corrupt",false,false));
-        hostiles.add(new Infiltrator(0,0,"left","none",false,false));
-        hostiles.add(new Infiltrator(0,0,"left","none",false,false));
-        hostiles.add(new Infiltrator(0,0,"left","shield",false,false));
-        hostiles.add(new Infiltrator(0,0,"left","shield",false,false));
+        hostiles.add(new Infiltrator(100,300, "bombs",false,true));
+        hostiles.add(new Infiltrator(0,0, "bombs",false,false));
+        hostiles.add(new Infiltrator(0,0, "corrupt",false,false));
+        hostiles.add(new Infiltrator(0,0,"corrupt",false,false));
+        hostiles.add(new Infiltrator(0,0,"none",false,false));
+        hostiles.add(new Infiltrator(0,0,"none",false,false));
+        hostiles.add(new Infiltrator(0,0,"shield",false,false));
+        hostiles.add(new Infiltrator(0,0,"shield",false,false));
 
 
         //bomb
@@ -67,9 +67,7 @@ public class World {
         //creating a healing pad
         healingPad = new HealPad(900,500);
 
-        auber = new Auber(0, 0, "left",100);
-
-
+        auber = new Auber(0, 0, 100);
 
         //screen 1 walls
         List<Integer> screen1HorizWallsX = Arrays.asList(200, 300, 400, 500, 600, 700, 800,

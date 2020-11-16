@@ -4,8 +4,8 @@ public class Auber extends CharacterNPC {
 
     private  int health;
 
-    public Auber(float x, float y, String rotation, int health) {
-        super(x, y, rotation);
+    public Auber(float x, float y, int health) {
+        super(x, y);
         this.health=health;
     }
 
