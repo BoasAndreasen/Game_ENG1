@@ -235,7 +235,7 @@ public class GameScreen implements Screen {
                 if (world.getInfiltrators().get(i).getAbility().equals("corrupt")){ //corrupts if close to hostile
                     batch.draw(corruptImage,world.getInfiltrators().get(i).getX()-30,
                             world.getInfiltrators().get(i).getY());
-                    if (world.getAuber().closeToInfiltrator(world.getInfiltrators().get(0))){
+                    if (world.getAuber().closeToInfiltrator(world.getInfiltrators().get(i).getX(),world.getInfiltrators().get(i).getY())){
                         batch.draw(corruptImage,world.getAuber().getX()-30,world.getAuber().getY());
                     }
                 }

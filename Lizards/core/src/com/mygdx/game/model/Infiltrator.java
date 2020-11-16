@@ -12,6 +12,21 @@ public class Infiltrator extends CharacterNPC{
         this.current=current;
     }
 
+    public boolean closeToSystem(System sys){
+        if (((this.getX() > sys.getX()) && (this.getX() < sys.getX() + 100) && ((this.getY() > sys.getY()) &&
+                (this.getY() < sys.getY() + 100))) || ((this.getX() < sys.getX()) && (this.getX() > sys.getX() - 100)&&
+                (this.getY() > sys.getY()) && (this.getY() < sys.getY() + 100)) ||
+                ((this.getX() > sys.getX()) && (this.getX() < sys.getX() + 100) &&
+                        ((this.getY() < sys.getY()) && (this.getY() > sys.getY() - 100))) ||
+                ((this.getX() < sys.getX()) && (this.getX() > sys.getX() - 100) &&
+                        (this.getY() < sys.getY()) && (this.getY() > sys.getY() - 100))) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public String getAbility() {
         return ability;
     }

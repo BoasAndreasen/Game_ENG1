@@ -29,6 +29,7 @@ public class World {
     private void createWorld() {
         timer = new Timer();
 
+
         //add hostiles
         List<String> ability = Arrays.asList("bombs", "bombs", "corrupt", "corrupt", "shield",
                 "shield", "none", "none");
@@ -52,6 +53,7 @@ public class World {
             }
         };
         timer.scheduleTask(RenderInfiltrator, 10);
+
 
         //systems and their corresponding health bars
         List<Integer> systemX = Arrays.asList(600, 400, 1100, 700, 1500, 1500, 2300, 2300,
@@ -144,8 +146,7 @@ public class World {
         }
 
 
-        infiltratorController=new InfiltratorController(this);
-        infiltratorController.Abilities();
+
     }
 
     public void updateInfiltratorLocationX() {
