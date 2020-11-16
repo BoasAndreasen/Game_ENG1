@@ -2,6 +2,7 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.utils.Array;
 import java.util.*;
+import java.math.*;
 
 public class World {
     private Auber auber;
@@ -15,6 +16,9 @@ public class World {
     private HealPad healingPad;
     private Infiltrator infiltrator;
     private Bomb bomb;
+    
+    //Path_finding Nodes
+    //private Array<Node> node = new Array<Node>();
 
     public World() {
         createWorld();
@@ -27,7 +31,7 @@ public class World {
         List<Integer> systemY = Arrays.asList(800, 600, 900, 600, 900, 600, 1000, 800,
                 200, 500, 500, 500, 200, 500, 0);
 
-        infiltrator = new Infiltrator(100, 300, "left", "bombs",false);
+        infiltrator = new Infiltrator(100, 0, "left", "bombs",false);
         //bomb
         bomb = new Bomb(infiltrator.getX(), infiltrator.getY());
 
@@ -123,35 +127,93 @@ public class World {
             }
 
         }
-
+         
+        //Nodes
+        /*
+        List<String> nodeName = Arrays.asList("A","B","C","D","E");
+        List<Integer> nodeX = Arrays.asList(0,0,0,0,350);
+        List<Integer> nodeY = Arrays.asList(0,450,650,1050,1050);
+        List<Boolean> isDoor = Arrays.asList(false, true, true, false, true);
+        List<String> direction = Arrays.asList("X","E","E","X","S");
+        for (int i=0; i<nodeName.size();i++) 
+        {        	
+        	node.add(new Node(nodeName.get(i), nodeX.get(i),nodeY.get(i),isDoor.get(i),direction.get(i)));
+        }
+        */
+ 
     }
-
-    public void updateInfiltratorLocationX() {
-        if (this.getInfiltrator().getX() > this.getSystems().get(0).getX())
+    
+    //Infiltrator***************************************************************************************************************************//
+    
+    public void updateInfiltratorLocation() {
+    	
+    	int k = findNearestSystem();
+    	
+        if (this.getInfiltrator().getX() > this.getSystems().get(k).getX())
         {
         	
             this.getInfiltrator().addX(-5);
         }
 
-        if (this.getInfiltrator().getX() < this.getSystems().get(0).getX())
+        if (this.getInfiltrator().getX() < this.getSystems().get(k).getX())
         {
             this.getInfiltrator().addX(5);
         }
-    }
-
-    public void updateInfiltratorLocationY() {
-        if (this.getInfiltrator().getY() > this.getSystems().get(0).getY())
+        
+        if (this.getInfiltrator().getY() > this.getSystems().get(k).getY())
         {
             this.getInfiltrator().addY(-5);
         }
 
-        if (this.getInfiltrator().getY() < this.getSystems().get(0).getY())
+        if (this.getInfiltrator().getY() < this.getSystems().get(k).getY())
         {
-            this.getInfiltrator().addY(5);
+        	this.getInfiltrator().addY(5);
+
         }
     }
-
-
+   
+    public int findNearestSystem() 
+    {
+    	int nearSystem = 0; //nearest system
+    	double nearDistance = 0; //nearest distance
+    	double tempDistance;
+    	
+    	for (int i = 0; i < this.getSystems().size; i++) 
+    	{
+    		if (i == 0 || !(this.getSystems().get(i).isDestroyed()))
+    		{
+    			tempDistance = findDistance(this.getInfiltrator().getX(), this.getSystems().get(i).getX(),
+        				this.getInfiltrator().getY(), this.getSystems().get(i).getY());
+        		   		
+        		if (i != 0) 
+        		{
+        			if(tempDistance < nearDistance) 
+        			{
+        				nearDistance = tempDistance;
+        				nearSystem = i;
+        			}   			
+        		}
+        		else 
+        		{
+        			nearDistance = tempDistance; 			
+        		}  			
+    		}
+    	}
+    	
+    	return nearSystem;
+    }
+    
+    public double findDistance(float aX, float aY, float bX, float bY) 
+    { 	
+    	float dx = Math.abs(aX - aY);
+		float dy = Math.abs(bX - bY);
+		double dt = Math.sqrt((dx*dx)+(dy*dy));
+    	
+    	return dt;
+    }
+    
+    
+    //**************************************************************************************************************************************//
 
     public Auber getAuber() {
         return auber;
@@ -178,10 +240,8 @@ public class World {
     public HealPad getHealingPad(){return healingPad;}
 
     public Bomb getBomb(){return bomb;}
-
-
-
-
+    
+    //public Array<Node> getNode() {return node;}
 
 
 }

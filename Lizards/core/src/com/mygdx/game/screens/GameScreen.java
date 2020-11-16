@@ -154,8 +154,7 @@ public class GameScreen implements Screen {
         }
 
         batch.end();
-        world.updateInfiltratorLocationX();
-        world.updateInfiltratorLocationY();
+        world.updateInfiltratorLocation();
         updateAuberLocation();
         updateCameraRoomLocation();
         testcodes();
@@ -167,7 +166,6 @@ public class GameScreen implements Screen {
         //TESTING CODE - Use for tracing Auber's Location
         //System.out.println(world.getAuber().getX() + " " + world.getAuber().getY());
     	//System.out.println(world.systems);
-    	//System.out.println(world.blocks);
     }
 
     private void updateAuberLocation() {
