@@ -21,11 +21,11 @@ public class Auber extends CharacterNPC {
         this.health=health;
     }
 
-    public boolean closeToHostile(Infiltrator hostile){
-        if (((this.getX() > hostile.getX()) && (this.getX() < hostile.getX() + 400) && ((this.getY() > hostile.getY()) && (this.getY() < hostile.getY() + 400))) ||
-                ((this.getX() < hostile.getX()) && (this.getX() > hostile.getX() - 400) && (this.getY() > hostile.getY()) && (this.getY() < hostile.getY() + 400)) ||
-                ((this.getX() > hostile.getX()) && (this.getX() < hostile.getX() + 400) && ((this.getY() < hostile.getY()) && (this.getY() > hostile.getY() - 400))) ||
-                ((this.getX() < hostile.getX()) && (this.getX() > hostile.getX() - 400) && (this.getY() < hostile.getY()) && (this.getY() > hostile.getY() - 400))) {
+    public boolean closeToInfiltrator(Infiltrator infiltrator){
+        if (((this.getX() > infiltrator.getX()) && (this.getX() < infiltrator.getX() + 400) && ((this.getY() > infiltrator.getY()) && (this.getY() < infiltrator.getY() + 400))) ||
+                ((this.getX() < infiltrator.getX()) && (this.getX() > infiltrator.getX() - 400) && (this.getY() > infiltrator.getY()) && (this.getY() < infiltrator.getY() + 400)) ||
+                ((this.getX() > infiltrator.getX()) && (this.getX() < infiltrator.getX() + 400) && ((this.getY() < infiltrator.getY()) && (this.getY() > infiltrator.getY() - 400))) ||
+                ((this.getX() < infiltrator.getX()) && (this.getX() > infiltrator.getX() - 400) && (this.getY() < infiltrator.getY()) && (this.getY() > infiltrator.getY() - 400))) {
             return true;
         }
         else{return false;}

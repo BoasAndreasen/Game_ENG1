@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
-import com.mygdx.game.controller.HostileController;
+import com.mygdx.game.controller.InfiltratorController;
 import com.mygdx.game.model.World;
 import com.mygdx.game.controller.AuberController;
 
@@ -36,7 +36,8 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Skin skin;
 
-
+   //Health font
+    private BitmapFont health_font;
 
     // Images
     private Texture bucketImage; //Auber
@@ -95,7 +96,7 @@ public class GameScreen implements Screen {
         }
         stage.addActor(notify_label);
 
-
+        health_font=new BitmapFont(Gdx.files.internal("Healthfont.fnt"));
 
 
         camera = new OrthographicCamera();
@@ -137,19 +138,19 @@ public class GameScreen implements Screen {
                 else {batch.setColor(Color.RED);}
                 if (i==3) {
                     batch.draw(healthImg,world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-320);
-                    my_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()+20,world.getSystems().get(i).getY()+140);
+                    health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()+20,world.getSystems().get(i).getY()+140);
                 }
                 if ((i==2)|| (i==9) ||(i==4)||(i==11)||(i==13)){
                     batch.draw(healthImg,world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-220);
                     if (i==13){
-                        my_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-30);
+                        health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-30);
                     }
                     else{
                         if (i==4){
-                            my_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX(),world.getSystems().get(i).getY()+140);
+                            health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX(),world.getSystems().get(i).getY()+140);
                         }
                         else{
-                            my_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-20);
+                            health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-20);
                         }
 
                     }
@@ -158,23 +159,23 @@ public class GameScreen implements Screen {
                 else{
                     batch.draw(healthImg,world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-100);
                     if (i==1){
-                        my_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()+20,world.getSystems().get(i).getY()+140);
+                        health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()+20,world.getSystems().get(i).getY()+140);
                     }
                     else{
                         if (i==10){
-                            my_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()+30,world.getSystems().get(i).getY()-30);
+                            health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()+30,world.getSystems().get(i).getY()-30);
                         }
                         else{
                             if (i==14){
-                                my_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()-30,world.getSystems().get(i).getY()+150);
+                                health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()-30,world.getSystems().get(i).getY()+150);
                             }
                             else{
                                 if (i==5){
-                                    my_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()-30,world.getSystems().get(i).getY()+150);
+                                    health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()-30,world.getSystems().get(i).getY()+150);
                                 }
                                 else{
                                     if((i==0)||(i==6)||(i==7)||(i==8)||(i==12)){
-                                        my_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-30);
+                                        health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-20);
                                     }
 
                                 }
@@ -208,7 +209,7 @@ public class GameScreen implements Screen {
         else if (world.getAuber().getHealth()>=40){batch.setColor(Color.ORANGE);}
         else {batch.setColor(Color.RED);}
         batch.draw(healthImg,world.getAuber().getX(),world.getAuber().getY()-130);
-        my_font.draw(batch,String.valueOf(world.getAuber().getHealth()),world.getAuber().getX(),world.getAuber().getY()-10);
+        health_font.draw(batch,String.valueOf(world.getAuber().getHealth()),world.getAuber().getX(),world.getAuber().getY()-10);
         batch.setColor(Color.WHITE);
 
         //TELEPORTING
@@ -246,7 +247,7 @@ public class GameScreen implements Screen {
                 }
                 if (world.getInfiltrators().get(i).getAbility()=="corrupt"){ //corrupts if close to hostile
                     batch.draw(corruptImage,world.getInfiltrators().get(i).getX()-30,world.getInfiltrators().get(i).getY());
-                    if (world.getAuber().closeToHostile(world.getInfiltrators().get(0))){
+                    if (world.getAuber().closeToInfiltrator(world.getInfiltrators().get(0))){
                         batch.draw(corruptImage,world.getAuber().getX()-30,world.getAuber().getY());
                     }
 

@@ -31,7 +31,7 @@ public class InfiltratorController {
                         @Override
                         public void run() {
                             if (world.getBomb().randBomb() == 1) { //throw bomb at auber if he is in 400 radius
-                                if (world.getAuber().closeToHostile(currentAbility)) {
+                                if (world.getAuber().closeToInfiltrator(currentAbility)) {
                                     world.getAuber().decHealth(20);
 
                                 }
@@ -79,7 +79,7 @@ public class InfiltratorController {
             if (world.getInfiltrators().get(i).isCurrent() == true) {
                 normal = world.getInfiltrators().get(i);
                 for (int j = 0; j < world.getSystems().size; j++) {
-                    if ((world.getAuber().closeToHostile(normal)==true) && (world.getSystems().get(j).getX()==normal.getX()) && (world.getSystems().get(j).getY()==normal.getY())){
+                    if ((world.getAuber().closeToInfiltrator(normal)==true) && (world.getSystems().get(j).getX()==normal.getX()) && (world.getSystems().get(j).getY()==normal.getY())){
                         currentSys=world.getSystems().get(j);
                         if (world.getBomb().randBomb()==1){
                             normalTask= new Timer.Task() {
@@ -99,7 +99,7 @@ public class InfiltratorController {
                         }
                         timer.scheduleTask(normalTask, 0, 0, 10); //10 damage randomly every 2 seconds
                     }
-                    if((world.getAuber().closeToHostile(normal)==false)&& (world.getSystems().get(j).getX()==normal.getX()) && (world.getSystems().get(j).getY()==normal.getY())){
+                    if((world.getAuber().closeToInfiltrator(normal)==false)&& (world.getSystems().get(j).getX()==normal.getX()) && (world.getSystems().get(j).getY()==normal.getY())){
                         currentSys=world.getSystems().get(i);
                         normalTask= new Timer.Task() {
                             @Override
