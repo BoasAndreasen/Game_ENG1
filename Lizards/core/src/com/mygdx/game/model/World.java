@@ -148,29 +148,82 @@ public class World {
         infiltratorController.Abilities();
     }
 
-    public void updateInfiltratorLocationX() {
-        for (int y=0;y<this.infiltrators.size;y++){
-            if (this.getInfiltrators().get(y).getX() > this.getSystems().get(0).getX()) {
-                this.getInfiltrators().get(y).addX(-5);
+    //Infiltrator***************************************************************************************************************************//
+    
+    public void updateInfiltratorLocation() {
+    	
+
+    	for (int y=0;y<this.infiltrators.size;y++){
+    		
+        	int k = findNearestSystem(this.getInfiltrators().get(y).getX(), this.getInfiltrators().get(y).getY());
+    		
+            if (this.getInfiltrators().get(y).getX() > this.getSystems().get(k).getX())
+            {
+            	
+                this.getInfiltrators().get(y).addX(-3);
             }
 
-            if (this.getInfiltrators().get(y).getX() < this.getSystems().get(0).getX()) {
-                this.getInfiltrators().get(y).addX(5);
+            if (this.getInfiltrators().get(y).getX() < this.getSystems().get(k).getX())
+            {
+                this.getInfiltrators().get(y).addX(3);
             }
-        }
+            
+            if (this.getInfiltrators().get(y).getY() > this.getSystems().get(k).getY())
+            {
+                this.getInfiltrators().get(y).addY(-3);
+            }
+
+            if (this.getInfiltrators().get(y).getY() < this.getSystems().get(k).getY())
+            {
+            	this.getInfiltrators().get(y).addY(3);
+            }
+    	}
+    	
+
     }
-
-    public void updateInfiltratorLocationY() {
-        for (int y=0;y<this.infiltrators.size;y++){
-            if (this.getInfiltrators().get(y).getY() > this.getSystems().get(0).getY()) {
-                this.getInfiltrators().get(y).addY(-5);
-            }
-
-            if (this.getInfiltrators().get(y).getY() < this.getSystems().get(0).getY()) {
-                this.getInfiltrators().get(y).addY(5);
-            }
-        }
+   
+    public int findNearestSystem(float cx, float cy) //current X and current Y
+    {
+    	int nearSystem = 0; //nearest system
+    	double nearDistance = 0; //nearest distance
+    	double tempDistance;
+    	
+    	for (int i = 0; i < this.getSystems().size; i++) 
+    	{
+    		if (i == 0 || !(this.getSystems().get(i).isDestroyed()))
+    		{
+    			tempDistance = findDistance(cx, this.getSystems().get(i).getX(),
+        				cy, this.getSystems().get(i).getY());
+        		   		
+        		if (i != 0) 
+        		{
+        			if(tempDistance < nearDistance) 
+        			{
+        				nearDistance = tempDistance;
+        				nearSystem = i;
+        			}   			
+        		}
+        		else 
+        		{
+        			nearDistance = tempDistance; 			
+        		}  			
+    		}
+    	}
+    	
+    	return nearSystem;
     }
+    
+    public double findDistance(float aX, float aY, float bX, float bY) 
+    { 	
+    	float dx = Math.abs(aX - aY);
+		float dy = Math.abs(bX - bY);
+		double dt = Math.sqrt((dx*dx)+(dy*dy));
+    	
+    	return dt;
+    }
+    
+    
+    //**************************************************************************************************************************************//
 
     public Auber getAuber() {
         return auber;
