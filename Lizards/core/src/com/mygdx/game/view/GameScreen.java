@@ -314,8 +314,7 @@ public class GameScreen implements Screen {
 
 
         //UPDATES
-        world.updateInfiltratorLocationX();
-        world.updateInfiltratorLocationY();
+        world.updateInfiltratorLocation();
         auberController.updateAuberLocation();
         updateCameraRoomLocation();
         camera.update();
