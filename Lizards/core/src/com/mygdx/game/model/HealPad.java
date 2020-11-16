@@ -15,6 +15,10 @@ public class HealPad extends Rectangle {
         this.height = 100;
     }
 
+    public void Heal(){
+        //TODO if clicked then heal auber
+    }
+
     @Override
     public float getX() {
         return x;

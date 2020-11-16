@@ -5,10 +5,14 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.Random;
 
 public class Bomb extends Rectangle {
+    private float x;
+    private float y;
     private final float width;
     private final float height;
 
-    public Bomb(){
+    public Bomb(float x, float y){
+        this.x = x;
+        this.y = y;
         this.width = 100;
         this.height = 100;
     }
