@@ -12,6 +12,7 @@ public class Infiltrator extends CharacterNPC{
         this.current=current;
     }
 
+
     public String getAbility() {
         return ability;
     }
@@ -22,5 +23,9 @@ public class Infiltrator extends CharacterNPC{
 
     public boolean isCurrent() {
         return current;
+    }
+
+    public void setCurrent(boolean x) {
+        this.current = x;
     }
 }

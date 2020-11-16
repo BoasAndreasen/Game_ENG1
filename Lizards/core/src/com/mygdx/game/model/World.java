@@ -2,8 +2,7 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
-import com.mygdx.game.controller.HostileController;
-import sun.tools.jar.Main;
+import com.mygdx.game.controller.InfiltratorController;
 
 import java.util.*;
 
@@ -11,15 +10,16 @@ public class World {
     private Auber auber;
     public Array<HorizWall> horizWall = new Array<HorizWall>();
     public Array<VertiWall> vertiWall = new Array<VertiWall>();
-    public Array<Infiltrator> hostiles = new Array<Infiltrator>();
+    public Array<Infiltrator> infiltrators = new Array<Infiltrator>();
     public Array<System> systems = new Array<System>();
     public Array<TeleportPad> telePads = new Array<TeleportPad>();
     private HealPad healingPad;
     private Bomb bomb;
-    private Infiltrator currentHostile;
+    private Infiltrator currentInfiltrator;
     private Timer timer;
     private Timer.Task task;
-    private HostileController hostileController;
+    private Timer.Task RenderInfiltrator;
+    private InfiltratorController infiltratorController;
     private String abilityState;
 
     public World() {
@@ -27,32 +27,47 @@ public class World {
     }
 
     private void createWorld() {
-        //systems and their corresponding health bars
-        List<Integer> systemX = Arrays.asList(600, 400, 1100, 700, 1500, 1500, 2300, 2300,
-                300, 600, 700, 1300, 1200, 2300, 2300);
-        List<Integer> systemY = Arrays.asList(800, 600, 900, 600, 900, 600, 1000, 800,
-                200, 500, 500, 500, 200, 500, 0);
+
 
         //add hostiles
-        hostiles.add(new Infiltrator(100,300, "bombs",false,true));
-        hostiles.add(new Infiltrator(0,0, "bombs",false,false));
-        hostiles.add(new Infiltrator(0,0, "corrupt",false,false));
-        hostiles.add(new Infiltrator(0,0,"corrupt",false,false));
-        hostiles.add(new Infiltrator(0,0,"none",false,false));
-        hostiles.add(new Infiltrator(0,0,"none",false,false));
-        hostiles.add(new Infiltrator(0,0,"shield",false,false));
-        hostiles.add(new Infiltrator(0,0,"shield",false,false));
+        List<String> ability = Arrays.asList("bombs", "bombs", "corrupt", "corrupt", "shield",
+                "shield", "none", "none");
+        for (int i=0; i < ability.size(); i++) {
+            double xCoord = Math.random() * 2400;
+            double yCoord = Math.random() * 1200;
+            if (i < 3) {
+                infiltrators.add(new Infiltrator((int)Math.round(xCoord), (int)Math.round(yCoord),
+                        ability.get(i), false, true));
+            } else {
+                infiltrators.add(new Infiltrator((int)Math.round(xCoord), (int)Math.round(yCoord),
+                        ability.get(i), false, false));
+            }
+        }
+        //renders infiltrators every 10 seconds
+        RenderInfiltrator = new Timer.Task() {
+            public void run() {
+                for(int i = 3; i < 8; i++){
+                    getInfiltrators().get(i).setCurrent(true);
+                }
+            }
+        };
+        timer.scheduleTask(RenderInfiltrator, 10);
+
 
 
         //bomb
         bomb = new Bomb();
 
 
-        timer= new Timer();
 
+
+        //systems and their corresponding health bars
+        List<Integer> systemX = Arrays.asList(600, 400, 1100, 700, 1500, 1500, 2300, 2300,
+                300, 600, 700, 1300, 1200, 2300, 2300);
+        List<Integer> systemY = Arrays.asList(800, 600, 900, 600, 900, 600, 1000, 800,
+                200, 500, 500, 500, 200, 500, 0);
         for (int i=0; i < systemX.size(); i++) {
-            systems.add(new System(systemX.get(i), systemY.get(i), 100, false));
-        }
+            systems.add(new System(systemX.get(i), systemY.get(i), 100, false)); }
 
 
 
@@ -125,8 +140,8 @@ public class World {
         for (int i=0; i < screen4VertiWallsX.size(); i++) {
             vertiWall.add(new VertiWall(screen4VertiWallsX.get(i), screen4VertiWallsY.get(i))); }
 
-        hostileController=new HostileController(this);
-        hostileController.Abilities();
+        infiltratorController=new InfiltratorController(this);
+        infiltratorController.Abilities();
 
 
     }
@@ -134,7 +149,7 @@ public class World {
 
 
     public void updateInfiltratorLocationX() {
-        for (int y=0;y<this.hostiles.size;y++){
+        for (int y=0;y<this.infiltrators.size;y++){
             if (this.getInfiltrators().get(y).getX() > this.getSystems().get(0).getX())
             {
 
@@ -152,7 +167,7 @@ public class World {
     }
 
     public void updateInfiltratorLocationY() {
-        for (int y=0;y<this.hostiles.size;y++){
+        for (int y=0;y<this.infiltrators.size;y++){
         if (this.getInfiltrators().get(y).getY() > this.getSystems().get(0).getY())
         {
             this.getInfiltrators().get(y).addY(-5);
@@ -182,7 +197,7 @@ public class World {
 
     public Array<TeleportPad> getTelePads(){return telePads;}
 
-    public Array<Infiltrator> getInfiltrators() {return hostiles;}
+    public Array<Infiltrator> getInfiltrators() {return infiltrators;}
 
     public HealPad getHealingPad(){return healingPad;}
 

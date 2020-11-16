@@ -5,7 +5,7 @@ import com.mygdx.game.model.Infiltrator;
 import com.mygdx.game.model.System;
 import com.mygdx.game.model.World;
 
-public class HostileController {
+public class InfiltratorController {
 
     private World world;
     private Timer timer = new Timer();
@@ -16,7 +16,7 @@ public class HostileController {
     private System currentSys;
 
 
-    public HostileController(World world) {
+    public InfiltratorController(World world) {
         this.world = world;
     }
 
