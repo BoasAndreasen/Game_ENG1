@@ -46,10 +46,12 @@ public class System extends Rectangle {
     }
 
     public boolean isDestroyed() {
-        if (this.health<=0){
+        if (this.health <= 0){
             return true;
         }
-        else{return false;}
+        else{
+            return false;
+        }
     }
 
 
