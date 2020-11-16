@@ -29,6 +29,8 @@ public class World {
     private void createWorld() {
 
 
+        timer=new Timer();
+
         //add hostiles
         List<String> ability = Arrays.asList("bombs", "bombs", "corrupt", "corrupt", "shield",
                 "shield", "none", "none");
