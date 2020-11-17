@@ -31,10 +31,12 @@ public class System extends Rectangle {
     }
     
     public boolean notifyPlayer(){ //tells the game screen to render or not
-        if (this.health<100){
+        if (this.health < 100){
             return true;
         }
-        else{return false;}
+        else{
+            return false;
+        }
     }
 
     public float getHealth() {

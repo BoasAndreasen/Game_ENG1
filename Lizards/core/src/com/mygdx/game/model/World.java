@@ -1,7 +1,6 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.controller.InfiltratorController;
 
 import java.util.*;
@@ -16,9 +15,6 @@ public class World {
     private HealPad healingPad;
     private Bomb bomb;
     private Infiltrator currentInfiltrator;
-    private Timer timer;
-    private Timer.Task task;
-    private Timer.Task RenderInfiltrator;
     private InfiltratorController infiltratorController;
     private String abilityState;
 
@@ -27,9 +23,6 @@ public class World {
     }
 
     private void createWorld() {
-        timer = new Timer();
-
-
         //add hostiles
         List<String> ability = Arrays.asList("bombs", "bombs", "corrupt", "corrupt", "shield",
                 "shield", "none", "none");
@@ -45,15 +38,9 @@ public class World {
             }
         }
         //renders infiltrators every 10 seconds
-        RenderInfiltrator = new Timer.Task() {
-            public void run() {
-                for(int i = 3; i < 8; i++){
-                    getInfiltrators().get(i).setCurrent(true);
-                }
-            }
-        };
-        timer.scheduleTask(RenderInfiltrator, 10);
-
+        for (int i = 3; i < 8; i++){
+            getInfiltrators().get(i).setCurrent(true);
+        }
 
         //systems and their corresponding health bars
         List<Integer> systemX = Arrays.asList(600, 400, 1100, 700, 1500, 1500, 2300, 2300,
@@ -63,14 +50,16 @@ public class World {
                 200, 500, 500, 500, 200, 500, 0);
 
         for (int i=0; i < systemX.size(); i++) {
-            systems.add(new System(systemX.get(i), systemY.get(i), 100, false)); }
+            systems.add(new System(systemX.get(i), systemY.get(i), 100, false));
+        }
 
         //creating teleport pads
         List<Integer> telepadX = Arrays.asList(200, 1100, 1200, 2300, 600, 1100, 1500, 2300);
         List<Integer> telepadY = Arrays.asList(800, 600, 900, 600, 200, 500, 500, 200);
 
         for (int i=0; i < telepadX.size(); i++) {
-            telePads.add(new TeleportPad(telepadX.get(i), telepadY.get(i))); }
+            telePads.add(new TeleportPad(telepadX.get(i), telepadY.get(i)));
+        }
 
         bomb = new Bomb();
         healingPad = new HealPad(900,500);
@@ -89,6 +78,7 @@ public class World {
         for (int i=0; i < screen1HorizWallsX.size(); i++) {
             horizWall.add(new HorizWall(screen1HorizWallsX.get(i), screen1HorizWallsY.get(i)));
         }
+
         for (int i=0; i < screen1VertiWallsX.size(); i++) {
             vertiWall.add(new VertiWall(screen1VertiWallsX.get(i), screen1VertiWallsY.get(i)));
         }
@@ -106,6 +96,7 @@ public class World {
         for (int i=0; i < screen2HorizWallsX.size(); i++) {
             horizWall.add(new HorizWall(screen2HorizWallsX.get(i), screen2HorizWallsY.get(i)));
         }
+
         for (int i=0; i < screen2VertiWallsX.size(); i++) {
             vertiWall.add(new VertiWall(screen2VertiWallsX.get(i), screen2VertiWallsY.get(i)));
         }
@@ -144,16 +135,11 @@ public class World {
         for (int i=0; i < screen4VertiWallsX.size(); i++) {
             vertiWall.add(new VertiWall(screen4VertiWallsX.get(i), screen4VertiWallsY.get(i)));
         }
-
-
-
     }
 
-    //Infiltrator***************************************************************************************************************************//
+    //Infiltrator*****************************************************************************//
     
     public void updateInfiltratorLocation() {
-    	
-
     	for (int y=0;y<this.infiltrators.size;y++){
     		
         	int k = findNearestSystem(this.getInfiltrators().get(y).getX(), this.getInfiltrators().get(y).getY());
@@ -224,7 +210,7 @@ public class World {
     }
     
     
-    //**************************************************************************************************************************************//
+    //***********************************************************************************************//
 
     public Auber getAuber() {
         return auber;

@@ -13,8 +13,10 @@ public class Auber extends CharacterNPC {
         return health;
     }
 
-    public void decHealth(int health) {
-        this.health = this.health - health;
+    public void decHealth(int dHealth) {
+        if (!((this.health - dHealth) < 0)) {
+            this.health = this.health - dHealth;
+        }
     }
 
     public void setHealth(int health){
@@ -22,14 +24,14 @@ public class Auber extends CharacterNPC {
     }
 
     public boolean closeToInfiltrator(float Ix, float Iy){
-        if (((this.getX() > Ix) && (this.getX() < Ix + 400) &&
-                ((this.getY() > Iy) && (this.getY() < Iy + 400))) ||
-                (((this.getX() < Ix)) && (this.getX() > Ix - 400) &&
-                        (this.getY() > Iy) && (this.getY() < Iy + 400)) ||
-                ((this.getX() > Ix) && (this.getX() < Ix + 400) &&
-                        ((this.getY() < Iy) && (this.getY() > Iy - 400))) ||
-                ((this.getX() < Ix) && (this.getX() > Ix - 400) &&
-                        (this.getY() < Iy) && (this.getY() > Iy - 400))) {
+        if (((this.getX() > Ix) && (this.getX() < Ix + 200) &&
+                ((this.getY() > Iy) && (this.getY() < Iy + 200))) ||
+                (((this.getX() < Ix)) && (this.getX() > Ix - 200) &&
+                        (this.getY() > Iy) && (this.getY() < Iy + 200)) ||
+                ((this.getX() > Ix) && (this.getX() < Ix + 200) &&
+                        ((this.getY() < Iy) && (this.getY() > Iy - 200))) ||
+                ((this.getX() < Ix) && (this.getX() > Ix - 200) &&
+                        (this.getY() < Iy) && (this.getY() > Iy - 200))) {
             return true;
         }
         else{

@@ -12,20 +12,18 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Timer;
+import com.mygdx.game.controller.InfiltratorController;
 import com.mygdx.game.model.World;
 import com.mygdx.game.controller.AuberController;
 
 public class GameScreen implements Screen {
     private World world;
     private AuberController auberController;
+    private InfiltratorController infiltratorController;
     private OrthographicCamera camera;
     private SpriteBatch batch;
 
-
     // Notification label
-    private Timer timer;
-    private Timer.Task task;
     private Label.LabelStyle notify_style;
     private BitmapFont my_font;
     private Label notify_label;
@@ -35,7 +33,6 @@ public class GameScreen implements Screen {
 
    //Health font
     private BitmapFont health_font;
-
 
     // Images
     private Texture bucketImage; //Auber
@@ -51,6 +48,10 @@ public class GameScreen implements Screen {
     private Texture healPadImage; // Healing Pad
     private Texture teleportPadMapImage; // TeleportPad Map
 
+    // Number to slow down game loop
+    private int update_num = 0;
+    private int updatesSinceLabel = 0;
+
     // Camera location
     private boolean isRoom1 = true;
     private boolean isRoom2, isRoom3, isRoom4 = false;
@@ -60,6 +61,7 @@ public class GameScreen implements Screen {
     public void show() {
         world = new World();
         auberController = new AuberController(world);
+        infiltratorController = new InfiltratorController(world);
 
         //TEXTURES
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
@@ -76,7 +78,6 @@ public class GameScreen implements Screen {
         healPadImage = new Texture(Gdx.files.internal("HealPad.png"));
 
         //NOTIFICATION LABEL
-        timer = new Timer();
         notify_style = new Label.LabelStyle();
         my_font = new BitmapFont(Gdx.files.internal("my_font.fnt"));
         stage = new Stage();
@@ -86,14 +87,14 @@ public class GameScreen implements Screen {
         notify_label = new Label("NOTIFY",notify_style);
         notify_label.setSize(900,100);
         notify_label.setAlignment(Align.left);
-        if ( (world.getAuber().getX()<1200) && (world.getAuber().getY()<600)){
+
+        if ((world.getAuber().getX() < 1200) && (world.getAuber().getY() < 600)){
             notify_label.setPosition(0,0);
         }
         stage.addActor(notify_label);
 
         health_font = new BitmapFont(Gdx.files.internal("Healthfont.fnt"));
-
-        AllDestroyed=false;
+        AllDestroyed = false;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1200, 600);
         batch = new SpriteBatch();
@@ -153,24 +154,31 @@ public class GameScreen implements Screen {
                 }
                 else{
                     batch.draw(healthImg,world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-100);
-                    if (i==1){
-                        health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()+20,world.getSystems().get(i).getY()+140);
+                    if (i == 1){
+                        health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),
+                                world.getSystems().get(i).getX()+20,world.getSystems().get(i).getY()+140);
                     }
                     else{
-                        if (i==10){
-                            health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()+30,world.getSystems().get(i).getY()-30);
+                        if (i == 10){
+                            health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),
+                                    world.getSystems().get(i).getX()+30,world.getSystems().get(i).getY()-30);
                         }
                         else{
-                            if (i==14){
-                                health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()-30,world.getSystems().get(i).getY()+150);
+                            if (i == 14){
+                                health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),
+                                        world.getSystems().get(i).getX()-30,world.getSystems().get(i).getY()+150);
                             }
                             else{
-                                if (i==5){
-                                    health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX()-30,world.getSystems().get(i).getY()+150);
+                                if (i == 5){
+                                    health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),
+                                            world.getSystems().get(i).getX()-30,
+                                            world.getSystems().get(i).getY()+150);
                                 }
                                 else{
-                                    if((i==0)||(i==6)||(i==7)||(i==8)||(i==12)){
-                                        health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-20);
+                                    if((i == 0)||(i == 6)||(i == 7)||(i == 8)||(i == 12)){
+                                        health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),
+                                                world.getSystems().get(i).getX(),
+                                                world.getSystems().get(i).getY()-20);
                                     }
                                 }
                             }
@@ -200,17 +208,6 @@ public class GameScreen implements Screen {
         health_font.draw(batch,String.valueOf(world.getAuber().getHealth()),world.getAuber().getX(),world.getAuber().getY()-10);
         batch.setColor(Color.WHITE);
 
-        //TELEPORTING
-        if (auberController.getStandingOnTelePad() && isRoom1) {
-            batch.draw(teleportPadMapImage, 120,60);
-        } else if (auberController.getStandingOnTelePad() && isRoom3) {
-            batch.draw(teleportPadMapImage, 1320,60);
-        } else if (auberController.getStandingOnTelePad() && isRoom2) {
-            batch.draw(teleportPadMapImage, 120,660);
-        } else if (auberController.getStandingOnTelePad() && isRoom4) {
-            batch.draw(teleportPadMapImage, 1320,660);
-        }
-
         //HOSTILES RENDER
         for (int a=0;a<world.getInfiltrators().size;a++){
             if (world.getInfiltrators().get(a).isCurrent()){
@@ -225,12 +222,10 @@ public class GameScreen implements Screen {
                 if (world.getInfiltrators().get(i).getAbility().equals("bombs")) { //bomb image on hostile
                     batch.draw(bombImage, world.getInfiltrators().get(i).getX() - 30,
                             world.getInfiltrators().get(i).getY());
-
                 }
                 if (world.getInfiltrators().get(i).getAbility().equals("shield")) { //shield image on hostile
                     batch.draw(shieldImage, world.getInfiltrators().get(i).getX() - 30,
                             world.getInfiltrators().get(i).getY());
-
                 }
                 if (world.getInfiltrators().get(i).getAbility().equals("corrupt")){ //corrupts if close to hostile
                     batch.draw(corruptImage,world.getInfiltrators().get(i).getX()-30,
@@ -242,83 +237,114 @@ public class GameScreen implements Screen {
             }
         }
 
-        batch.end();
-
-        //NOTIFICATION
-        for (int i = 0; i < world.getSystems().size; i++){
-            if(world.getSystems().get(i).notifyPlayer()){ //show notification
-                if (i==0){
-                    notify_label.setText("The Armoury System is being sabotaged!");
-                }
-                if (i == 1){
-                    notify_label.setText("The Storage System is being sabotaged!");
-                }
-                if ((i == 2)||(i == 3)){
-                    notify_label.setText("A Control Room System is being sabotaged!");
-                }
-                if ((i == 4)||(i == 5)){
-                    notify_label.setText("A Cantine System is being sabotaged!");
-                }
-
-                if (i == 6){
-                    notify_label.setText("The Dorms System is being sabotaged!");
-                }
-                if (i == 7){
-                    notify_label.setText("A System near the brig is being sabotaged!");
-                }
-                if ((i == 8)||(i == 9)){
-                    notify_label.setText("An Engine Room System is being sabotaged!");
-                }
-                if (i == 10){
-                    notify_label.setText("The Shield Room System is being sabotaged!");
-                }
-                if ((i == 11)||(i == 12)){
-                    notify_label.setText("A Reactor Room System is being sabotaged!");
-                }
-                if (i == 13){
-                    notify_label.setText("The Cargo Bay System is being sabotaged!");
-                }
-                if (i == 14){
-                    notify_label.setText("A System near the cargo bay is being sabotaged!");
-                }
-
-                stage.draw();
-                task= new Timer.Task() {
-                    @Override
-                    public void run() {
-                        stage.clear();
-                    }
-                };
-                timer.scheduleTask(task,3); //clear after 5 seconds
-            }}
-
-        //GAME OVER NOTIFICATION
-           int b=0;
-           while ((world.getSystems().get(b).isDestroyed()==true)&& (b<world.getSystems().size-1)) {
-               b+=1;
-           }
-           if (b>=(world.getSystems().size-1)){
-               AllDestroyed=true;
-           }
-           else{
-               AllDestroyed=false;
-           }
-           if ((world.getAuber().getHealth()<=0)|| (AllDestroyed==true)){
-            notify_label.setAlignment(Align.center);
-            notify_label.setPosition(200,200);
-            notify_label.setColor(Color.RED);
-            notify_label.setText("GAME OVER ");
-            stage.draw();
+        //TELEPORTING
+        if (auberController.getStandingOnTelePad() && isRoom1) {
+            batch.draw(teleportPadMapImage, 120,60);
+        } else if (auberController.getStandingOnTelePad() && isRoom3) {
+            batch.draw(teleportPadMapImage, 1320,60);
+        } else if (auberController.getStandingOnTelePad() && isRoom2) {
+            batch.draw(teleportPadMapImage, 120,660);
+        } else if (auberController.getStandingOnTelePad() && isRoom4) {
+            batch.draw(teleportPadMapImage, 1320,660);
         }
 
+        //NOTIFICATION
+        if (updatesSinceLabel < 300) {
+            for (int i = 0; i < world.getSystems().size; i++) {
+                if (world.getSystems().get(i).notifyPlayer()) { //show notification
+                    if (i == 0) {
+                        stage.addActor(notify_label);
+                        notify_label.setText("The Armoury System is being sabotaged!");
+                        stage.draw();
+                    }
+                    if (i == 1) {
+                        stage.addActor(notify_label);
+                        notify_label.setText("The Storage System is being sabotaged!");
+                        stage.draw();
+                    }
+                    if ((i == 2) || (i == 3)) {
+                        stage.addActor(notify_label);
+                        notify_label.setText("A Control Room System is being sabotaged!");
+                        stage.draw();
+                    }
+                    if ((i == 4) || (i == 5)) {
+                        stage.addActor(notify_label);
+                        notify_label.setText("A Cantine System is being sabotaged!");
+                        stage.draw();
+                    }
+                    if (i == 6) {
+                        stage.addActor(notify_label);
+                        notify_label.setText("The Dorms System is being sabotaged!");
+                        stage.draw();
+                    }
+                    if (i == 7) {
+                        stage.addActor(notify_label);
+                        notify_label.setText("A System near the brig is being sabotaged!");
+                        stage.draw();
+                    }
+                    if ((i == 8) || (i == 9)) {
+                        stage.addActor(notify_label);
+                        notify_label.setText("An Engine Room System is being sabotaged!");
+                        stage.draw();
+                    }
+                    if (i == 10) {
+                        stage.addActor(notify_label);
+                        notify_label.setText("The Shield Room System is being sabotaged!");
+                        stage.draw();
+                    }
+                    if ((i == 11) || (i == 12)) {
+                        stage.addActor(notify_label);
+                        notify_label.setText("A Reactor Room System is being sabotaged!");
+                        stage.draw();
+                    }
+                    if (i == 13) {
+                        stage.addActor(notify_label);
+                        notify_label.setText("The Cargo Bay System is being sabotaged!");
+                        stage.draw();
+                    }
+                    if (i == 14) {
+                        stage.addActor(notify_label);
+                        notify_label.setText("A System near the cargo bay is being sabotaged!");
+                        stage.draw();
+                    }
+                }
 
+                //GAME OVER NOTIFICATION
+                if ((world.getSystems().size) <= 0) {
+                    AllDestroyed = true;
+                }
+
+                if ((world.getAuber().getHealth() <= 0) || (AllDestroyed)) {
+                    notify_label.setAlignment(Align.center);
+                    notify_label.setPosition(200, 200);
+                    notify_label.setColor(Color.RED);
+                    notify_label.setText("GAME OVER ");
+                    stage.draw();
+                }
+            }
+            updatesSinceLabel += 1;
+        }
+        else {
+            stage.clear();
+            updatesSinceLabel = 0;
+        }
+
+        batch.end();
 
         //UPDATES
+        if (update_num > 300) {
+            infiltratorController.Abilities();
+            infiltratorController.NormalDamage();
+            this.update_num = 0;
+        }
+        update_num += 1;
+
         world.updateInfiltratorLocation();
         auberController.updateAuberLocation();
         updateCameraRoomLocation();
         camera.update();
     }
+
 
     private void updateCameraRoomLocation() {
         if (isRoom1 && world.getAuber().getY() >= 600) {
