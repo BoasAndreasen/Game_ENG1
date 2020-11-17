@@ -248,34 +248,6 @@ public class GameScreen implements Screen {
             }
         }
 
-        //TELEPORTING
-        if (auberController.getStandingOnTelePad() && isRoom1) {
-            batch.draw(teleportPadMapImage, 120,60);
-        } else if (auberController.getStandingOnTelePad() && isRoom3) {
-            batch.draw(teleportPadMapImage, 1320,60);
-        } else if (auberController.getStandingOnTelePad() && isRoom2) {
-            batch.draw(teleportPadMapImage, 120,660);
-        } else if (auberController.getStandingOnTelePad() && isRoom4) {
-            batch.draw(teleportPadMapImage, 1320,660);
-        }
-
-        batch.end();
-
-        //UPDATES
-        if (update_num > 400) {
-            infiltratorController.Abilities();
-            infiltratorController.NormalDamage();
-            this.update_num = 0;
-        }
-        update_num += 1;
-
-
-
-
-        world.updateInfiltratorLocation();
-        auberController.updateAuberLocation();
-        updateCameraRoomLocation();
-        camera.update();
 
         //SYS NOTIFICATION
         timer=new Timer();
@@ -364,6 +336,31 @@ public class GameScreen implements Screen {
             });
         }
 
+        //TELEPORTING
+        if (auberController.getStandingOnTelePad() && isRoom1) {
+            batch.draw(teleportPadMapImage, 120,60);
+        } else if (auberController.getStandingOnTelePad() && isRoom3) {
+            batch.draw(teleportPadMapImage, 1320,60);
+        } else if (auberController.getStandingOnTelePad() && isRoom2) {
+            batch.draw(teleportPadMapImage, 120,660);
+        } else if (auberController.getStandingOnTelePad() && isRoom4) {
+            batch.draw(teleportPadMapImage, 1320,660);
+        }
+
+        batch.end();
+
+        //UPDATES
+        if (update_num > 400) {
+            infiltratorController.Abilities();
+            infiltratorController.NormalDamage();
+            this.update_num = 0;
+        }
+        update_num += 1;
+
+        world.updateInfiltratorLocation();
+        auberController.updateAuberLocation();
+        updateCameraRoomLocation();
+        camera.update();
     }
 
 
