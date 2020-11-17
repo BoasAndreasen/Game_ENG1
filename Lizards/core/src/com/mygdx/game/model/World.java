@@ -165,8 +165,6 @@ public class World {
             	this.getInfiltrators().get(y).addY(3);
             }
     	}
-    	
-
     }
    
     public int findNearestSystem(float cx, float cy) //current X and current Y
@@ -177,7 +175,7 @@ public class World {
     	
     	for (int i = 0; i < this.getSystems().size; i++) 
     	{
-    		if (i == 0 || !(this.getSystems().get(i).isDestroyed()))
+    		if (!(this.getSystems().get(i).isDestroyed()))
     		{
     			tempDistance = findDistance(cx, this.getSystems().get(i).getX(),
         				cy, this.getSystems().get(i).getY());
@@ -210,8 +208,12 @@ public class World {
     }
     
     
+    //NPC*******************************************************************************************//
+    
+    
+    
     //***********************************************************************************************//
-
+    
     public Auber getAuber() {
         return auber;
     }
