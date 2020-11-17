@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.controller.InfiltratorController;
 import com.mygdx.game.model.World;
 import com.mygdx.game.controller.AuberController;
@@ -50,7 +51,8 @@ public class GameScreen implements Screen {
 
     // Number to slow down game loop
     private int update_num = 0;
-    private int updatesSinceLabel = 0;
+    private Timer timer;
+    private Timer.Task task;
 
     // Camera location
     private boolean isRoom1 = true;
@@ -248,101 +250,101 @@ public class GameScreen implements Screen {
             batch.draw(teleportPadMapImage, 1320,660);
         }
 
-        //NOTIFICATION
-        if (updatesSinceLabel < 300) {
-            for (int i = 0; i < world.getSystems().size; i++) {
-                if (world.getSystems().get(i).notifyPlayer()) { //show notification
-                    if (i == 0) {
-                        stage.addActor(notify_label);
-                        notify_label.setText("The Armoury System is being sabotaged!");
-                        stage.draw();
-                    }
-                    if (i == 1) {
-                        stage.addActor(notify_label);
-                        notify_label.setText("The Storage System is being sabotaged!");
-                        stage.draw();
-                    }
-                    if ((i == 2) || (i == 3)) {
-                        stage.addActor(notify_label);
-                        notify_label.setText("A Control Room System is being sabotaged!");
-                        stage.draw();
-                    }
-                    if ((i == 4) || (i == 5)) {
-                        stage.addActor(notify_label);
-                        notify_label.setText("A Cantine System is being sabotaged!");
-                        stage.draw();
-                    }
-                    if (i == 6) {
-                        stage.addActor(notify_label);
-                        notify_label.setText("The Dorms System is being sabotaged!");
-                        stage.draw();
-                    }
-                    if (i == 7) {
-                        stage.addActor(notify_label);
-                        notify_label.setText("A System near the brig is being sabotaged!");
-                        stage.draw();
-                    }
-                    if ((i == 8) || (i == 9)) {
-                        stage.addActor(notify_label);
-                        notify_label.setText("An Engine Room System is being sabotaged!");
-                        stage.draw();
-                    }
-                    if (i == 10) {
-                        stage.addActor(notify_label);
-                        notify_label.setText("The Shield Room System is being sabotaged!");
-                        stage.draw();
-                    }
-                    if ((i == 11) || (i == 12)) {
-                        stage.addActor(notify_label);
-                        notify_label.setText("A Reactor Room System is being sabotaged!");
-                        stage.draw();
-                    }
-                    if (i == 13) {
-                        stage.addActor(notify_label);
-                        notify_label.setText("The Cargo Bay System is being sabotaged!");
-                        stage.draw();
-                    }
-                    if (i == 14) {
-                        stage.addActor(notify_label);
-                        notify_label.setText("A System near the cargo bay is being sabotaged!");
-                        stage.draw();
-                    }
-                }
-
-                //GAME OVER NOTIFICATION
-                if ((world.getSystems().size) <= 0) {
-                    AllDestroyed = true;
-                }
-
-                if ((world.getAuber().getHealth() <= 0) || (AllDestroyed)) {
-                    notify_label.setAlignment(Align.center);
-                    notify_label.setPosition(200, 200);
-                    notify_label.setColor(Color.RED);
-                    notify_label.setText("GAME OVER ");
-                    stage.draw();
-                }
-            }
-            updatesSinceLabel += 1;
-        }
-        else {
-            stage.clear();
-            updatesSinceLabel = 0;
-        }
-
         batch.end();
 
         //UPDATES
-        if (update_num > 300) {
+        if (update_num > 400) {
             infiltratorController.Abilities();
             infiltratorController.NormalDamage();
             this.update_num = 0;
         }
         update_num += 1;
 
+
+
+
         world.updateInfiltratorLocation();
         auberController.updateAuberLocation();
         updateCameraRoomLocation();
         camera.update();
+
+        //SYS NOTIFICATION
+        timer=new Timer();
+        for (int i = 0; i < world.getSystems().size; i++) {
+            if ((world.getSystems().get(i).notifyPlayer())&& (world.getSystems().get(i).isDestroyed()==false)) { //show notification
+                if (i == 0) {
+                    stage.addActor(notify_label);
+                    notify_label.setText("The Armoury System is being sabotaged!");
+                    stage.draw();}
+                if (i == 1) {
+                    stage.addActor(notify_label);
+                    notify_label.setText("The Storage System is being sabotaged!");
+                    stage.draw();
+                }
+                if ((i == 2) || (i == 3)) {
+                    stage.addActor(notify_label);
+                    notify_label.setText("A Control Room System is being sabotaged!");
+                    stage.draw();
+                }
+                if ((i == 4) || (i == 5)) {
+                    stage.addActor(notify_label);
+                    notify_label.setText("A Cantine System is being sabotaged!");
+                    stage.draw();
+                }
+                if (i == 6) {
+                    stage.addActor(notify_label);
+                    notify_label.setText("The Dorms System is being sabotaged!");
+                    stage.draw();
+                }
+                if (i == 7) {
+                    stage.addActor(notify_label);
+                    notify_label.setText("A System near the brig is being sabotaged!");
+                    stage.draw();
+                }
+                if ((i == 8) || (i == 9)) {
+                    stage.addActor(notify_label);
+                    notify_label.setText("An Engine Room System is being sabotaged!");
+                    stage.draw();
+                }
+                if (i == 10) {
+                    stage.addActor(notify_label);
+                    notify_label.setText("The Shield Room System is being sabotaged!");
+                    stage.draw();
+                }
+                if ((i == 11) || (i == 12)) {
+                    stage.addActor(notify_label);
+                    notify_label.setText("A Reactor Room System is being sabotaged!");
+                    stage.draw();
+                }
+                if (i == 13) {
+                    stage.addActor(notify_label);
+                    notify_label.setText("The Cargo Bay System is being sabotaged!");
+                    stage.draw();
+                }
+                if (i == 14) {
+                    stage.addActor(notify_label);
+                    notify_label.setText("A System near the cargo bay is being sabotaged!");
+                    stage.draw();
+                } }}
+        task=new Timer.Task() {
+            @Override
+            public void run() {
+                stage.clear();
+            }};
+        timer.scheduleTask(task,5);
+
+        //GAME OVER NOTIFICATION
+        if ((world.getSystems().size) <= 0) {
+            AllDestroyed = true;
+        }
+        if ((world.getAuber().getHealth() <= 0) || (AllDestroyed)) {
+            notify_label.setAlignment(Align.center);
+            notify_label.setPosition(200, 200);
+            notify_label.setColor(Color.RED);
+            notify_label.setText("GAME OVER ");
+            stage.draw();
+        }
+
     }
 
 

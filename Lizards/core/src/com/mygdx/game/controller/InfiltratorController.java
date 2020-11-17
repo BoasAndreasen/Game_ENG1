@@ -76,6 +76,13 @@ public class InfiltratorController {
                         }
 
                     }
+                    else{
+                        if (normal.closeToSystem(world.systems.get(j))){
+                            currentSys=world.systems.get(j);
+                            currentSys.setHealth(10);
+                        }
+
+                    }
                 }
             }
         }
