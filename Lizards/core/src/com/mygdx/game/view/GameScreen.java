@@ -15,9 +15,17 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.controller.InfiltratorController;
 import com.mygdx.game.model.World;
+import com.mygdx.game.MyGame;
 import com.mygdx.game.controller.AuberController;
 
 public class GameScreen implements Screen {
+	
+	MyGame game;
+	
+	public GameScreen(MyGame game) {
+        this.game = game;
+    }
+	
     private World world;
     private AuberController auberController;
     private InfiltratorController infiltratorController;
