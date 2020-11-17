@@ -249,6 +249,21 @@ public class GameScreen implements Screen {
         }
 
 
+
+
+        //TELEPORTING
+        if (auberController.getStandingOnTelePad() && isRoom1) {
+            batch.draw(teleportPadMapImage, 120,60);
+        } else if (auberController.getStandingOnTelePad() && isRoom3) {
+            batch.draw(teleportPadMapImage, 1320,60);
+        } else if (auberController.getStandingOnTelePad() && isRoom2) {
+            batch.draw(teleportPadMapImage, 120,660);
+        } else if (auberController.getStandingOnTelePad() && isRoom4) {
+            batch.draw(teleportPadMapImage, 1320,660);
+        }
+
+        batch.end();
+
         //SYS NOTIFICATION
         timer=new Timer();
         for (int i = 0; i < world.getSystems().size; i++) {
@@ -335,19 +350,6 @@ public class GameScreen implements Screen {
                 }
             });
         }
-
-        //TELEPORTING
-        if (auberController.getStandingOnTelePad() && isRoom1) {
-            batch.draw(teleportPadMapImage, 120,60);
-        } else if (auberController.getStandingOnTelePad() && isRoom3) {
-            batch.draw(teleportPadMapImage, 1320,60);
-        } else if (auberController.getStandingOnTelePad() && isRoom2) {
-            batch.draw(teleportPadMapImage, 120,660);
-        } else if (auberController.getStandingOnTelePad() && isRoom4) {
-            batch.draw(teleportPadMapImage, 1320,660);
-        }
-
-        batch.end();
 
         //UPDATES
         if (update_num > 400) {
