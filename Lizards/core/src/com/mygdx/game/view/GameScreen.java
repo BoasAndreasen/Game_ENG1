@@ -340,7 +340,7 @@ public class GameScreen implements Screen {
             public void run() {
                 stage.clear();
             }};
-        timer.scheduleTask(task,5);
+        timer.scheduleTask(task,3);
 
         //GAME OVER NOTIFICATION
         if ((world.getSystems().size) <= 0) {
