@@ -1,6 +1,7 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -349,8 +350,18 @@ public class GameScreen implements Screen {
             notify_label.setAlignment(Align.center);
             notify_label.setPosition(200, 200);
             notify_label.setColor(Color.RED);
-            notify_label.setText("GAME OVER ");
+            notify_label.setText("GAME OVER- Press any key ");
             stage.draw();
+
+            Gdx.input.setInputProcessor(new InputAdapter() {
+
+                public boolean keyDown (int keycode) {
+
+                    game.setScreen(new MainScreen(game));
+
+                    return false;
+                }
+            });
         }
 
     }
