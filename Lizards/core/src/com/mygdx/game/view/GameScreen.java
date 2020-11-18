@@ -167,7 +167,7 @@ public class GameScreen implements Screen {
                     }
                 }
                 else{
-                    batch.draw(healthImg,world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-100);
+
                     if (i == 1){
                         health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),
                                 world.getSystems().get(i).getX()+20,world.getSystems().get(i).getY()+140);
@@ -198,6 +198,7 @@ public class GameScreen implements Screen {
                             }
                         }
                     }
+                    batch.draw(healthImg,world.getSystems().get(i).getX(),world.getSystems().get(i).getY()-100);
                 }
             }
             batch.setColor(Color.WHITE);
