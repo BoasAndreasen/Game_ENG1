@@ -66,22 +66,17 @@ public class AuberController implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (gameScreen.getIsRoom1()) {
             for (int i = 0; i < world.getInfiltrators().size; i++) {
+                // point on infiltrator and close to auber
                 if (screenX >= world.getInfiltrators().get(i).getX() &&
                         screenX <= world.getInfiltrators().get(i).getX() + world.getInfiltrators().get(i).getWidth() &&
                         (600 - screenY) > world.getInfiltrators().get(i).getY() &&
                         (600 - screenY) <= world.getInfiltrators().get(i).getY() +
                                 world.getInfiltrators().get(i).getHeight() &&
-                        world.getInfiltrators().get(i).getX() >= world.getAuber().getX() - 150 &&
-                        world.getInfiltrators().get(i).getX() <= world.getAuber().getX() + 150 &&
-                        world.getInfiltrators().get(i).getY() >= world.getAuber().getY() - 150 &&
-                        world.getInfiltrators().get(i).getY() <= world.getAuber().getY() + 150)  {
+                        world.getInfiltrators().get(i).closeToAuber(world.getAuber()))  {
                     // Infiltrator on system being destroyed
                     for (int j = 0; j < world.getSystems().size; j++) {
                         if (world.getSystems().get(j).getHealth() < 100 &&
-                                world.getInfiltrators().get(i).getX() >= world.getSystems().get(j).getX() - 50 &&
-                                world.getInfiltrators().get(i).getX() <= world.getSystems().get(j).getX() + 50 &&
-                                world.getInfiltrators().get(i).getY() >= world.getSystems().get(j).getY() - 50 &&
-                                world.getInfiltrators().get(i).getY() <= world.getSystems().get(j).getY() + 50) {
+                                world.getInfiltrators().get(i).closeToSystem(world.getSystems().get(j))) {
                             world.getInfiltrators().get(i).setArrested(true);
                             world.getInfiltrators().get(i).setX(2100);
                             world.getInfiltrators().get(i).setY(610);
@@ -92,22 +87,17 @@ public class AuberController implements InputProcessor {
         }
         if (gameScreen.getIsRoom2()) {
             for (int i = 0; i < world.getInfiltrators().size; i++) {
+                // point on infiltrator and close to auber
                 if (screenX >= world.getInfiltrators().get(i).getX() &&
                         screenX <= world.getInfiltrators().get(i).getX() + world.getInfiltrators().get(i).getWidth() &&
                         (600 - screenY + 600) > world.getInfiltrators().get(i).getY() &&
                         (600 - screenY + 600) <= world.getInfiltrators().get(i).getY() +
                                 world.getInfiltrators().get(i).getHeight() &&
-                        world.getInfiltrators().get(i).getX() >= world.getAuber().getX() - 150 &&
-                        world.getInfiltrators().get(i).getX() <= world.getAuber().getX() + 150 &&
-                        world.getInfiltrators().get(i).getY() >= world.getAuber().getY() - 150 &&
-                        world.getInfiltrators().get(i).getY() <= world.getAuber().getY() + 150)  {
+                        world.getInfiltrators().get(i).closeToAuber(world.getAuber()))  {
                     // Infiltrator on system being destroyed
                     for (int j = 0; j < world.getSystems().size; j++) {
                         if (world.getSystems().get(j).getHealth() < 100 &&
-                                world.getInfiltrators().get(i).getX() >= world.getSystems().get(j).getX() - 50 &&
-                                world.getInfiltrators().get(i).getX() <= world.getSystems().get(j).getX() + 50 &&
-                                world.getInfiltrators().get(i).getY() >= world.getSystems().get(j).getY() - 50 &&
-                                world.getInfiltrators().get(i).getY() <= world.getSystems().get(j).getY() + 50) {
+                                world.getInfiltrators().get(i).closeToSystem(world.getSystems().get(j))) {
                             world.getInfiltrators().get(i).setArrested(true);
                             world.getInfiltrators().get(i).setX(2100);
                             world.getInfiltrators().get(i).setY(610);
@@ -118,23 +108,17 @@ public class AuberController implements InputProcessor {
         }
         if (gameScreen.getIsRoom3()) {
             for (int i = 0; i < world.getInfiltrators().size; i++) {
-                // point = infiltrator
+                // point on infiltrator and close to auber
                 if ((screenX + 1200) >= world.getInfiltrators().get(i).getX() &&
                         (screenX + 1200) <= world.getInfiltrators().get(i).getX() + world.getInfiltrators().get(i).getWidth() &&
                         (600 - screenY) > world.getInfiltrators().get(i).getY() &&
                         (600 - screenY) <= world.getInfiltrators().get(i).getY() +
                                 world.getInfiltrators().get(i).getHeight() &&
-                        world.getInfiltrators().get(i).getX() >= world.getAuber().getX() - 150 &&
-                        world.getInfiltrators().get(i).getX() <= world.getAuber().getX() + 150 &&
-                        world.getInfiltrators().get(i).getY() >= world.getAuber().getY() - 150 &&
-                        world.getInfiltrators().get(i).getY() <= world.getAuber().getY() + 150)  {
+                        world.getInfiltrators().get(i).closeToAuber(world.getAuber()))  {
                     // Infiltrator on system being destroyed
                     for (int j = 0; j < world.getSystems().size; j++) {
                         if (world.getSystems().get(j).getHealth() < 100 &&
-                                world.getInfiltrators().get(i).getX() >= world.getSystems().get(j).getX() - 50 &&
-                                world.getInfiltrators().get(i).getX() <= world.getSystems().get(j).getX() + 50 &&
-                                world.getInfiltrators().get(i).getY() >= world.getSystems().get(j).getY() - 50 &&
-                                world.getInfiltrators().get(i).getY() <= world.getSystems().get(j).getY() + 50) {
+                                world.getInfiltrators().get(i).closeToSystem(world.getSystems().get(j))) {
                             world.getInfiltrators().get(i).setArrested(true);
                             world.getInfiltrators().get(i).setX(2100);
                             world.getInfiltrators().get(i).setY(610);
@@ -145,22 +129,17 @@ public class AuberController implements InputProcessor {
         }
         if (gameScreen.getIsRoom4()) {
             for (int i = 0; i < world.getInfiltrators().size; i++) {
+                // point on infiltrator and close to auber
                 if ((screenX + 1200) >= world.getInfiltrators().get(i).getX() &&
                         (screenX + 1200) <= world.getInfiltrators().get(i).getX() + world.getInfiltrators().get(i).getWidth() &&
                         (600 - screenY + 600) > world.getInfiltrators().get(i).getY() &&
                         (600 - screenY + 600) <= world.getInfiltrators().get(i).getY() +
                                 world.getInfiltrators().get(i).getHeight() &&
-                        world.getInfiltrators().get(i).getX() >= world.getAuber().getX() - 150 &&
-                        world.getInfiltrators().get(i).getX() <= world.getAuber().getX() + 150 &&
-                        world.getInfiltrators().get(i).getY() >= world.getAuber().getY() - 150 &&
-                        world.getInfiltrators().get(i).getY() <= world.getAuber().getY() + 150)  {
+                        world.getInfiltrators().get(i).closeToAuber(world.getAuber()))  {
                     // Infiltrator on system being destroyed
                     for (int j = 0; j < world.getSystems().size; j++) {
                         if (world.getSystems().get(j).getHealth() < 100 &&
-                                world.getInfiltrators().get(i).getX() >= world.getSystems().get(j).getX() - 50 &&
-                                world.getInfiltrators().get(i).getX() <= world.getSystems().get(j).getX() + 50 &&
-                                world.getInfiltrators().get(i).getY() >= world.getSystems().get(j).getY() - 50 &&
-                                world.getInfiltrators().get(i).getY() <= world.getSystems().get(j).getY() + 50) {
+                                world.getInfiltrators().get(i).closeToSystem(world.getSystems().get(j))) {
                             world.getInfiltrators().get(i).setArrested(true);
                             world.getInfiltrators().get(i).setX(2100);
                             world.getInfiltrators().get(i).setY(610);

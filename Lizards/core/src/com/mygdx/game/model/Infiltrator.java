@@ -13,7 +13,18 @@ public class Infiltrator extends CharacterNPC{
     }
 
     public boolean closeToSystem(System sys){
-        if (( this.getX()>= sys.getX()) && (this.getX()<=sys.getX()+100) && ( this.getY()>= sys.getY()) && (this.getY()<=sys.getY()+100)){
+        if ((this.getX() >= sys.getX() - 100) && (this.getX() <= sys.getX() + 100) &&
+                (this.getY() >= sys.getY() - 100) && (this.getY()  <= sys.getY() + 100))  {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean closeToAuber(Auber auber){
+        if ((this.getX() >= auber.getX() - 100) && (this.getX() <= auber.getX() + 100) &&
+                (this.getY() >= auber.getY() - 100) && (this.getY()  <= auber.getY() + 100)) {
             return true;
         }
         else{
