@@ -13,7 +13,7 @@ public class Infiltrator extends CharacterNPC{
     }
 
     public boolean closeToSystem(System sys){
-        if (( this.getX()>= sys.getX()) && (this.getX()<=sys.getX()+100) &&  ( this.getY()>= sys.getY()) && (this.getY()<=sys.getY()+100)){
+        if (( this.getX()>= sys.getX()) && (this.getX()<=sys.getX()+100) && ( this.getY()>= sys.getY()) && (this.getY()<=sys.getY()+100)){
             return true;
         }
         else{
@@ -27,6 +27,10 @@ public class Infiltrator extends CharacterNPC{
 
     public boolean isArrested() {
         return arrested;
+    }
+
+    public void setArrested(boolean newArrested) {
+        this.arrested = newArrested;
     }
 
     public boolean isCurrent() {

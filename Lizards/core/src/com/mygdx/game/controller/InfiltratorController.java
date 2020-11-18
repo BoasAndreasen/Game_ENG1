@@ -19,7 +19,7 @@ public class InfiltratorController {
 
     public void Abilities() {
         for (int i = 0; i < world.getInfiltrators().size; i++) {
-            if (world.getInfiltrators().get(i).isCurrent()) { //if the infiltrator we want is current
+            if (world.getInfiltrators().get(i).isCurrent() && (!(world.getInfiltrators().get(i).isArrested()))) { //if the infiltrator we want is current
                 currentAbility = world.getInfiltrators().get(i);
 
                 if (currentAbility.getAbility().equals("bombs")) { //throws 3 bombs at auber or system
@@ -62,7 +62,7 @@ public class InfiltratorController {
 
     public void NormalDamage() {
         for (int i = 0; i < world.getInfiltrators().size; i++) {
-            if (world.getInfiltrators().get(i).isCurrent()) {
+            if (world.getInfiltrators().get(i).isCurrent() && (!(world.getInfiltrators().get(i).isArrested()))) {
                 normal= world.getInfiltrators().get(i);
                 for (int j = 0; j < world.getSystems().size; j++) {
                     if ((world.getAuber().closeToInfiltrator(normal.getX(), normal.getY())) &&
@@ -74,14 +74,12 @@ public class InfiltratorController {
                         else{
                             currentSys.setHealth(10);
                         }
-
                     }
                     else{
                         if (normal.closeToSystem(world.systems.get(j))){
                             currentSys=world.systems.get(j);
                             currentSys.setHealth(10);
                         }
-
                     }
                 }
             }

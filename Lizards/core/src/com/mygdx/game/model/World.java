@@ -144,23 +144,27 @@ public class World {
     		
         	int k = findNearestSystem(this.getInfiltrators().get(y).getX(), this.getInfiltrators().get(y).getY());
     		
-            if (this.getInfiltrators().get(y).getX() > this.getSystems().get(k).getX())
+            if (this.getInfiltrators().get(y).getX() > this.getSystems().get(k).getX() &&
+                    (!(this.getInfiltrators().get(y).isArrested())))
             {
             	
                 this.getInfiltrators().get(y).addX(-3);
             }
 
-            if (this.getInfiltrators().get(y).getX() < this.getSystems().get(k).getX())
+            if (this.getInfiltrators().get(y).getX() < this.getSystems().get(k).getX() &&
+                    (!(this.getInfiltrators().get(y).isArrested())))
             {
                 this.getInfiltrators().get(y).addX(3);
             }
             
-            if (this.getInfiltrators().get(y).getY() > this.getSystems().get(k).getY())
+            if (this.getInfiltrators().get(y).getY() > this.getSystems().get(k).getY() &&
+                    (!(this.getInfiltrators().get(y).isArrested())))
             {
                 this.getInfiltrators().get(y).addY(-3);
             }
 
-            if (this.getInfiltrators().get(y).getY() < this.getSystems().get(k).getY())
+            if (this.getInfiltrators().get(y).getY() < this.getSystems().get(k).getY() &&
+                    (!(this.getInfiltrators().get(y).isArrested())))
             {
             	this.getInfiltrators().get(y).addY(3);
             }

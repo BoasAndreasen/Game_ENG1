@@ -20,7 +20,7 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.controller.AuberController;
 
 public class GameScreen implements Screen {
-	
+
 	MyGame game;
 	
 	public GameScreen(MyGame game) {
@@ -71,7 +71,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         world = new World();
-        auberController = new AuberController(world);
+        auberController = new AuberController(world, this);
         infiltratorController = new InfiltratorController(world);
 
         //TEXTURES
@@ -369,6 +369,21 @@ public class GameScreen implements Screen {
         camera.update();
     }
 
+    public boolean getIsRoom1() {
+        return isRoom1;
+    }
+
+    public boolean getIsRoom2() {
+        return isRoom2;
+    }
+
+    public boolean getIsRoom3() {
+        return isRoom3;
+    }
+
+    public boolean getIsRoom4() {
+        return isRoom4;
+    }
 
     private void updateCameraRoomLocation() {
         if (isRoom1 && world.getAuber().getY() >= 600) {
