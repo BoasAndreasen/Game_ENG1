@@ -54,7 +54,5 @@ public class Auber extends CharacterNPC {
         }
     }
 
-    public void arrest() {
-        //TODO
-    }
+
 }

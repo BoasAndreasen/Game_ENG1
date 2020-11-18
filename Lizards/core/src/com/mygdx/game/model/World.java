@@ -1,7 +1,6 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.controller.InfiltratorController;
 
 import java.util.*;
 
@@ -14,9 +13,7 @@ public class World {
     public Array<TeleportPad> telePads = new Array<TeleportPad>();
     private HealPad healingPad;
     private Bomb bomb;
-    private Infiltrator currentInfiltrator;
-    private InfiltratorController infiltratorController;
-    private String abilityState;
+    private boolean shieldUp;
 
     public World() {
         createWorld();
@@ -135,6 +132,8 @@ public class World {
         for (int i=0; i < screen4VertiWallsX.size(); i++) {
             vertiWall.add(new VertiWall(screen4VertiWallsX.get(i), screen4VertiWallsY.get(i)));
         }
+
+
     }
 
     //Infiltrator*****************************************************************************//
@@ -227,6 +226,15 @@ public class World {
     }
 
     public Bomb getBomb(){return bomb;}
+
+    public boolean getShieldUp(){
+        return shieldUp;
+    }
+
+    public void setShieldUp(boolean shieldUp) {
+        this.shieldUp = shieldUp;
+    }
+
 
     public Array<HorizWall> getHorizWall(){return horizWall;}
 

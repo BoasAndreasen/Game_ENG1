@@ -53,9 +53,7 @@ public class InfiltratorController {
                     }
                 }
 
-                else if (currentAbility.getAbility().equals("shield")) {
-                    //TODO
-                }
+
             };
         }
     };
@@ -85,4 +83,6 @@ public class InfiltratorController {
             }
         }
     }
+
+
 }

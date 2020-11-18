@@ -33,7 +33,7 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
 
-    // Notification label
+    // Notification labels
     private Label.LabelStyle notify_style;
     private BitmapFont my_font;
     private Label notify_label;
@@ -62,6 +62,8 @@ public class GameScreen implements Screen {
     private int update_num = 0;
     private Timer timer;
     private Timer.Task task;
+    private boolean shieldUp=true;
+    private int shield_num=0;
 
     // Camera location
     private boolean isRoom1 = true;
@@ -88,7 +90,7 @@ public class GameScreen implements Screen {
         corruptImage= new Texture(Gdx.files.internal("corrupt.jpg"));
         healPadImage = new Texture(Gdx.files.internal("HealPad.png"));
 
-        //NOTIFICATION LABEL
+        //NOTIFICATION LABELS
         notify_style = new Label.LabelStyle();
         my_font = new BitmapFont(Gdx.files.internal("my_font.fnt"));
         stage = new Stage();
@@ -98,6 +100,9 @@ public class GameScreen implements Screen {
         notify_label = new Label("NOTIFY",notify_style);
         notify_label.setSize(900,100);
         notify_label.setAlignment(Align.left);
+
+
+
 
         if ((world.getAuber().getX() < 1200) && (world.getAuber().getY() < 600)){
             notify_label.setPosition(0,0);
@@ -231,6 +236,19 @@ public class GameScreen implements Screen {
             }
         }
 
+        //Shield Updates
+        if ((shield_num>200)&& (shieldUp==true)){
+            shieldUp=false;
+            world.setShieldUp(shieldUp);
+            this.shield_num=0;
+        }
+        if ((shield_num>200)&& (shieldUp==false)){
+            shieldUp=true;
+            world.setShieldUp(shieldUp);
+            this.shield_num=0;
+        }
+        shield_num+=1;
+
         //HOSTILE ABILITIES
         for (int i=0;i<world.getInfiltrators().size;i++) {
             if (world.getInfiltrators().get(i).isCurrent()){
@@ -238,9 +256,12 @@ public class GameScreen implements Screen {
                     batch.draw(bombImage, world.getInfiltrators().get(i).getX() - 30,
                             world.getInfiltrators().get(i).getY());
                 }
-                if (world.getInfiltrators().get(i).getAbility().equals("shield")) { //shield image on hostile
-                    batch.draw(shieldImage, world.getInfiltrators().get(i).getX() - 30,
-                            world.getInfiltrators().get(i).getY());
+                if (world.getInfiltrators().get(i).getAbility().equals("shield")) {
+                    if (shieldUp){
+                        batch.draw(shieldImage, world.getInfiltrators().get(i).getX() - 30,
+                                world.getInfiltrators().get(i).getY());
+                    }
+
                 }
                 if (world.getInfiltrators().get(i).getAbility().equals("corrupt")){ //corrupts if close to hostile
                     batch.draw(corruptImage,world.getInfiltrators().get(i).getX()-30,
@@ -271,61 +292,68 @@ public class GameScreen implements Screen {
         //SYS NOTIFICATION
         timer=new Timer();
         for (int i = 0; i < world.getSystems().size; i++) {
-            if ((world.getSystems().get(i).notifyPlayer())&& (world.getSystems().get(i).isDestroyed()==false)) { //show notification
-                if (i == 0) {
-                    stage.addActor(notify_label);
-                    notify_label.setText("The Armoury System is being sabotaged!");
-                    stage.draw();}
-                if (i == 1) {
-                    stage.addActor(notify_label);
-                    notify_label.setText("The Storage System is being sabotaged!");
-                    stage.draw();
+            for (int c=0;c<world.getInfiltrators().size;c++){
+                if ((world.getInfiltrators().get(c).closeToSystem(world.systems.get(i)))&& (!world.getInfiltrators().get(c).isArrested())
+                && (world.getInfiltrators().get(c).isCurrent())){
+                    if ((world.getSystems().get(i).notifyPlayer())&& (world.getSystems().get(i).isDestroyed()==false)) { //show notification
+                        if (i == 0) {
+                            stage.addActor(notify_label);
+                            notify_label.setText("The Armoury System is being sabotaged!");
+                            stage.draw();}
+                        if (i == 1) {
+                            stage.addActor(notify_label);
+                            notify_label.setText("The Storage System is being sabotaged!");
+                            stage.draw();
+                        }
+                        if ((i == 2) || (i == 3)) {
+                            stage.addActor(notify_label);
+                            notify_label.setText("A Control Room System is being sabotaged!");
+                            stage.draw();
+                        }
+                        if ((i == 4) || (i == 5)) {
+                            stage.addActor(notify_label);
+                            notify_label.setText("A Cantine System is being sabotaged!");
+                            stage.draw();
+                        }
+                        if (i == 6) {
+                            stage.addActor(notify_label);
+                            notify_label.setText("The Dorms System is being sabotaged!");
+                            stage.draw();
+                        }
+                        if (i == 7) {
+                            stage.addActor(notify_label);
+                            notify_label.setText("A System near the brig is being sabotaged!");
+                            stage.draw();
+                        }
+                        if ((i == 8) || (i == 9)) {
+                            stage.addActor(notify_label);
+                            notify_label.setText("An Engine Room System is being sabotaged!");
+                            stage.draw();
+                        }
+                        if (i == 10) {
+                            stage.addActor(notify_label);
+                            notify_label.setText("The Shield Room System is being sabotaged!");
+                            stage.draw();
+                        }
+                        if ((i == 11) || (i == 12)) {
+                            stage.addActor(notify_label);
+                            notify_label.setText("A Reactor Room System is being sabotaged!");
+                            stage.draw();
+                        }
+                        if (i == 13) {
+                            stage.addActor(notify_label);
+                            notify_label.setText("The Cargo Bay System is being sabotaged!");
+                            stage.draw();
+                        }
+                        if (i == 14) {
+                            stage.addActor(notify_label);
+                            notify_label.setText("A System near the cargo bay is being sabotaged!");
+                            stage.draw();
+                        } }
+
                 }
-                if ((i == 2) || (i == 3)) {
-                    stage.addActor(notify_label);
-                    notify_label.setText("A Control Room System is being sabotaged!");
-                    stage.draw();
-                }
-                if ((i == 4) || (i == 5)) {
-                    stage.addActor(notify_label);
-                    notify_label.setText("A Cantine System is being sabotaged!");
-                    stage.draw();
-                }
-                if (i == 6) {
-                    stage.addActor(notify_label);
-                    notify_label.setText("The Dorms System is being sabotaged!");
-                    stage.draw();
-                }
-                if (i == 7) {
-                    stage.addActor(notify_label);
-                    notify_label.setText("A System near the brig is being sabotaged!");
-                    stage.draw();
-                }
-                if ((i == 8) || (i == 9)) {
-                    stage.addActor(notify_label);
-                    notify_label.setText("An Engine Room System is being sabotaged!");
-                    stage.draw();
-                }
-                if (i == 10) {
-                    stage.addActor(notify_label);
-                    notify_label.setText("The Shield Room System is being sabotaged!");
-                    stage.draw();
-                }
-                if ((i == 11) || (i == 12)) {
-                    stage.addActor(notify_label);
-                    notify_label.setText("A Reactor Room System is being sabotaged!");
-                    stage.draw();
-                }
-                if (i == 13) {
-                    stage.addActor(notify_label);
-                    notify_label.setText("The Cargo Bay System is being sabotaged!");
-                    stage.draw();
-                }
-                if (i == 14) {
-                    stage.addActor(notify_label);
-                    notify_label.setText("A System near the cargo bay is being sabotaged!");
-                    stage.draw();
-                } }}
+            }
+            }
         task=new Timer.Task() {
             @Override
             public void run() {
@@ -363,6 +391,9 @@ public class GameScreen implements Screen {
         }
         update_num += 1;
 
+
+
+
         world.updateInfiltratorLocation();
         auberController.updateAuberLocation();
         updateCameraRoomLocation();
@@ -384,6 +415,7 @@ public class GameScreen implements Screen {
     public boolean getIsRoom4() {
         return isRoom4;
     }
+
 
     private void updateCameraRoomLocation() {
         if (isRoom1 && world.getAuber().getY() >= 600) {
