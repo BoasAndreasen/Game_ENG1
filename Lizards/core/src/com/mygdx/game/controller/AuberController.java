@@ -38,9 +38,7 @@ public class AuberController implements InputProcessor {
         checkTelePadStop();
         checkHealPadStop();
 
-        if (standingOnHealPad) {
-            world.getAuber().setHealth(100);
-        }
+
 
         if (keycode == 19 || keycode == 51) {
             upPressed = false;

@@ -122,6 +122,9 @@ public class GameScreen implements Screen {
 
         //HEALPAD RENDER
         batch.draw(healPadImage, world.getHealingPad().getX(), world.getHealingPad().getY());
+        if ((auberController.getStandingOnHealPad())&& (isRoom1)) {
+            world.getAuber().setHealth(100);
+        }
 
         //TELEPAD RENDER
         for (int i = 0; i < world.getTelePads().size; i++) {
