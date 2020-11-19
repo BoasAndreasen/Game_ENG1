@@ -22,7 +22,6 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.controller.AuberController;
 
 public class GameScreen implements Screen {
-
 	MyGame game;
 	
 	public GameScreen(MyGame game) {
@@ -36,11 +35,8 @@ public class GameScreen implements Screen {
     private SpriteBatch batch;
 
     // Notification labels
-    private Label.LabelStyle notify_style;
-    private BitmapFont my_font;
     private Label notify_label;
     private Stage stage;
-    private Skin skin;
     private boolean AllDestroyed;
     private int infilcount;
     private boolean AuberWin;
@@ -49,7 +45,7 @@ public class GameScreen implements Screen {
     private BitmapFont health_font;
 
     // Images
-    private Texture bucketImage; //Auber
+    private Texture auberImage; //Auber
     private Texture infiltratorImage; //Infiltrator
     private Texture systemImage; //System
     private Texture healthImg; //System/Auber Health Bar
@@ -84,7 +80,7 @@ public class GameScreen implements Screen {
         AuberWin=false;
 
         //TEXTURES
-        bucketImage = new Texture(Gdx.files.internal("bucket.png"));
+        auberImage = new Texture(Gdx.files.internal("Auber.png"));
         systemImage = new Texture(Gdx.files.internal("System.png"));
         healthImg = new Texture(Gdx.files.internal("health.png"));
         horizWallImage = new Texture(Gdx.files.internal("HorizontalWall.png"));
@@ -98,13 +94,13 @@ public class GameScreen implements Screen {
         healPadImage = new Texture(Gdx.files.internal("HealPad.png"));
 
         //NOTIFICATION LABELS
-        notify_style = new Label.LabelStyle();
-        my_font = new BitmapFont(Gdx.files.internal("my_font.fnt"));
+        Label.LabelStyle notify_style = new Label.LabelStyle();
+        BitmapFont my_font = new BitmapFont(Gdx.files.internal("my_font.fnt"));
         stage = new Stage();
-        skin = new Skin(Gdx.files.internal("clean-crispy-ui.json"));
+        Skin skin = new Skin(Gdx.files.internal("clean-crispy-ui.json"));
         notify_style.font = my_font;
         notify_style.background = skin.getDrawable("button");
-        notify_label = new Label("NOTIFY",notify_style);
+        notify_label = new Label("NOTIFY", notify_style);
         notify_label.setSize(900,100);
         notify_label.setAlignment(Align.left);
         if (isRoom1|| isRoom2){
@@ -180,7 +176,6 @@ public class GameScreen implements Screen {
                     }
                 }
                 else{
-
                     if (i == 1){
                         health_font.draw(batch,String.valueOf(world.getSystems().get(i).getHealth()),
                                 world.getSystems().get(i).getX()+20,world.getSystems().get(i).getY()+140);
@@ -226,14 +221,15 @@ public class GameScreen implements Screen {
         }
 
         //AUBER RENDER
-        batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
+        batch.draw(auberImage, world.getAuber().getX(), world.getAuber().getY());
 
         //AUBER HEALTH BAR RENDER
         if (world.getAuber().getHealth()>=70){ batch.setColor(Color.GREEN); }
         else if (world.getAuber().getHealth()>=40){batch.setColor(Color.ORANGE);}
         else {batch.setColor(Color.RED);}
         batch.draw(healthImg,world.getAuber().getX(),world.getAuber().getY()-130);
-        health_font.draw(batch,String.valueOf(world.getAuber().getHealth()),world.getAuber().getX(),world.getAuber().getY()-10);
+        health_font.draw(batch,String.valueOf(world.getAuber().getHealth()),
+                world.getAuber().getX(),world.getAuber().getY()-10);
         batch.setColor(Color.WHITE);
 
         //HOSTILES RENDER
@@ -254,17 +250,17 @@ public class GameScreen implements Screen {
         }
 
         //Shield Updates
-        if ((shield_num>200)&& (shieldUp==true)){
-            shieldUp=false;
+        if ((shield_num>200) && (shieldUp)){
+            shieldUp = false;
             world.setShieldUp(shieldUp);
-            this.shield_num=0;
+            this.shield_num = 0;
         }
-        if ((shield_num>200)&& (shieldUp==false)){
-            shieldUp=true;
+        if ((shield_num>200) && (!shieldUp)){
+            shieldUp = true;
             world.setShieldUp(shieldUp);
-            this.shield_num=0;
+            this.shield_num = 0;
         }
-        shield_num+=1;
+        shield_num += 1;
 
         //HOSTILE ABILITIES
         for (int i=0;i<world.getInfiltrators().size;i++) {
@@ -278,7 +274,6 @@ public class GameScreen implements Screen {
                         batch.draw(shieldImage, world.getInfiltrators().get(i).getX() - 30,
                                 world.getInfiltrators().get(i).getY());
                     }
-
                 }
                 if (world.getInfiltrators().get(i).getAbility().equals("corrupt")){ //corrupts if close to hostile
                     batch.draw(corruptImage,world.getInfiltrators().get(i).getX()-30,
@@ -289,9 +284,6 @@ public class GameScreen implements Screen {
                 }
             }
         }
-
-
-
 
         //TELEPORTING
         if (auberController.getStandingOnTelePad() && isRoom1) {
@@ -310,10 +302,11 @@ public class GameScreen implements Screen {
 
 
         //SYS NOTIFICATION
-        timer=new Timer();
+        Timer timer = new Timer();
         for (int i = 0; i < world.getSystems().size; i++) {
             for (int c=0;c<world.getInfiltrators().size;c++){
-                if ((world.getInfiltrators().get(c).closeToSystem(world.systems.get(i)))&& (!world.getInfiltrators().get(c).isArrested())
+                if ((world.getInfiltrators().get(c).closeToSystem(world.systems.get(i))) &&
+                        (!world.getInfiltrators().get(c).isArrested())
                 && (world.getInfiltrators().get(c).isCurrent())){
                     if (isRoom2||isRoom4){
                         notify_label.setPosition(0,500);
@@ -380,11 +373,12 @@ public class GameScreen implements Screen {
                 }
             }
             }
-        task=new Timer.Task() {
+        Timer.Task task = new Timer.Task() {
             @Override
             public void run() {
                 stage.clear();
-            }};
+            }
+        };
         timer.scheduleTask(task,3);
 
         //GAME LOST NOTIFICATION
@@ -448,9 +442,6 @@ public class GameScreen implements Screen {
             this.update_num = 0;
         }
         update_num += 1;
-
-
-
 
         world.updateInfiltratorLocation();
         auberController.updateAuberLocation();

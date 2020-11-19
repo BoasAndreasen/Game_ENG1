@@ -25,21 +25,16 @@ import com.mygdx.game.controller.AuberController;
 import java.awt.*;
 
 public class MainScreen implements Screen {
-	
 	MyGame game;
+	private Label.LabelStyle notify_style;
+	private BitmapFont my_font;
+	private Label notify_label;
+	private Stage stage;
+	private Skin skin;
 	
     public MainScreen(MyGame game) {
         this.game = game;
     }
-	
-    private Label.LabelStyle notify_style;
-    private BitmapFont my_font;
-    private Label notify_label;
-    private Stage stage;
-    private Skin skin;
-    
-    
-
 
 	@Override
 	public void show() {
@@ -60,9 +55,7 @@ public class MainScreen implements Screen {
         Gdx.input.setInputProcessor(new InputAdapter() {
         	
         	   public boolean keyDown (int keycode) {
-
         		  game.setScreen(new GameScreen(game));
-        		  
         	      return false;
         	   }			
         });
@@ -100,7 +93,5 @@ public class MainScreen implements Screen {
 	public void dispose() {
 		// TODO Auto-generated method stub
 	}
-
-	
 }
 

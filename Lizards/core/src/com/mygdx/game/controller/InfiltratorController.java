@@ -7,11 +7,7 @@ import com.mygdx.game.model.World;
 import org.lwjgl.Sys;
 
 public class InfiltratorController {
-
-    private World world;
-    private Infiltrator currentAbility;
-    private Infiltrator normal;
-    private System currentSys;
+    private final World world;
 
     public InfiltratorController(World world) {
         this.world = world;
@@ -20,7 +16,7 @@ public class InfiltratorController {
     public void Abilities() {
         for (int i = 0; i < world.getInfiltrators().size; i++) {
             if (world.getInfiltrators().get(i).isCurrent() && (!(world.getInfiltrators().get(i).isArrested()))) { //if the infiltrator we want is current
-                currentAbility = world.getInfiltrators().get(i);
+                Infiltrator currentAbility = world.getInfiltrators().get(i);
 
                 if (currentAbility.getAbility().equals("bombs")) { //throws 3 bombs at auber or system
                     if (world.getAuber().closeToCharacterNPC(currentAbility)) {
@@ -52,8 +48,6 @@ public class InfiltratorController {
                         }
                     }
                 }
-
-
             };
         }
     };
@@ -61,11 +55,12 @@ public class InfiltratorController {
     public void NormalDamage() {
         for (int i = 0; i < world.getInfiltrators().size; i++) {
             if (world.getInfiltrators().get(i).isCurrent() && (!(world.getInfiltrators().get(i).isArrested()))) {
-                normal= world.getInfiltrators().get(i);
+                Infiltrator normal = world.getInfiltrators().get(i);
                 for (int j = 0; j < world.getSystems().size; j++) {
+                    System currentSys;
                     if ((world.getAuber().closeToCharacterNPC(normal)) &&
                             ((normal.closeToSystem(world.systems.get(j))))) {
-                        currentSys=world.getSystems().get(j);
+                        currentSys =world.getSystems().get(j);
                         if (world.getBomb().randBomb() == 1){
                             world.getAuber().decHealth(10);
                         }
@@ -75,7 +70,7 @@ public class InfiltratorController {
                     }
                     else{
                         if (normal.closeToSystem(world.systems.get(j))){
-                            currentSys=world.systems.get(j);
+                            currentSys =world.systems.get(j);
                             currentSys.setHealth(10);
                         }
                     }
@@ -83,6 +78,4 @@ public class InfiltratorController {
             }
         }
     }
-
-
 }
