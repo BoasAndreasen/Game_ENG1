@@ -38,21 +38,4 @@ public class Auber extends CharacterNPC {
             return false;
         }
     }
-
-    public boolean closeToSystem(System sys){
-        if (((this.getX() > sys.getX()) && (this.getX() < sys.getX() + 400) && ((this.getY() > sys.getY()) &&
-                (this.getY() < sys.getY() + 400))) || ((this.getX() < sys.getX()) && (this.getX() > sys.getX() - 400)&&
-                (this.getY() > sys.getY()) && (this.getY() < sys.getY() + 400)) ||
-                ((this.getX() > sys.getX()) && (this.getX() < sys.getX() + 400) &&
-                        ((this.getY() < sys.getY()) && (this.getY() > sys.getY() - 400))) ||
-                ((this.getX() < sys.getX()) && (this.getX() > sys.getX() - 400) &&
-                        (this.getY() < sys.getY()) && (this.getY() > sys.getY() - 400))) {
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-
 }

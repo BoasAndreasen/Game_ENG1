@@ -15,6 +15,16 @@ public class CharacterNPC extends Rectangle {
         this.height = 70;
     }
 
+    public boolean closeToSystem(System sys){
+        if ((this.getX() >= sys.getX() - 100) && (this.getX() <= sys.getX() + 100) &&
+                (this.getY() >= sys.getY() - 100) && (this.getY()  <= sys.getY() + 100))  {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     @Override
     public float getX() {
         return x;
