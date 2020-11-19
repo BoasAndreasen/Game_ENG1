@@ -1,6 +1,7 @@
 package com.mygdx.game.model;
 
 public class Auber extends CharacterNPC {
+
     private  int health;
 
     public Auber(float x, float y, int health) {
