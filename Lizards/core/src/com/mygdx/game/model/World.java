@@ -23,6 +23,7 @@ public class World {
         //add hostiles
         List<String> ability = Arrays.asList("bombs", "bombs", "corrupt", "corrupt", "shield",
                 "shield", "none", "none");
+
         for (int i = 0; i < ability.size(); i++) {
             double xCoord = Math.random() * 2400;
             double yCoord = Math.random() * 1200;
@@ -35,7 +36,6 @@ public class World {
             }
         }
 
-
         //systems and their corresponding health bars
         List<Integer> systemX = Arrays.asList(600, 400, 1100, 700, 1500, 1500, 2300, 2300,
                 300, 600, 700, 1300, 1200, 2300, 2300);
@@ -44,7 +44,7 @@ public class World {
                 200, 500, 500, 500, 200, 500, 0);
 
         for (int i=0; i < systemX.size(); i++) {
-            systems.add(new System(systemX.get(i), systemY.get(i), 100, false));
+            systems.add(new System(systemX.get(i), systemY.get(i), 100));
         }
 
         //creating teleport pads
@@ -132,87 +132,6 @@ public class World {
 
 
     }
-
-    //Infiltrator*****************************************************************************//
-    
-    public void updateInfiltratorLocation() {
-    	for (int y=0;y<this.infiltrators.size;y++){
-    		
-        	int k = findNearestSystem(this.getInfiltrators().get(y).getX(), this.getInfiltrators().get(y).getY());
-    		
-            if (this.getInfiltrators().get(y).getX() > this.getSystems().get(k).getX() &&
-                    (!(this.getInfiltrators().get(y).isArrested())))
-            {
-            	
-                this.getInfiltrators().get(y).addX(-3);
-            }
-
-            if (this.getInfiltrators().get(y).getX() < this.getSystems().get(k).getX() &&
-                    (!(this.getInfiltrators().get(y).isArrested())))
-            {
-                this.getInfiltrators().get(y).addX(3);
-            }
-            
-            if (this.getInfiltrators().get(y).getY() > this.getSystems().get(k).getY() &&
-                    (!(this.getInfiltrators().get(y).isArrested())))
-            {
-                this.getInfiltrators().get(y).addY(-3);
-            }
-
-            if (this.getInfiltrators().get(y).getY() < this.getSystems().get(k).getY() &&
-                    (!(this.getInfiltrators().get(y).isArrested())))
-            {
-            	this.getInfiltrators().get(y).addY(3);
-            }
-    	}
-    }
-   
-    public int findNearestSystem(float cx, float cy) //current X and current Y
-    {
-    	int nearSystem = 0; //nearest system
-    	double nearDistance = 0; //nearest distance
-    	double tempDistance;
-    	
-    	for (int i = 0; i < this.getSystems().size; i++) 
-    	{
-    		if (!(this.getSystems().get(i).isDestroyed()))
-    		{
-    			tempDistance = findDistance(cx, this.getSystems().get(i).getX(),
-        				cy, this.getSystems().get(i).getY());
-        		   		
-        		if (i != 0) 
-        		{
-        			if(tempDistance < nearDistance) 
-        			{
-        				nearDistance = tempDistance;
-        				nearSystem = i;
-        			}   			
-        		}
-        		else 
-        		{
-        			nearDistance = tempDistance; 			
-        		}  			
-    		}
-    	}
-    	
-    	return nearSystem;
-    }
-    
-    public double findDistance(float aX, float aY, float bX, float bY) 
-    { 	
-    	float dx = Math.abs(aX - aY);
-		float dy = Math.abs(bX - bY);
-		double dt = Math.sqrt((dx*dx)+(dy*dy));
-    	
-    	return dt;
-    }
-    
-    
-    //NPC*******************************************************************************************//
-    
-    
-    
-    //***********************************************************************************************//
     
     public Auber getAuber() {
         return auber;
@@ -231,7 +150,6 @@ public class World {
     public void setShieldUp(boolean shieldUp) {
         this.shieldUp = shieldUp;
     }
-
 
     public Array<HorizWall> getHorizWall(){return horizWall;}
 
