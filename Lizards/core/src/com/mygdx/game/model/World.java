@@ -24,20 +24,11 @@ public class World {
         List<String> ability = Arrays.asList("bombs", "bombs", "corrupt", "corrupt", "shield",
                 "shield", "none", "none");
         for (int i = 0; i < ability.size(); i++) {
-            double xCoord = Math.random() * 2400;
-            double yCoord = Math.random() * 1200;
-            if (i < 3) {
-                infiltrators.add(new Infiltrator((int)Math.round(xCoord), (int)Math.round(yCoord),
-                        ability.get(i), false, true));
-            } else {
-                infiltrators.add(new Infiltrator((int)Math.round(xCoord), (int)Math.round(yCoord),
-                        ability.get(i), false, false));
+            double xCoord = Math.random() * 2300;
+            double yCoord = Math.random() * 1100;
+            infiltrators.add(new Infiltrator((int)Math.round(xCoord), (int)Math.round(yCoord),
+                    ability.get(i), false, true));
             }
-        }
-        //renders infiltrators every 10 seconds
-        for (int i = 3; i < 8; i++){
-            getInfiltrators().get(i).setCurrent(true);
-        }
 
         //systems and their corresponding health bars
         List<Integer> systemX = Arrays.asList(600, 400, 1100, 700, 1500, 1500, 2300, 2300,

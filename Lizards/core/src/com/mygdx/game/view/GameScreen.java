@@ -45,7 +45,7 @@ public class GameScreen implements Screen {
     private BitmapFont health_font;
 
     // Images
-    private Texture bucketImage; //Auber
+    private Texture auberImage; //Auber
     private Texture infiltratorImage; //Infiltrator
     private Texture systemImage; //System
     private Texture healthImg; //System/Auber Health Bar
@@ -77,7 +77,7 @@ public class GameScreen implements Screen {
         infiltratorController = new InfiltratorController(world);
 
         //TEXTURES
-        bucketImage = new Texture(Gdx.files.internal("bucket.png"));
+        auberImage = new Texture(Gdx.files.internal("Auber.png"));
         systemImage = new Texture(Gdx.files.internal("System.png"));
         healthImg = new Texture(Gdx.files.internal("health.png"));
         horizWallImage = new Texture(Gdx.files.internal("HorizontalWall.png"));
@@ -218,7 +218,7 @@ public class GameScreen implements Screen {
         }
 
         //AUBER RENDER
-        batch.draw(bucketImage, world.getAuber().getX(), world.getAuber().getY());
+        batch.draw(auberImage, world.getAuber().getX(), world.getAuber().getY());
 
         //AUBER HEALTH BAR RENDER
         if (world.getAuber().getHealth()>=70){ batch.setColor(Color.GREEN); }
