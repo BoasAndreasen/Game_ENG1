@@ -12,16 +12,6 @@ public class Infiltrator extends CharacterNPC{
         this.current=current;
     }
 
-    public boolean closeToAuber(Auber auber){
-        if ((this.getX() >= auber.getX() - 100) && (this.getX() <= auber.getX() + 100) &&
-                (this.getY() >= auber.getY() - 100) && (this.getY()  <= auber.getY() + 100)) {
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
     public String getAbility() {
         return ability;
     }

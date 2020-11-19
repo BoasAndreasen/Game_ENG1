@@ -22,20 +22,4 @@ public class Auber extends CharacterNPC {
     public void setHealth(int health){
         this.health = health;
     }
-
-    public boolean closeToInfiltrator(float Ix, float Iy){
-        if (((this.getX() > Ix) && (this.getX() < Ix + 200) &&
-                ((this.getY() > Iy) && (this.getY() < Iy + 200))) ||
-                (((this.getX() < Ix)) && (this.getX() > Ix - 200) &&
-                        (this.getY() > Iy) && (this.getY() < Iy + 200)) ||
-                ((this.getX() > Ix) && (this.getX() < Ix + 200) &&
-                        ((this.getY() < Iy) && (this.getY() > Iy - 200))) ||
-                ((this.getX() < Ix) && (this.getX() > Ix - 200) &&
-                        (this.getY() < Iy) && (this.getY() > Iy - 200))) {
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 }

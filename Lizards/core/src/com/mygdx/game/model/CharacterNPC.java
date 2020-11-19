@@ -25,6 +25,16 @@ public class CharacterNPC extends Rectangle {
         }
     }
 
+    public boolean closeToCharacterNPC(CharacterNPC characterNPC){
+        if ((this.getX() >= characterNPC.getX() - 100) && (this.getX() <= characterNPC.getX() + 100) &&
+                (this.getY() >= characterNPC.getY() - 100) && (this.getY()  <= characterNPC.getY() + 100)) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     @Override
     public float getX() {
         return x;

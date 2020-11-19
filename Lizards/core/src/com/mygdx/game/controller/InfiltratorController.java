@@ -23,7 +23,7 @@ public class InfiltratorController {
                 currentAbility = world.getInfiltrators().get(i);
 
                 if (currentAbility.getAbility().equals("bombs")) { //throws 3 bombs at auber or system
-                    if (world.getAuber().closeToInfiltrator(currentAbility.getX(),currentAbility.getY())) {
+                    if (world.getAuber().closeToCharacterNPC(currentAbility)) {
                         if (world.getBomb().randBomb() == 1) {  //throw bomb at auber if he is in a radius
                              world.getAuber().decHealth(20);
                         }
@@ -63,7 +63,7 @@ public class InfiltratorController {
             if (world.getInfiltrators().get(i).isCurrent() && (!(world.getInfiltrators().get(i).isArrested()))) {
                 normal= world.getInfiltrators().get(i);
                 for (int j = 0; j < world.getSystems().size; j++) {
-                    if ((world.getAuber().closeToInfiltrator(normal.getX(), normal.getY())) &&
+                    if ((world.getAuber().closeToCharacterNPC(normal)) &&
                             ((normal.closeToSystem(world.systems.get(j))))) {
                         currentSys=world.getSystems().get(j);
                         if (world.getBomb().randBomb() == 1){
