@@ -35,6 +35,8 @@ public class CharacterNPC extends Rectangle {
         }
     }
 
+
+
     @Override
     public float getX() {
         return x;

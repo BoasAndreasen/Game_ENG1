@@ -1,5 +1,6 @@
 package com.mygdx.game.view;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.controller.InfiltratorController;
+import com.mygdx.game.model.Auber;
 import com.mygdx.game.model.World;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.controller.AuberController;
@@ -40,6 +42,8 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Skin skin;
     private boolean AllDestroyed;
+    private int infilcount;
+    private boolean AuberWin;
 
    //Health font
     private BitmapFont health_font;
@@ -64,6 +68,7 @@ public class GameScreen implements Screen {
     private Timer.Task task;
     private boolean shieldUp=true;
     private int shield_num=0;
+    private int hostile_render=0;
 
     // Camera location
     private boolean isRoom1 = true;
@@ -75,6 +80,8 @@ public class GameScreen implements Screen {
         world = new World();
         auberController = new AuberController(world, this);
         infiltratorController = new InfiltratorController(world);
+        infilcount=0;
+        AuberWin=false;
 
         //TEXTURES
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
@@ -100,12 +107,11 @@ public class GameScreen implements Screen {
         notify_label = new Label("NOTIFY",notify_style);
         notify_label.setSize(900,100);
         notify_label.setAlignment(Align.left);
-
-
-
-
-        if ((world.getAuber().getX() < 1200) && (world.getAuber().getY() < 600)){
+        if (isRoom1|| isRoom2){
             notify_label.setPosition(0,0);
+        }
+        else{
+            notify_label.setPosition(0,600);
         }
         stage.addActor(notify_label);
 
@@ -123,6 +129,8 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(camera.combined);
+        infilcount=0;
+        AuberWin=false;
         batch.begin();
 
         //HEALPAD RENDER
@@ -234,6 +242,15 @@ public class GameScreen implements Screen {
                 batch.draw(infiltratorImage, world.getInfiltrators().get(a).getX(),
                         world.getInfiltrators().get(a).getY());
             }
+            //renders infiltrators every 10 seconds
+            while (hostile_render>500){
+                for (int i = 3; i < 8; i++){
+                    world.getInfiltrators().get(i).setCurrent(true);
+                }
+                hostile_render=0;
+            }
+            hostile_render+=1;
+
         }
 
         //Shield Updates
@@ -287,7 +304,10 @@ public class GameScreen implements Screen {
             batch.draw(teleportPadMapImage, 1320,660);
         }
 
+
+
         batch.end();
+
 
         //SYS NOTIFICATION
         timer=new Timer();
@@ -295,6 +315,12 @@ public class GameScreen implements Screen {
             for (int c=0;c<world.getInfiltrators().size;c++){
                 if ((world.getInfiltrators().get(c).closeToSystem(world.systems.get(i)))&& (!world.getInfiltrators().get(c).isArrested())
                 && (world.getInfiltrators().get(c).isCurrent())){
+                    if (isRoom2||isRoom4){
+                        notify_label.setPosition(0,500);
+                    }
+                    if (isRoom1||isRoom3){
+                        notify_label.setPosition(0,0);
+                    }
                     if ((world.getSystems().get(i).notifyPlayer())&& (world.getSystems().get(i).isDestroyed()==false)) { //show notification
                         if (i == 0) {
                             stage.addActor(notify_label);
@@ -361,15 +387,28 @@ public class GameScreen implements Screen {
             }};
         timer.scheduleTask(task,3);
 
-        //GAME OVER NOTIFICATION
+        //GAME LOST NOTIFICATION
         if ((world.getSystems().size) <= 0) {
             AllDestroyed = true;
         }
+
+        //GAME WON NOTIFICATION
+        while ((world.getInfiltrators().get(infilcount).isArrested()==true)&& (infilcount< world.getInfiltrators().size-1)){
+            infilcount+=1;
+        }
+        if (infilcount>=world.getInfiltrators().size-1){
+            AuberWin=true; }
+        else{
+            infilcount=0;
+            AuberWin=false;
+        }
+
         if ((world.getAuber().getHealth() <= 0) || (AllDestroyed)) {
             notify_label.setAlignment(Align.center);
             notify_label.setPosition(200, 200);
             notify_label.setColor(Color.RED);
-            notify_label.setText("GAME OVER- Press any key ");
+            notify_label.setText("GAME OVER: You Lose - Press any key ");
+            stage.addActor(notify_label);
             stage.draw();
 
             Gdx.input.setInputProcessor(new InputAdapter() {
@@ -382,6 +421,25 @@ public class GameScreen implements Screen {
                 }
             });
         }
+
+        if (AuberWin) {
+            notify_label.setAlignment(Align.center);
+            notify_label.setPosition(200, 200);
+            notify_label.setColor(Color.GREEN);
+            notify_label.setText("GAME OVER: You Win - Press any key ");
+            stage.addActor(notify_label);
+            stage.draw();
+
+            Gdx.input.setInputProcessor(new InputAdapter() {
+                public boolean keyDown(int keycode) {
+
+                    game.setScreen(new MainScreen(game));
+                    return false;
+                    }
+            });
+        }
+
+
 
         //UPDATES
         if (update_num > 400) {

@@ -34,10 +34,7 @@ public class World {
                         ability.get(i), false, false));
             }
         }
-        //renders infiltrators every 10 seconds
-        for (int i = 3; i < 8; i++){
-            getInfiltrators().get(i).setCurrent(true);
-        }
+
 
         //systems and their corresponding health bars
         List<Integer> systemX = Arrays.asList(600, 400, 1100, 700, 1500, 1500, 2300, 2300,
