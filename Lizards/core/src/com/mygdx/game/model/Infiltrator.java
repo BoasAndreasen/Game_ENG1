@@ -7,9 +7,9 @@ public class Infiltrator extends CharacterNPC{
 
     public Infiltrator(float x, float y, String ability, boolean arrested, boolean current) {
         super(x, y);
-        this.ability=ability;
-        this.arrested=arrested;
-        this.current=current;
+        this.ability = ability;
+        this.arrested = arrested;
+        this.current = current;
     }
 
     public String getAbility() {

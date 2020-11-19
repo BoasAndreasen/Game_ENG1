@@ -1,16 +1,13 @@
 package com.mygdx.game.controller;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.game.model.Auber;
 import com.mygdx.game.model.World;
 import com.mygdx.game.view.GameScreen;
-import org.lwjgl.Sys;
 
 public class AuberController implements InputProcessor {
-    private World world;
-    private Auber auber;
-    private GameScreen gameScreen;
+    private final World world;
+    private final GameScreen gameScreen;
     private boolean standingOnTelePad;
     private boolean standingOnHealPad;
     private boolean leftPressed, rightPressed, downPressed, upPressed;
@@ -18,7 +15,7 @@ public class AuberController implements InputProcessor {
     public AuberController(World world, GameScreen gameScreen) {
         this.gameScreen = gameScreen;
         this.world = world;
-        this.auber = world.getAuber();
+        Auber auber = world.getAuber();
     }
 
     @Override
@@ -42,8 +39,6 @@ public class AuberController implements InputProcessor {
     public boolean keyUp(int keycode) {
         checkTelePadStop();
         checkHealPadStop();
-
-
 
         if (keycode == 19 || keycode == 51) {
             upPressed = false;
@@ -80,20 +75,18 @@ public class AuberController implements InputProcessor {
                                 world.getInfiltrators().get(i).getX() <= world.getSystems().get(j).getX() + 50 &&
                                 world.getInfiltrators().get(i).getY() >= world.getSystems().get(j).getY() - 50 &&
                                 world.getInfiltrators().get(i).getY() <= world.getSystems().get(j).getY() + 50) {
-                            if (world.getInfiltrators().get(i).getAbility()=="shield"){
-                                if (world.getShieldUp()==false){
+                            if (world.getInfiltrators().get(i).getAbility().equals("shield")){
+                                if (!world.getShieldUp()){
                                     world.getInfiltrators().get(i).setArrested(true);
                                     world.getInfiltrators().get(i).setX(2100);
                                     world.getInfiltrators().get(i).setY(610);
                                 }
                             }
                             else{
-
                                 world.getInfiltrators().get(i).setArrested(true);
                                 world.getInfiltrators().get(i).setX(2100);
                                 world.getInfiltrators().get(i).setY(610);
                             }
-
                         }
                     }
                 }
@@ -121,7 +114,6 @@ public class AuberController implements InputProcessor {
                                     world.getInfiltrators().get(i).setX(2100);
                                     world.getInfiltrators().get(i).setY(610);
                                 }
-
                             }
                             else{
                                 world.getInfiltrators().get(i).setArrested(true);
@@ -188,7 +180,6 @@ public class AuberController implements InputProcessor {
                                     world.getInfiltrators().get(i).setX(2100);
                                     world.getInfiltrators().get(i).setY(610);
                                 }
-
                             }
                             else{
                                 world.getInfiltrators().get(i).setArrested(true);

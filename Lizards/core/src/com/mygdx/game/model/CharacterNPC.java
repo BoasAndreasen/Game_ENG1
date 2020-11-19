@@ -16,23 +16,13 @@ public class CharacterNPC extends Rectangle {
     }
 
     public boolean closeToSystem(System sys){
-        if ((this.getX() >= sys.getX() - 100) && (this.getX() <= sys.getX() + 100) &&
-                (this.getY() >= sys.getY() - 100) && (this.getY()  <= sys.getY() + 100))  {
-            return true;
-        }
-        else{
-            return false;
-        }
+        return (this.getX() >= sys.getX() - 100) && (this.getX() <= sys.getX() + 100) &&
+                (this.getY() >= sys.getY() - 100) && (this.getY() <= sys.getY() + 100);
     }
 
     public boolean closeToCharacterNPC(CharacterNPC characterNPC){
-        if ((this.getX() >= characterNPC.getX() - 100) && (this.getX() <= characterNPC.getX() + 100) &&
-                (this.getY() >= characterNPC.getY() - 100) && (this.getY()  <= characterNPC.getY() + 100)) {
-            return true;
-        }
-        else{
-            return false;
-        }
+        return (this.getX() >= characterNPC.getX() - 100) && (this.getX() <= characterNPC.getX() + 100) &&
+                (this.getY() >= characterNPC.getY() - 100) && (this.getY() <= characterNPC.getY() + 100);
     }
 
     @Override
