@@ -13,7 +13,6 @@ public class World {
     public Array<TeleportPad> telePads = new Array<TeleportPad>();
     private HealPad healingPad;
     private Bomb bomb;
-    private boolean shieldUp;
 
     public World() {
         createWorld();
@@ -29,10 +28,10 @@ public class World {
             double yCoord = Math.random() * 1200;
             if (i < 3) {
                 infiltrators.add(new Infiltrator((int)Math.round(xCoord), (int)Math.round(yCoord),
-                        ability.get(i), false, true));
+                        ability.get(i), false, true, false));
             } else {
                 infiltrators.add(new Infiltrator((int)Math.round(xCoord), (int)Math.round(yCoord),
-                        ability.get(i), false, false));
+                        ability.get(i), false, false, false));
             }
         }
 
@@ -129,8 +128,6 @@ public class World {
         for (int i=0; i < screen4VertiWallsX.size(); i++) {
             vertiWall.add(new VertiWall(screen4VertiWallsX.get(i), screen4VertiWallsY.get(i)));
         }
-
-
     }
     
     public Auber getAuber() {
@@ -142,14 +139,6 @@ public class World {
     }
 
     public Bomb getBomb(){return bomb;}
-
-    public boolean getShieldUp(){
-        return shieldUp;
-    }
-
-    public void setShieldUp(boolean shieldUp) {
-        this.shieldUp = shieldUp;
-    }
 
     public Array<HorizWall> getHorizWall(){return horizWall;}
 

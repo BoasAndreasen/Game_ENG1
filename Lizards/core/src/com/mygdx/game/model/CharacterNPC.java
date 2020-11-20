@@ -21,8 +21,8 @@ public class CharacterNPC extends Rectangle {
     }
 
     public boolean closeToCharacterNPC(CharacterNPC characterNPC){
-        return (this.getX() >= characterNPC.getX() - 100) && (this.getX() <= characterNPC.getX() + 100) &&
-                (this.getY() >= characterNPC.getY() - 100) && (this.getY() <= characterNPC.getY() + 100);
+        return (this.getX() >= characterNPC.getX() - 200) && (this.getX() <= characterNPC.getX() + 200) &&
+                (this.getY() >= characterNPC.getY() - 200) && (this.getY() <= characterNPC.getY() + 200);
     }
 
     @Override

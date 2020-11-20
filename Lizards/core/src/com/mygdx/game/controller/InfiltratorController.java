@@ -50,8 +50,6 @@ public class InfiltratorController {
                         }
                     }
                 }
-
-
             };
         }
     };
@@ -116,6 +114,15 @@ public class InfiltratorController {
         return dt;
     }
 
+    public void updateInfiltratorShield() {
+        for (int i = 0; i < world.infiltrators.size; i++){
+            if (world.getInfiltrators().get(i).getAbility().equals("shield")) {
+                // Inverse shieldUp
+                world.getInfiltrators().get(i).setShieldUp(!world.getInfiltrators().get(i).getShieldUp());
+            }
+        }
+    }
+
     public void updateInfiltratorLocation() {
         for (int y = 0; y < world.infiltrators.size; y++){
             if (world.getSystems().size>0){
@@ -140,9 +147,7 @@ public class InfiltratorController {
                         (!(world.getInfiltrators().get(y).isArrested()))) {
                     world.getInfiltrators().get(y).addY(3);
                 }
-
             }
-
         }
     }
 }

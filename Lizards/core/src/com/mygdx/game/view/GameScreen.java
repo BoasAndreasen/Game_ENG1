@@ -56,7 +56,6 @@ public class GameScreen implements Screen {
 
     // Number to slow down game loop
     private int update_num = 0;
-    private boolean shieldUp = true;
     private int shield_num = 0;
     private int hostile_render = 0;
     private int hostile_count=0;
@@ -71,8 +70,9 @@ public class GameScreen implements Screen {
         world = new World();
         auberController = new AuberController(world, this);
         infiltratorController = new InfiltratorController(world);
-        infilcount=0;
-        AuberWin=false;
+        infilcount = 0;
+        AuberWin = false;
+        hostile_count = 3;
 
         //TEXTURES
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
@@ -120,9 +120,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(camera.combined);
-        infilcount = 0;
-        hostile_count=3;
-        AuberWin = false;
+
         batch.begin();
 
         //HEALPAD RENDER
@@ -242,25 +240,20 @@ public class GameScreen implements Screen {
             }
         }
         while (hostile_render > 500){ //renders a new hostile every 500 renders
-            while ((hostile_count<world.getInfiltrators().size-1)&& (world.getInfiltrators().get(hostile_count).isCurrent()==true)){
-                hostile_count+=1;
+            while ((hostile_count<world.getInfiltrators().size-1) &&
+                    (world.getInfiltrators().get(hostile_count).isCurrent())){
+                hostile_count += 1;
             }
-            if (world.getInfiltrators().get(hostile_count).isCurrent()==false){
+            if (!world.getInfiltrators().get(hostile_count).isCurrent()){
                 world.getInfiltrators().get(hostile_count).setCurrent(true);
             }
             hostile_render = 0;
         }
         hostile_render += 1;
 
-        //Shield Updates
-        if ((shield_num>200) && (shieldUp)){
-            shieldUp = false;
-            world.setShieldUp(shieldUp);
-            this.shield_num = 0;
-        }
-        if ((shield_num>200) && (!shieldUp)){
-            shieldUp = true;
-            world.setShieldUp(shieldUp);
+        //Shield Updates alternate
+        if ((shield_num > 300)){
+            infiltratorController.updateInfiltratorShield();
             this.shield_num = 0;
         }
         shield_num += 1;
@@ -272,12 +265,10 @@ public class GameScreen implements Screen {
                     batch.draw(bombImage, world.getInfiltrators().get(i).getX() - 30,
                             world.getInfiltrators().get(i).getY());
                 }
-                if (world.getInfiltrators().get(i).getAbility().equals("shield")) {
-                    if (shieldUp){
-                        batch.draw(shieldImage, world.getInfiltrators().get(i).getX() - 30,
-                                world.getInfiltrators().get(i).getY());
-                    }
-
+                if (world.getInfiltrators().get(i).getAbility().equals("shield") &&
+                        world.getInfiltrators().get(i).getShieldUp()) {
+                    batch.draw(shieldImage, world.getInfiltrators().get(i).getX() - 30,
+                            world.getInfiltrators().get(i).getY());
                 }
                 if (world.getInfiltrators().get(i).getAbility().equals("corrupt")){ //corrupts if close to hostile
                     batch.draw(corruptImage,world.getInfiltrators().get(i).getX()-30,
@@ -461,7 +452,6 @@ public class GameScreen implements Screen {
     public boolean getIsRoom4() {
         return isRoom4;
     }
-
 
     private void updateCameraRoomLocation() {
         if (isRoom1 && world.getAuber().getY() >= 600) {
