@@ -141,6 +141,9 @@ public class GameScreen implements Screen {
             if (!world.getSystems().get(x).isDestroyed()){
                 batch.draw(systemImage, world.getSystems().get(x).getX(), world.getSystems().get(x).getY());
             }
+            else{
+                world.getSystems().removeIndex(x);
+            }
         }
 
         //SYSTEM HEALTHBAR RENDER
@@ -298,6 +301,7 @@ public class GameScreen implements Screen {
         }
 
         batch.end();
+
 
         //SYS NOTIFICATION
         Timer timer = new Timer();

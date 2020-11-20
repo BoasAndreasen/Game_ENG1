@@ -118,27 +118,31 @@ public class InfiltratorController {
 
     public void updateInfiltratorLocation() {
         for (int y = 0; y < world.infiltrators.size; y++){
-            int k = findNearestSystem(world.getInfiltrators().get(y).getX(), world.getInfiltrators().get(y).getY());
+            if (world.getSystems().size>0){
+                int k = findNearestSystem(world.getInfiltrators().get(y).getX(), world.getInfiltrators().get(y).getY());
 
-            if (world.getInfiltrators().get(y).getX() > world.getSystems().get(k).getX() &&
-                    (!(world.getInfiltrators().get(y).isArrested()))) {
-                world.getInfiltrators().get(y).addX(-3);
+                if (world.getInfiltrators().get(y).getX() > world.getSystems().get(k).getX() &&
+                        (!(world.getInfiltrators().get(y).isArrested()))) {
+                    world.getInfiltrators().get(y).addX(-3);
+                }
+
+                if (world.getInfiltrators().get(y).getX() < world.getSystems().get(k).getX() &&
+                        (!(world.getInfiltrators().get(y).isArrested()))) {
+                    world.getInfiltrators().get(y).addX(3);
+                }
+
+                if (world.getInfiltrators().get(y).getY() > world.getSystems().get(k).getY() &&
+                        (!(world.getInfiltrators().get(y).isArrested()))) {
+                    world.getInfiltrators().get(y).addY(-3);
+                }
+
+                if (world.getInfiltrators().get(y).getY() < world.getSystems().get(k).getY() &&
+                        (!(world.getInfiltrators().get(y).isArrested()))) {
+                    world.getInfiltrators().get(y).addY(3);
+                }
+
             }
 
-            if (world.getInfiltrators().get(y).getX() < world.getSystems().get(k).getX() &&
-                    (!(world.getInfiltrators().get(y).isArrested()))) {
-                world.getInfiltrators().get(y).addX(3);
-            }
-
-            if (world.getInfiltrators().get(y).getY() > world.getSystems().get(k).getY() &&
-                    (!(world.getInfiltrators().get(y).isArrested()))) {
-                world.getInfiltrators().get(y).addY(-3);
-            }
-
-            if (world.getInfiltrators().get(y).getY() < world.getSystems().get(k).getY() &&
-                    (!(world.getInfiltrators().get(y).isArrested()))) {
-                world.getInfiltrators().get(y).addY(3);
-            }
         }
     }
 }
