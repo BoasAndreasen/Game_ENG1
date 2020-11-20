@@ -59,6 +59,7 @@ public class GameScreen implements Screen {
     private boolean shieldUp = true;
     private int shield_num = 0;
     private int hostile_render = 0;
+    private int hostile_count=0;
 
     // Camera location
     private boolean isRoom1 = true;
@@ -120,6 +121,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(camera.combined);
         infilcount = 0;
+        hostile_count=3;
         AuberWin = false;
         batch.begin();
 
@@ -228,21 +230,24 @@ public class GameScreen implements Screen {
         batch.setColor(Color.WHITE);
 
         //HOSTILES RENDER
+
+        //Renders 3 initially , then one every 500 renders
         for (int a = 0; a < world.getInfiltrators().size; a++){
             if (world.getInfiltrators().get(a).isCurrent()){
                 batch.draw(infiltratorImage, world.getInfiltrators().get(a).getX(),
                         world.getInfiltrators().get(a).getY());
             }
-            //renders infiltrators every 10 seconds
-            while (hostile_render > 500){
-                for (int i = 3; i < 8; i++){
-                    world.getInfiltrators().get(i).setCurrent(true);
-                }
-                hostile_render = 0;
-            }
-            hostile_render += 1;
-
         }
+        while (hostile_render > 500){ //renders a new hostile every 500 renders
+            while ((hostile_count<world.getInfiltrators().size-1)&& (world.getInfiltrators().get(hostile_count).isCurrent()==true)){
+                hostile_count+=1;
+            }
+            if (world.getInfiltrators().get(hostile_count).isCurrent()==false){
+                world.getInfiltrators().get(hostile_count).setCurrent(true);
+            }
+            hostile_render = 0;
+        }
+        hostile_render += 1;
 
         //Shield Updates
         if ((shield_num>200) && (shieldUp)){

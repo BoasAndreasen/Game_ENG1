@@ -46,7 +46,7 @@ public class InfiltratorController {
                     for (int a = 0; a < world.getSystems().size; a++) {
                         if ((world.getAuber().closeToSystem(world.getSystems().get(a))) &&
                                 (currentAbility.closeToSystem(world.systems.get(a)))) {
-                            world.getSystems().get(a).decHealth(20);
+                            world.getSystems().get(a).decHealth(30);
                         }
                     }
                 }
