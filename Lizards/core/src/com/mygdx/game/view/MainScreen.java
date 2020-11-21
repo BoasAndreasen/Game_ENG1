@@ -48,7 +48,7 @@ public class MainScreen implements Screen {
     private Skin skin;
     
     //Images
-    private Texture bucketImage; //Auber
+    private Texture auberImage; //Auber
     private Texture infiltratorImage; //Infiltrator
     private Texture systemImage; //System
     private Texture teleportPadImage; // TeleportPad
@@ -72,7 +72,7 @@ public class MainScreen implements Screen {
         menu_style.background = skin.getDrawable("button");
         
         //Images
-        bucketImage = new Texture(Gdx.files.internal("bucket.png"));
+        auberImage = new Texture(Gdx.files.internal("Auber.png"));
         systemImage = new Texture(Gdx.files.internal("System.png"));
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png"));
         teleportPadImage = new Texture(Gdx.files.internal("TeleportPad.png"));
@@ -178,7 +178,7 @@ public class MainScreen implements Screen {
         
         //Example image rendering
         
-        batch.draw(bucketImage, (Gdx.graphics.getWidth()/2 - 460 - bucketImage.getWidth())/2, Gdx.graphics.getHeight()-60-(bucketImage.getHeight()/2));
+        batch.draw(auberImage, (Gdx.graphics.getWidth()/2 - 460 - auberImage.getWidth())/2, Gdx.graphics.getHeight()-60-(auberImage.getHeight()/2));
         
         batch.draw(infiltratorImage, (Gdx.graphics.getWidth()/2 - 460 - infiltratorImage.getWidth())/2, Gdx.graphics.getHeight()-170-(infiltratorImage.getHeight()/2));
 
