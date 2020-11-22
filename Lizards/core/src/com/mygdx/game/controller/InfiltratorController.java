@@ -1,10 +1,7 @@
 package com.mygdx.game.controller;
-
-import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.model.Infiltrator;
 import com.mygdx.game.model.System;
 import com.mygdx.game.model.World;
-import org.lwjgl.Sys;
 
 public class InfiltratorController {
 
@@ -45,7 +42,7 @@ public class InfiltratorController {
                 else if (currentAbility.getAbility().equals("corrupt")) {
                     for (int a = 0; a < world.getSystems().size; a++) {
                         if ((world.getAuber().closeToSystem(world.getSystems().get(a))) &&
-                                (currentAbility.closeToSystem(world.systems.get(a)))) {
+                                (currentAbility.closeToSystem(world.getSystems().get(a)))) {
                             world.getSystems().get(a).decHealth(30);
                         }
                     }
@@ -61,7 +58,7 @@ public class InfiltratorController {
                 for (int j = 0; j < world.getSystems().size; j++) {
                     System currentSys;
                     if ((world.getAuber().closeToCharacterNPC(normal)) &&
-                            ((normal.closeToSystem(world.systems.get(j))))) {
+                            ((normal.closeToSystem(world.getSystems().get(j))))) {
                         currentSys = world.getSystems().get(j);
                         if (world.getBomb().randBomb() == 1){
                             world.getAuber().decHealth(20);
@@ -71,8 +68,8 @@ public class InfiltratorController {
                         }
                     }
                     else{
-                        if (normal.closeToSystem(world.systems.get(j))){
-                            currentSys = world.systems.get(j);
+                        if (normal.closeToSystem(world.getSystems().get(j))){
+                            currentSys = world.getSystems().get(j);
                             currentSys.decHealth(20);
                         }
                     }
@@ -115,7 +112,7 @@ public class InfiltratorController {
     }
 
     public void updateInfiltratorShield() {
-        for (int i = 0; i < world.infiltrators.size; i++){
+        for (int i = 0; i < world.getInfiltrators().size; i++){
             if (world.getInfiltrators().get(i).getAbility().equals("shield")) {
                 // Inverse shieldUp
                 world.getInfiltrators().get(i).setShieldUp(!world.getInfiltrators().get(i).getShieldUp());
@@ -124,8 +121,8 @@ public class InfiltratorController {
     }
 
     public void updateInfiltratorLocation() {
-        for (int y = 0; y < world.infiltrators.size; y++){
-            if (world.getSystems().size>0){
+        for (int y = 0; y < world.getInfiltrators().size; y++){
+            if (world.getSystems().size > 0){
                 int k = findNearestSystem(world.getInfiltrators().get(y).getX(), world.getInfiltrators().get(y).getY());
 
                 if (world.getInfiltrators().get(y).getX() > world.getSystems().get(k).getX() &&
@@ -150,4 +147,6 @@ public class InfiltratorController {
             }
         }
     }
+
+
 }

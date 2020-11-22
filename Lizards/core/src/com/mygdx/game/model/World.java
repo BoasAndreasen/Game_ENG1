@@ -6,11 +6,11 @@ import java.util.*;
 
 public class World {
     private Auber auber;
-    public Array<HorizWall> horizWall = new Array<HorizWall>();
-    public Array<VertiWall> vertiWall = new Array<VertiWall>();
-    public Array<Infiltrator> infiltrators = new Array<Infiltrator>();
-    public Array<System> systems = new Array<System>();
-    public Array<TeleportPad> telePads = new Array<TeleportPad>();
+    private Array<HorizWall> horizWall = new Array<HorizWall>();
+    private Array<VertiWall> vertiWall = new Array<VertiWall>();
+    private Array<Infiltrator> infiltrators = new Array<Infiltrator>();
+    private Array<System> systems = new Array<System>();
+    private Array<TeleportPad> telePads = new Array<TeleportPad>();
     private HealPad healingPad;
     private Bomb bomb;
 

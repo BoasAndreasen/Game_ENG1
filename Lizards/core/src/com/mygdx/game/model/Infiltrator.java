@@ -22,9 +22,7 @@ public class Infiltrator extends CharacterNPC{
         return arrested;
     }
 
-    public boolean getShieldUp(){
-        return shieldUp;
-    }
+    public boolean getShieldUp(){ return shieldUp; }
 
     public void setShieldUp(boolean shieldUp) {
         this.shieldUp = shieldUp;

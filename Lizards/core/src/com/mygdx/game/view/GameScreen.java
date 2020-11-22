@@ -298,7 +298,7 @@ public class GameScreen implements Screen {
         Timer timer = new Timer();
         for (int i = 0; i < world.getSystems().size; i++) {
             for (int c = 0; c < world.getInfiltrators().size; c++){
-                if ((world.getInfiltrators().get(c).closeToSystem(world.systems.get(i))) &&
+                if ((world.getInfiltrators().get(c).closeToSystem(world.getSystems().get(i))) &&
                         (!world.getInfiltrators().get(c).isArrested())
                 && (world.getInfiltrators().get(c).isCurrent())){
                     if (isRoom2||isRoom4){
@@ -513,6 +513,6 @@ public class GameScreen implements Screen {
     // Called once when the application exits
     @Override
     public void dispose() {
-        //TODO
+        game.dispose();
     }
 }
