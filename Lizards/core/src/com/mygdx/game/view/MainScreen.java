@@ -44,6 +44,7 @@ public class MainScreen implements Screen {
     private Label shield_label;
     private Label bomb_label;
     private Label corrupt_label;
+    private Label jail_label;
     private Stage stage;
     private Skin skin;
     
@@ -56,6 +57,7 @@ public class MainScreen implements Screen {
     private Texture shieldImage; //shield
     private Texture corruptImage; //corrupt
     private Texture healPadImage; // Healing Pads
+    private Texture jailImage; //brig jail
     
     private SpriteBatch batch;
 
@@ -80,6 +82,7 @@ public class MainScreen implements Screen {
         shieldImage= new Texture(Gdx.files.internal("shield.png"));
         corruptImage= new Texture(Gdx.files.internal("corrupt.jpg"));
         healPadImage = new Texture(Gdx.files.internal("HealPad.png"));
+        jailImage= new Texture (Gdx.files.internal("jail.jpg"));
         
         //Movement text
         
@@ -144,14 +147,22 @@ public class MainScreen implements Screen {
         corrupt_label.setAlignment(Align.center);
         corrupt_label.setPosition(Gdx.graphics.getWidth()- 460, Gdx.graphics.getHeight()-440);
         stage.addActor(corrupt_label);
+
+        //Jail text
+        jail_label=new Label("Infiltrators go to \n the brig when arrested",menu_style);
+        jail_label.setSize(450,100);
+        jail_label.setAlignment(Align.center);
+        jail_label.setPosition(Gdx.graphics.getWidth()/2- 460, Gdx.graphics.getHeight()-540);
+        stage.addActor(jail_label);
+
         
         
         //Press to start text
         menu_label = new Label("Press Any Key to Start",menu_style);
-        menu_label.setSize(900,100);
+        menu_label.setSize(500,100);
         menu_label.setAlignment(Align.center);
-        menu_label.setPosition(Gdx.graphics.getWidth()/2-450,0);
-        
+        menu_label.setPosition(Gdx.graphics.getWidth()/2+100,0);
+        menu_label.setColor(Color.SKY);
         stage.addActor(menu_label);
         
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -193,6 +204,8 @@ public class MainScreen implements Screen {
         batch.draw(bombImage, (Gdx.graphics.getWidth()/2+(Gdx.graphics.getWidth()/2 - 460 - bombImage.getWidth())/2), Gdx.graphics.getHeight()-280-(bombImage.getHeight()/2));
 
         batch.draw(corruptImage, (Gdx.graphics.getWidth()/2+(Gdx.graphics.getWidth()/2 - 460 - corruptImage.getWidth())/2), Gdx.graphics.getHeight()-390-(corruptImage.getHeight()/2));
+
+        batch.draw(jailImage,((Gdx.graphics.getWidth()/2 - 460 - jailImage.getWidth())/2), Gdx.graphics.getHeight()-500-(jailImage.getHeight()/2));
 
         batch.end();
 	}

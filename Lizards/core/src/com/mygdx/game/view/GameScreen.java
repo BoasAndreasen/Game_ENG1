@@ -34,8 +34,8 @@ public class GameScreen implements Screen {
     private Label notify_label;
     private Stage stage;
     private boolean AllDestroyed;
-    private int infilcount;
     private boolean AuberWin;
+    private int numberArrested;
 
    //Health font
     private BitmapFont health_font;
@@ -53,12 +53,13 @@ public class GameScreen implements Screen {
     private Texture corruptImage; //corrupt
     private Texture healPadImage; // Healing Pad
     private Texture teleportPadMapImage; // TeleportPad Map
+    private Texture jailImage; //JailImage for the brig
 
     // Number to slow down game loop
     private int update_num = 0;
     private int shield_num = 0;
-    private int hostile_render = 0;
-    private int hostile_count=0;
+    private int infil_render = 0;
+    private int infil_count=0;
 
     // Camera location
     private boolean isRoom1 = true;
@@ -70,9 +71,9 @@ public class GameScreen implements Screen {
         world = new World();
         auberController = new AuberController(world, this);
         infiltratorController = new InfiltratorController(world);
-        infilcount = 0;
         AuberWin = false;
-        hostile_count = 3;
+        infil_count = 3;
+        numberArrested=0;
 
         //TEXTURES
         auberImage = new Texture(Gdx.files.internal("Auber.png"));
@@ -87,6 +88,8 @@ public class GameScreen implements Screen {
         shieldImage= new Texture(Gdx.files.internal("shield.png"));
         corruptImage= new Texture(Gdx.files.internal("corrupt.jpg"));
         healPadImage = new Texture(Gdx.files.internal("HealPad.png"));
+        jailImage= new Texture(Gdx.files.internal("jail.jpg"));
+
 
         //NOTIFICATION LABELS
         Label.LabelStyle notify_style = new Label.LabelStyle();
@@ -143,6 +146,7 @@ public class GameScreen implements Screen {
                 world.getSystems().removeIndex(x);
             }
         }
+        health_font.draw(batch,world.getSystems().size+" systems remaining",900,50); 
 
         //SYSTEM HEALTHBAR RENDER
         for (int i = 0; i < world.getSystems().size; i++){
@@ -218,6 +222,17 @@ public class GameScreen implements Screen {
             batch.draw(vertiWallImage, world.getVertiWall().get(i).getX(), world.getVertiWall().get(i).getY());
         }
 
+        //JAIL and NUMBER INFILTRATORS ARRESTED
+        batch.draw(jailImage,1810,700);
+        numberArrested=0;
+        for (int a=0;a<world.getInfiltrators().size;a++) {
+            if (world.getInfiltrators().get(a).isArrested()){
+                numberArrested+=1;
+            }
+        }
+        health_font.draw(batch,numberArrested + "/8 arrested",2100,790);
+
+
         //AUBER RENDER
         batch.draw(auberImage, world.getAuber().getX(), world.getAuber().getY());
 
@@ -231,7 +246,6 @@ public class GameScreen implements Screen {
         batch.setColor(Color.WHITE);
 
         //HOSTILES RENDER
-
         //Renders 3 initially , then one every 500 renders
         for (int a = 0; a < world.getInfiltrators().size; a++){
             if (world.getInfiltrators().get(a).isCurrent()){
@@ -239,19 +253,19 @@ public class GameScreen implements Screen {
                         world.getInfiltrators().get(a).getY());
             }
         }
-        while (hostile_render > 500){ //renders a new hostile every 500 renders
-            while ((hostile_count<world.getInfiltrators().size-1) &&
-                    (world.getInfiltrators().get(hostile_count).isCurrent())){
-                hostile_count += 1;
+        while (infil_render > 700){ //renders a new hostile every 700 renders
+            while ((infil_count<world.getInfiltrators().size-1) &&
+                    (world.getInfiltrators().get(infil_count).isCurrent())){
+                infil_count += 1;
             }
-            if (!world.getInfiltrators().get(hostile_count).isCurrent()){
-                world.getInfiltrators().get(hostile_count).setCurrent(true);
+            if (!world.getInfiltrators().get(infil_count).isCurrent()){
+                world.getInfiltrators().get(infil_count).setCurrent(true);
             }
-            hostile_render = 0;
+            infil_render = 0;
         }
-        hostile_render += 1;
+        infil_render += 1;
 
-        //Shield Updates alternate
+        //SHIELD ABILITY UPDATES
         if ((shield_num > 300)){
             infiltratorController.updateInfiltratorShield();
             this.shield_num = 0;
@@ -375,22 +389,10 @@ public class GameScreen implements Screen {
         };
         timer.scheduleTask(task,3);
 
-        //GAME LOST NOTIFICATION
+        //GAME LOST CONDITION
         if ((world.getSystems().size) <= 0) {
             AllDestroyed = true;
         }
-
-        //GAME WON NOTIFICATION
-        while ((world.getInfiltrators().get(infilcount).isArrested())&& (infilcount< world.getInfiltrators().size-1)){
-            infilcount += 1;
-        }
-        if (infilcount >= world.getInfiltrators().size-1){
-            AuberWin = true; }
-        else{
-            infilcount = 0;
-            AuberWin = false;
-        }
-
         if ((world.getAuber().getHealth() <= 0) || (AllDestroyed)) {
             notify_label.setAlignment(Align.center);
             notify_label.setPosition(200, 200);
@@ -407,6 +409,13 @@ public class GameScreen implements Screen {
             });
         }
 
+        //GAME WIN CONDITION
+        if (numberArrested>=8){
+            AuberWin=true;
+        }
+        else{
+            AuberWin=false;
+        }
         if (AuberWin) {
             notify_label.setAlignment(Align.center);
             notify_label.setPosition(200, 200);
@@ -423,7 +432,7 @@ public class GameScreen implements Screen {
             });
         }
 
-        //UPDATES
+        //DAMAGE UPDATES
         if (update_num > 400) {
             infiltratorController.Abilities();
             infiltratorController.NormalDamage();
