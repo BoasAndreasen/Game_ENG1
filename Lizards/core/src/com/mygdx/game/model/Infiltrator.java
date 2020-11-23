@@ -2,9 +2,9 @@ package com.mygdx.game.model;
 
 public class Infiltrator extends CharacterNPC{
     private final String ability;
-    private boolean arrested;
-    private boolean current;
-    private boolean shieldUp;
+    private boolean arrested; //Is infiltrator arrested?
+    private boolean current; //Is infiltrator on the screen?
+    private boolean shieldUp; //Is infiltrator having a shield?
 
     public Infiltrator(float x, float y, String ability, boolean arrested, boolean current, boolean shieldUp) {
         super(x, y);

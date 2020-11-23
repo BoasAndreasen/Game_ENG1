@@ -3,8 +3,8 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.math.Rectangle;
 
 public class HealPad extends Rectangle {
-    private final float x;
-    private final float y;
+    private final float x; //coordinate X
+    private final float y; //coordinate Y
     private final float width;
     private final float height;
 

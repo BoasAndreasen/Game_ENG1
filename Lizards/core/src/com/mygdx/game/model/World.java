@@ -18,7 +18,7 @@ public class World {
     }
 
     private void createWorld() {
-        //add hostiles
+        //add infiltrators
         List<String> ability = Arrays.asList("bombs", "bombs", "corrupt", "corrupt", "shield",
                 "shield", "none", "none");
 

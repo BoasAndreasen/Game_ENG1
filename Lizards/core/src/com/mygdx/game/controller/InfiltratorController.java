@@ -86,7 +86,7 @@ public class InfiltratorController {
     public int findNearestSystem(float cx, float cy) {
         int nearSystem = 0; //nearest system
         double nearDistance = 0; //nearest distance
-        double tempDistance;
+        double tempDistance; //temporary storage for the distance of the neatest system
 
         for (int i = 0; i < world.getSystems().size; i++) {
             if (!(world.getSystems().get(i).isDestroyed())) {
@@ -107,6 +107,7 @@ public class InfiltratorController {
         return nearSystem;
     }
 
+    //find the distance between two points
     public double findDistance(float aX, float aY, float bX, float bY) {
         float dx = Math.abs(aX - aY);
         float dy = Math.abs(bX - bY);
@@ -124,6 +125,7 @@ public class InfiltratorController {
         }
     }
 
+    //Infiltrator moving method
     public void updateInfiltratorLocation() {
         for (int y = 0; y < world.getInfiltrators().size; y++){
             if (world.getSystems().size > 0){

@@ -34,6 +34,7 @@ public class PauseScreen implements Screen {
 
         stage.addActor(notify_label);
 
+        //Key Reader
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             public boolean keyDown (int keycode) {

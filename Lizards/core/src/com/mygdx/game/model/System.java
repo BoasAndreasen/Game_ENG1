@@ -4,11 +4,11 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class System extends Rectangle {
 
-    private final float x;
-    private final float y;
+    private final float x; //coordinate X
+    private final float y; //coordinate Y
     private final float height;
     private final float width;
-    private float health;
+    private float health; //system's health
 
     public System(float x, float y, float health){
         this.x = x;

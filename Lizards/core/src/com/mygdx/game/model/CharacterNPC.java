@@ -3,8 +3,8 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.math.Rectangle;
 
 public class CharacterNPC extends Rectangle {
-    private float x;
-    private float y;
+    private float x; //coordinate X
+    private float y; //coordinate Y
     private final float width;
     private final float height;
 
@@ -15,11 +15,13 @@ public class CharacterNPC extends Rectangle {
         this.height = 70;
     }
 
+    //Check if character close to the system
     public boolean closeToSystem(System sys){
         return (this.getX() >= sys.getX() - 100) && (this.getX() <= sys.getX() + 100) &&
                 (this.getY() >= sys.getY() - 100) && (this.getY() <= sys.getY() + 100);
     }
 
+    //Check if one character is close to another
     public boolean closeToCharacterNPC(CharacterNPC characterNPC){
         return (this.getX() >= characterNPC.getX() - 200) && (this.getX() <= characterNPC.getX() + 200) &&
                 (this.getY() >= characterNPC.getY() - 200) && (this.getY() <= characterNPC.getY() + 200);

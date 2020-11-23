@@ -21,6 +21,7 @@ public class AuberController implements InputProcessor {
         standingOnTelePad = false;
         standingOnHealPad = false;
 
+        //WASD or Arrow KEYS
         if (keycode == 19 || keycode == 51) {
             upPressed = true;
         } else if (keycode == 20 || keycode == 47) {
@@ -242,6 +243,7 @@ public class AuberController implements InputProcessor {
         return rightPressed;
     }
 
+    //Move Auber while WASD or Arrow KEYS pressed
     public void updateAuberLocation() {
         if (isUpPressed()) {
             if (!(world.getAuber().getY() >= 1130)) {
@@ -270,6 +272,8 @@ public class AuberController implements InputProcessor {
         }
     }
 
+    //cCollision detection for Auber
+    //Check if there is a wall above Auber
     public boolean checkUpBlockCollission(int addedY) {
         for (int i = 0; i < world.getHorizWall().size; i++) {
             if ((world.getAuber().getX() >= world.getHorizWall().get(i).getX() - world.getAuber().getWidth()) &&
@@ -292,6 +296,7 @@ public class AuberController implements InputProcessor {
         return false;
     }
 
+    //Check if there is a wall below Auber
     public boolean checkDownBlockCollission(int addedY) {
         for (int i = 0; i < world.getHorizWall().size; i++) {
             if ((world.getAuber().getX() >= world.getHorizWall().get(i).getX() - world.getAuber().getWidth()) &&
@@ -314,6 +319,7 @@ public class AuberController implements InputProcessor {
         return false;
     }
 
+    //Check if there is a wall on the Left
     public boolean checkLeftBlockCollission(int addedX) {
         for (int i = 0; i < world.getHorizWall().size; i++) {
             if ((world.getAuber().getY() >= world.getHorizWall().get(i).getY() - world.getAuber().getHeight()) &&
@@ -336,6 +342,7 @@ public class AuberController implements InputProcessor {
         return false;
     }
 
+    //Check if there is a wall on the right
     public boolean checkRightBlockCollission(int addedX) {
         for (int i = 0; i < world.getHorizWall().size; i++) {
             if ((world.getAuber().getY() >= world.getHorizWall().get(i).getY() - world.getAuber().getHeight()) &&
@@ -358,6 +365,7 @@ public class AuberController implements InputProcessor {
         return false;
     }
 
+    //Check if Auber is on the teleporter
     public void checkTelePadStop() {
         for (int i = 0; i < world.getTelePads().size; i++) {
             if ((world.getAuber().getX() >= world.getTelePads().get(i).getX()) && (world.getAuber().getX() <=
@@ -369,6 +377,7 @@ public class AuberController implements InputProcessor {
         }
     }
 
+    //Check if Auber is on the heal pad
     public void checkHealPadStop(){
         if (((world.getAuber().getX() >= world.getHealingPad().getX()) && ((world.getAuber().getX() <=
                 world.getHealingPad().getX()+40))) && ((world.getAuber().getY() >= world.getHealingPad().getY())) &&

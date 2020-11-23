@@ -4,6 +4,7 @@ public class Auber extends CharacterNPC {
 
     private int health;
 
+    //Auber's x coordinate, y coordinate,
     public Auber(float x, float y, int health) {
         super(x, y);
         this.health = health;
