@@ -2,11 +2,11 @@ package com.mygdx.game.model;
 
 public class Auber extends CharacterNPC {
 
-    private  int health;
+    private int health;
 
     public Auber(float x, float y, int health) {
         super(x, y);
-        this.health=health;
+        this.health = health;
     }
 
     public int getHealth() {

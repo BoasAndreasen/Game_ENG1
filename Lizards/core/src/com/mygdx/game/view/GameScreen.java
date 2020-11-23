@@ -2,6 +2,7 @@ package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -25,7 +26,9 @@ public class GameScreen implements Screen {
     private InfiltratorController infiltratorController;
     private OrthographicCamera camera;
     private SpriteBatch batch;
-	
+
+    private InputMultiplexer multiplexer;
+
 	public GameScreen(MyGame game) {
         this.game = game;
     }
@@ -114,7 +117,24 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1200, 600);
         batch = new SpriteBatch();
-        Gdx.input.setInputProcessor(auberController);
+
+        //InputProcessors
+        multiplexer = new InputMultiplexer(); //Set up multiplexer to deal with multi input processors
+        multiplexer.addProcessor(auberController); //add auberController
+        multiplexer.addProcessor(new InputAdapter(){
+
+            public boolean keyDown(int keycode)
+            {
+                if (keycode == 131)
+                {
+                    game.setScreen(new PauseScreen(game));
+
+                }
+                return false;
+            }
+        }); //this is for calling out the PasueScreen
+
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     // Game loop. Update game logic and draw onto the screen.
@@ -435,7 +455,7 @@ public class GameScreen implements Screen {
         //DAMAGE UPDATES
         if (update_num > 400) {
             infiltratorController.Abilities();
-            infiltratorController.NormalDamage();
+            infiltratorController.normalDamage();
             this.update_num = 0;
         }
         update_num += 1;
