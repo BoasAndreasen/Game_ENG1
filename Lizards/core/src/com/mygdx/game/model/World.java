@@ -25,7 +25,7 @@ public class World {
         for (int i = 0; i < ability.size(); i++) {
             double xCoord = Math.random() * 2400;
             double yCoord = Math.random() * 1200;
-            if (i < 3) {
+            if (i < 1) {
                 infiltrators.add(new Infiltrator((int)Math.round(xCoord), (int)Math.round(yCoord),
                         ability.get(i), false, true, false));
             } else {

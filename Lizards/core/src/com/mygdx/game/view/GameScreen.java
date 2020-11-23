@@ -127,7 +127,7 @@ public class GameScreen implements Screen {
                 }
                 return false;
             }
-        }); //this is for calling out the PasueScreen
+        }); //this is for calling out the PauseScreen
 
         Gdx.input.setInputProcessor(multiplexer);
     }
@@ -161,7 +161,8 @@ public class GameScreen implements Screen {
                 world.getSystems().removeIndex(x);
             }
         }
-        health_font.draw(batch,world.getSystems().size+" systems remaining",900,50); 
+        health_font.draw(batch,world.getSystems().size+" systems remaining",900,60);
+        health_font.draw(batch,"Press ESC to exit or restart",900,30);
 
         //SYSTEM HEALTHBAR RENDER
         for (int i = 0; i < world.getSystems().size; i++){
@@ -261,14 +262,14 @@ public class GameScreen implements Screen {
         batch.setColor(Color.WHITE);
 
         //HOSTILES RENDER
-        //Renders 3 initially , then one every 500 renders
+        //Renders 1 initially , then one every 300 renders
         for (int a = 0; a < world.getInfiltrators().size; a++){
             if (world.getInfiltrators().get(a).isCurrent()){
                 batch.draw(infiltratorImage, world.getInfiltrators().get(a).getX(),
                         world.getInfiltrators().get(a).getY());
             }
         }
-        while (infil_render > 700){ //renders a new hostile every 700 renders
+        while (infil_render > 400){ //renders a new hostile every 700 renders
             while ((infil_count<world.getInfiltrators().size-1) &&
                     (world.getInfiltrators().get(infil_count).isCurrent())){
                 infil_count += 1;
