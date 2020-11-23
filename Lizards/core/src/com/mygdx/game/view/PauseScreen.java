@@ -1,7 +1,6 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.MyGame;
-import org.graalvm.compiler.debug.CSVUtil;
 
 public class PauseScreen implements Screen {
 
@@ -46,16 +44,15 @@ public class PauseScreen implements Screen {
 
             public boolean keyDown (int keycode) {
 
-                if(keycode == Input.Keys.ENTER)
+                if(keycode == 66) //ENTER
                 {
                     Gdx.app.exit();
                     System.exit(0);
                 }
-                if(keycode == Input.Keys.BACKSPACE)
+                else if(keycode == 67) //BACKSPACE
                 {
                     game.setScreen(new MainScreen(game));
                 }
-
 
                 return false;
             }
