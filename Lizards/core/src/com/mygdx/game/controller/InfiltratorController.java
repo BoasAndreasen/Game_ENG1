@@ -3,6 +3,8 @@ import com.mygdx.game.model.Infiltrator;
 import com.mygdx.game.model.System;
 import com.mygdx.game.model.World;
 
+import java.util.Random;
+
 public class InfiltratorController {
 
     private final World world;
@@ -19,7 +21,8 @@ public class InfiltratorController {
 
                 if (currentAbility.getAbility().equals("bombs")) { //throws 3 bombs at auber or system
                     if (world.getAuber().closeToCharacterNPC(currentAbility)) {
-                        if (world.getBomb().randBomb() == 1) {  //throw bomb at auber if he is in a radius
+                        Random rand = new Random();
+                        if (rand.nextInt(2) == 1) {  //random chance to throw bomb at auber if he is in a radius
                              world.getAuber().decHealth(30);
                         }
                         else{
@@ -51,7 +54,7 @@ public class InfiltratorController {
         }
     };
 
-    public void NormalDamage() {
+    public void normalDamage() {
         for (int i = 0; i < world.getInfiltrators().size; i++) {
             if (world.getInfiltrators().get(i).isCurrent() && (!(world.getInfiltrators().get(i).isArrested()))) {
                 Infiltrator normal = world.getInfiltrators().get(i);
@@ -60,7 +63,8 @@ public class InfiltratorController {
                     if ((world.getAuber().closeToCharacterNPC(normal)) &&
                             ((normal.closeToSystem(world.getSystems().get(j))))) {
                         currentSys = world.getSystems().get(j);
-                        if (world.getBomb().randBomb() == 1){
+                        Random rand = new Random();
+                        if (rand.nextInt(2) == 1){
                             world.getAuber().decHealth(20);
                         }
                         else{
@@ -147,6 +151,4 @@ public class InfiltratorController {
             }
         }
     }
-
-
 }

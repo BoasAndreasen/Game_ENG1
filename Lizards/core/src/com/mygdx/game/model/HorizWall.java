@@ -8,7 +8,7 @@ public class HorizWall extends Rectangle {
     private final float width;
     private final float height;
 
-    public HorizWall(int x, int y) {
+    public HorizWall(float x, float y) {
         this.x = x;
         this.y = y;
         this.width = 100;

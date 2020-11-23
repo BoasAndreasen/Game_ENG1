@@ -446,7 +446,7 @@ public class GameScreen implements Screen {
         //UPDATES
         if (update_num > 400) {
             infiltratorController.Abilities();
-            infiltratorController.NormalDamage();
+            infiltratorController.normalDamage();
             this.update_num = 0;
         }
         update_num += 1;

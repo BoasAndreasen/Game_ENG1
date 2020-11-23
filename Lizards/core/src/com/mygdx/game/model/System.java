@@ -42,15 +42,15 @@ public class System extends Rectangle {
         return this.health < 100;
     }
 
+    public boolean isDestroyed() {
+        return this.health <= 0;
+    }
+
     public float getHealth() {
         return health;
     }
 
     public void decHealth(int health) {
         this.health = this.health - health;
-    }
-
-    public boolean isDestroyed() {
-        return this.health <= 0;
     }
 }

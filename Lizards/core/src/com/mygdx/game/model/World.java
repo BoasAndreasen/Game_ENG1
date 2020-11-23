@@ -12,7 +12,6 @@ public class World {
     private Array<System> systems = new Array<System>();
     private Array<TeleportPad> telePads = new Array<TeleportPad>();
     private HealPad healingPad;
-    private Bomb bomb;
 
     public World() {
         createWorld();
@@ -54,7 +53,6 @@ public class World {
             telePads.add(new TeleportPad(telepadX.get(i), telepadY.get(i)));
         }
 
-        bomb = new Bomb();
         healingPad = new HealPad(900,500);
         auber = new Auber(0, 0, 100);
 
@@ -137,8 +135,6 @@ public class World {
     public Array<System> getSystems(){
         return systems;
     }
-
-    public Bomb getBomb(){return bomb;}
 
     public Array<HorizWall> getHorizWall(){return horizWall;}
 
