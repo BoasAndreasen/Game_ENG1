@@ -27,9 +27,7 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
 
-    private InputMultiplexer multiplexer;
-
-	public GameScreen(MyGame game) {
+    public GameScreen(MyGame game) {
         this.game = game;
     }
 
@@ -87,12 +85,11 @@ public class GameScreen implements Screen {
         infiltratorImage = new Texture(Gdx.files.internal("Infiltrator.png"));
         teleportPadImage = new Texture(Gdx.files.internal("TeleportPad.png"));
         teleportPadMapImage = new Texture(Gdx.files.internal("map.png"));
-        bombImage= new Texture(Gdx.files.internal("bomb2.jpg"));
-        shieldImage= new Texture(Gdx.files.internal("shield.png"));
-        corruptImage= new Texture(Gdx.files.internal("corrupt.jpg"));
+        bombImage = new Texture(Gdx.files.internal("bomb2.jpg"));
+        shieldImage = new Texture(Gdx.files.internal("shield.png"));
+        corruptImage = new Texture(Gdx.files.internal("corrupt.jpg"));
         healPadImage = new Texture(Gdx.files.internal("HealPad.png"));
-        jailImage= new Texture(Gdx.files.internal("jail.jpg"));
-
+        jailImage = new Texture(Gdx.files.internal("jail.jpg"));
 
         //NOTIFICATION LABELS
         Label.LabelStyle notify_style = new Label.LabelStyle();
@@ -119,16 +116,14 @@ public class GameScreen implements Screen {
         batch = new SpriteBatch();
 
         //InputProcessors
-        multiplexer = new InputMultiplexer(); //Set up multiplexer to deal with multi input processors
+        InputMultiplexer multiplexer = new InputMultiplexer(); //Set up multiplexer to deal with multi input processors
         multiplexer.addProcessor(auberController); //add auberController
         multiplexer.addProcessor(new InputAdapter(){
 
             public boolean keyDown(int keycode)
             {
-                if (keycode == 131)
-                {
+                if (keycode == 131) {
                     game.setScreen(new PauseScreen(game));
-
                 }
                 return false;
             }
@@ -326,7 +321,6 @@ public class GameScreen implements Screen {
         }
 
         batch.end();
-
 
         //SYS NOTIFICATION
         Timer timer = new Timer();
