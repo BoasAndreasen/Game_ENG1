@@ -2,36 +2,22 @@ package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Timer;
-import com.mygdx.game.controller.InfiltratorController;
-import com.mygdx.game.model.World;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.controller.AuberController;
-
-import java.awt.*;
 
 public class MainScreen implements Screen {
 	MyGame game;
     private Stage stage;
-
-
-    public MainScreen(MyGame game) {
-        this.game = game;
-    }
+    private SpriteBatch batch;
 
     //Images
     private Texture auberImage; //Auber
@@ -43,9 +29,10 @@ public class MainScreen implements Screen {
     private Texture corruptImage; //corrupt
     private Texture healPadImage; // Healing Pads
     private Texture jailImage; //brig jail
-    
-    private SpriteBatch batch;
 
+    public MainScreen(MyGame game) {
+        this.game = game;
+    }
 
 	@Override
 	public void show() {

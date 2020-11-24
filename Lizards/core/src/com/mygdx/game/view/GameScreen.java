@@ -27,18 +27,14 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
 
-    public GameScreen(MyGame game) {
-        this.game = game;
-    }
-
     // Notification labels
     private Label notify_label;
     private Stage stage;
     private boolean AllDestroyed;
-    private boolean AuberWin;
+    private boolean auberWin;
     private int numberArrested;
 
-   //Health font
+    //Health font
     private BitmapFont health_font;
 
     // Images
@@ -66,13 +62,17 @@ public class GameScreen implements Screen {
     private boolean isRoom1 = true;
     private boolean isRoom2, isRoom3, isRoom4 = false;
 
+    public GameScreen(MyGame game) {
+        this.game = game;
+    }
+
     // Called when this screen becomes active
     @Override
     public void show() {
         world = new World();
         auberController = new AuberController(world, this);
         infiltratorController = new InfiltratorController(world);
-        AuberWin = false;
+        auberWin = false;
         infil_count = 3;
         numberArrested=0;
 
@@ -426,12 +426,12 @@ public class GameScreen implements Screen {
 
         //GAME WIN CONDITION
         if (numberArrested>=8){
-            AuberWin=true;
+            auberWin =true;
         }
         else{
-            AuberWin=false;
+            auberWin =false;
         }
-        if (AuberWin) {
+        if (auberWin) {
             notify_label.setAlignment(Align.center);
             notify_label.setPosition(200, 200);
             notify_label.setColor(Color.GREEN);
